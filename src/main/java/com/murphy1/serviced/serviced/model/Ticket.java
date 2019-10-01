@@ -1,6 +1,8 @@
-package model;
+package com.murphy1.serviced.serviced.model;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.time.LocalDate;
 
 @Entity
@@ -8,7 +10,11 @@ public class Ticket extends BaseEntity {
 
     private String name;
     private String description;
+
+    @Enumerated(EnumType.ORDINAL)
     private Priority priority;
+
+    @Enumerated(EnumType.ORDINAL)
     private Status status;
     private LocalDate dueDate;
     private String label;

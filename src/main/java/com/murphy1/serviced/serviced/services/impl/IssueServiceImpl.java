@@ -1,11 +1,9 @@
-package services.impl;
+package com.murphy1.serviced.serviced.services.impl;
 
-import model.Issue;
-import model.Ticket;
+import com.murphy1.serviced.serviced.model.Issue;
 import org.springframework.stereotype.Service;
-import repositories.IssueRepository;
-import repositories.TicketRepository;
-import services.IssueService;
+import com.murphy1.serviced.serviced.repositories.IssueRepository;
+import com.murphy1.serviced.serviced.services.IssueService;
 
 import java.util.ArrayList;
 import java.util.List;

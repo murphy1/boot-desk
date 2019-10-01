@@ -1,6 +1,6 @@
-package services;
+package com.murphy1.serviced.serviced.services;
 
-import model.ServiceRequest;
+import com.murphy1.serviced.serviced.model.ServiceRequest;
 
 import java.util.List;
 

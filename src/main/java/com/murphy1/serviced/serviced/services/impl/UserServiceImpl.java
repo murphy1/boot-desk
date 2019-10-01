@@ -1,9 +1,9 @@
-package services.impl;
+package com.murphy1.serviced.serviced.services.impl;
 
-import model.User;
+import com.murphy1.serviced.serviced.model.User;
 import org.springframework.stereotype.Service;
-import repositories.UserRepository;
-import services.UserService;
+import com.murphy1.serviced.serviced.repositories.UserRepository;
+import com.murphy1.serviced.serviced.services.UserService;
 
 import java.util.ArrayList;
 import java.util.List;

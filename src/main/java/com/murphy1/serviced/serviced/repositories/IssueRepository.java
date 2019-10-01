@@ -1,6 +1,6 @@
-package repositories;
+package com.murphy1.serviced.serviced.repositories;
 
-import model.Issue;
+import com.murphy1.serviced.serviced.model.Issue;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
