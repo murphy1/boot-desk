@@ -16,6 +16,7 @@ public class Issue extends BaseEntity{
 
     @Enumerated(EnumType.ORDINAL)
     private Status status;
+
     private LocalDate dueDate;
     private String label;
 
