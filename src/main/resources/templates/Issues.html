@@ -13,12 +13,16 @@
     <th>ID:</th>
     <th>Name:</th>
     <th>Description:</th>
+    <th>Priority:</th>
+    <th>Status:</th>
     </thead>
     <tbody>
         <tr th:each="issue : ${issues}">
             <td th:text="${issue.id}">1</td>
             <td th:text="${issue.name}">Issue</td>
             <td th:text="${issue.description}">Broken Link</td>
+            <td th:text="${issue.priority}">Broken Link</td>
+            <td th:text="${issue.status}">Broken Link</td>
         </tr>
     </tbody>
 </table>
