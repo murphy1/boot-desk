@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Service Request</title>
+</head>
+<body>
+
+<!--/*@thymesVar id="issue" type="com.murphy1.serviced.serviced.model.ServiceRequest"*/-->
+<form th:object="${serviceRequest}" th:action="@{/serviceRequest/save}" method="post">
+
+    <div>
+        <label>Name:</label>
+        <input type="text" th:field="*{name}">
+    </div>
+
+    <div>
+        <label>Description:</label>
+        <input type="text" th:field="*{description}">
+    </div>
+
+    <div>
+        <label>Priority:</label>
+        <select class="form-control" th:field="*{priority}">
+            <option th:each="priorityValue : ${T(com.murphy1.serviced.serviced.model.Priority).values()}"
+                    th:value="${priorityValue.name()}"
+                    th:text="${priorityValue.name()}"
+            >val</option>
+        </select>
+        <select class="form-control" th:remove="all">
+            <option>Very High</option>
+            <option>High</option>
+            <option>Medium</option>
+            <option>Low</option>
+        </select>
+    </div>
+
+    <div>
+        <label>Status:</label>
+        <select class="form-control" th:field="*{status}">
+            <option th:each="statusValue : ${T(com.murphy1.serviced.serviced.model.Status).values()}"
+                    th:value="${statusValue.name()}"
+                    th:text="${statusValue.name()}"
+            >val</option>
+        </select>
+        <select class="form-control" th:remove="all">
+            <option>In Progress</option>
+            <option>Need Info</option>
+            <option>Solved</option>
+            <option>Shelved</option>
+            <option>New</option>
+        </select>
+    </div>
+
+    <div>
+        <label>Due Date:</label>
+        <input type="text" th:field="*{dueDate}">
+    </div>
+
+    <div>
+        <label>Label:</label>
+        <input type="text" th:field="*{label}">
+    </div>
+
+    <div>
+        <input type="submit" value="Submit">
+    </div>
+
+</form>
+
+</body>
+</html>

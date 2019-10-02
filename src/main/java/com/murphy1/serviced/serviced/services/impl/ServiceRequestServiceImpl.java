@@ -1,6 +1,7 @@
 package com.murphy1.serviced.serviced.services.impl;
 
 import com.murphy1.serviced.serviced.model.ServiceRequest;
+import com.murphy1.serviced.serviced.model.Status;
 import org.springframework.stereotype.Service;
 import com.murphy1.serviced.serviced.repositories.ServiceRequestRepository;
 import com.murphy1.serviced.serviced.services.ServiceRequestService;
@@ -26,5 +27,15 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
         serviceRequestRepository.findAll().iterator().forEachRemaining(serviceRequests :: add);
 
         return serviceRequests;
+    }
+
+    @Override
+    public ServiceRequest save(ServiceRequest serviceRequest) {
+
+        if (serviceRequest.getId() == null){
+            serviceRequest.setStatus(Status.NEW);
+        }
+
+        return serviceRequestRepository.save(serviceRequest);
     }
 }

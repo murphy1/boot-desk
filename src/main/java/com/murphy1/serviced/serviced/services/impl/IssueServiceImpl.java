@@ -1,6 +1,7 @@
 package com.murphy1.serviced.serviced.services.impl;
 
 import com.murphy1.serviced.serviced.model.Issue;
+import com.murphy1.serviced.serviced.model.Status;
 import org.springframework.stereotype.Service;
 import com.murphy1.serviced.serviced.repositories.IssueRepository;
 import com.murphy1.serviced.serviced.services.IssueService;
@@ -29,6 +30,12 @@ public class IssueServiceImpl implements IssueService {
 
     @Override
     public Issue save(Issue issue) {
+
+        // new issues will always be set to Status = NEW
+        if (issue.getId() == null){
+            issue.setStatus(Status.NEW);
+        }
+
         return issueRepository.save(issue);
     }
 }
