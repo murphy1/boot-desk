@@ -8,13 +8,17 @@
 
 <h1>List of Issues</h1>
 
+<!--/*@thymesVar id="issue" type="com.murphy1.serviced.serviced.model.Issue"*/-->
 <table>
     <thead>
+    <tr>
     <th>ID:</th>
     <th>Name:</th>
     <th>Description:</th>
     <th>Priority:</th>
     <th>Status:</th>
+    <th>Due Date:</th>
+    </tr>
     </thead>
     <tbody>
         <tr th:each="issue : ${issues}">
@@ -23,6 +27,7 @@
             <td th:text="${issue.description}">Broken Link</td>
             <td th:text="${issue.priority}">Broken Link</td>
             <td th:text="${issue.status}">Broken Link</td>
+            <td th:text="${issue.dueDate}">Broken Link</td>
         </tr>
     </tbody>
 </table>

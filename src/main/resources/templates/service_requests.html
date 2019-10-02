@@ -10,13 +10,16 @@
 
 <table>
     <thead>
+    <tr>
     <th>ID:</th>
     <th>Name:</th>
     <th>Description:</th>
     <th>Priority:</th>
     <th>Status:</th>
+    </tr>
     </thead>
     <tbody>
+    <!--/*@thymesVar id="issue" type="com.murphy1.serviced.serviced.model.ServiceRequest"*/-->
     <tr th:each="request : ${serviceRequests}">
         <td th:text="${request.id}">1</td>
         <td th:text="${request.name}">Issue</td>
