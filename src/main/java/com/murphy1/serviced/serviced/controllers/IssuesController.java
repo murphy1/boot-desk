@@ -3,10 +3,7 @@ package com.murphy1.serviced.serviced.controllers;
 import com.murphy1.serviced.serviced.model.Issue;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import com.murphy1.serviced.serviced.services.IssueService;
 
 @Controller
@@ -29,6 +26,13 @@ public class IssuesController {
     @GetMapping("/issues/new")
     public String newIssue(Model model){
         model.addAttribute("issue", new Issue());
+
+        return "forms/new_issue.html";
+    }
+
+    @GetMapping("/issues/update/{issueId}")
+    public String updateIssue(@PathVariable String issueId, Model model){
+        model.addAttribute("issue", issueService.findIssueById(Long.valueOf(issueId)));
 
         return "forms/new_issue.html";
     }

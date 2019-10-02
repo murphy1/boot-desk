@@ -7,4 +7,5 @@ import java.util.List;
 public interface IssueService {
     List<Issue> getAllIssues();
     Issue save(Issue issue);
+    Issue findIssueById(Long id);
 }

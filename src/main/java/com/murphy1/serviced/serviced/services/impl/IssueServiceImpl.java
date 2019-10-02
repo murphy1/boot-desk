@@ -8,6 +8,7 @@ import com.murphy1.serviced.serviced.services.IssueService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class IssueServiceImpl implements IssueService {
@@ -37,5 +38,17 @@ public class IssueServiceImpl implements IssueService {
         }
 
         return issueRepository.save(issue);
+    }
+
+    @Override
+    public Issue findIssueById(Long id) {
+
+        Optional<Issue> issueOptional = issueRepository.findById(id);
+
+        if (!issueOptional.isPresent()){
+            throw new RuntimeException("Issue does not exist!");
+        }
+
+        return issueOptional.get();
     }
 }
