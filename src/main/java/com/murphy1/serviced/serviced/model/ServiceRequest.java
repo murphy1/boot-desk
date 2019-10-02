@@ -1,14 +1,14 @@
 package com.murphy1.serviced.serviced.model;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 public class ServiceRequest extends BaseEntity{
 
     private String name;
+
+    @Lob
     private String description;
 
     @Enumerated(EnumType.ORDINAL)
@@ -16,6 +16,7 @@ public class ServiceRequest extends BaseEntity{
 
     @Enumerated(EnumType.ORDINAL)
     private Status status;
+
     private LocalDate dueDate;
     private String label;
 

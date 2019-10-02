@@ -1,14 +1,14 @@
 package com.murphy1.serviced.serviced.model;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 public class Issue extends BaseEntity{
 
     private String name;
+
+    @Lob
     private String description;
 
     @Enumerated(EnumType.ORDINAL)
