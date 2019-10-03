@@ -37,6 +37,13 @@ public class IssuesController {
         return "forms/new_issue.html";
     }
 
+    @GetMapping("/issues/delete/{issueId}")
+    public String deleteIssue(@PathVariable String issueId){
+        issueService.deleteIssue(Long.valueOf(issueId));
+
+        return "redirect:/issues";
+    }
+
     @PostMapping("/issue/save")
     public String saveIssue(@ModelAttribute Issue issue){
         issueService.save(issue);

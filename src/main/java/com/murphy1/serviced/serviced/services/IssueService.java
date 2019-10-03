@@ -8,4 +8,5 @@ public interface IssueService {
     List<Issue> getAllIssues();
     Issue save(Issue issue);
     Issue findIssueById(Long id);
+    void deleteIssue(long id);
 }

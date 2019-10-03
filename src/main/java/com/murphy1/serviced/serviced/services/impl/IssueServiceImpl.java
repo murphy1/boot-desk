@@ -51,4 +51,9 @@ public class IssueServiceImpl implements IssueService {
 
         return issueOptional.get();
     }
+
+    @Override
+    public void deleteIssue(long id) {
+        issueRepository.deleteById(id);
+    }
 }
