@@ -7,4 +7,6 @@ import java.util.List;
 public interface ServiceRequestService {
     List<ServiceRequest> getAllServiceRequests();
     ServiceRequest save(ServiceRequest serviceRequest);
+    ServiceRequest findById(Long id);
+    void deleteServiceRequest(Long id);
 }

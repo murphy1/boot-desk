@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -30,6 +31,20 @@ public class ServiceRequestController {
         model.addAttribute("serviceRequest", new ServiceRequest());
 
         return "/forms/new_servicerequest.html";
+    }
+
+    @GetMapping("/service_requests/update/{requestId}")
+    public String updateServiceRequest(@PathVariable String requestId, Model model){
+        model.addAttribute("serviceRequest", serviceRequestService.findById(Long.valueOf(requestId)));
+
+        return "/forms/new_servicerequest.html";
+    }
+
+    @GetMapping("/service_requests/delete/{requestId}")
+    public String deleteServiceRequest(@PathVariable String requestId){
+        serviceRequestService.deleteServiceRequest(Long.valueOf(requestId));
+
+        return "redirect:/service_requests";
     }
 
     @PostMapping("/serviceRequest/save")

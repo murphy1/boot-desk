@@ -9,6 +9,8 @@
 <!--/*@thymesVar id="issue" type="com.murphy1.serviced.serviced.model.ServiceRequest"*/-->
 <form th:object="${serviceRequest}" th:action="@{/serviceRequest/save}" method="post">
 
+    <input type="hidden" th:field="*{id}">
+
     <div>
         <label>Name:</label>
         <input type="text" th:field="*{name}">
