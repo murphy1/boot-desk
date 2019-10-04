@@ -7,3 +7,4 @@ INSERT INTO service_request (name) VALUES ('Change server');
 INSERT INTO service_request (name) VALUES ('Set up new PCs');
 INSERT INTO service_request (name) VALUES ('Create new users');
 INSERT INTO agent (username) VALUES ('smurphy');
+INSERT INTO end_user (username) VALUES ('anlee');

@@ -45,7 +45,7 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
 
         Optional<ServiceRequest> serviceRequest = serviceRequestRepository.findById(id);
 
-        if (!serviceRequest.isPresent()){
+        if (serviceRequest.isEmpty()){
             throw new RuntimeException("Service Request does not exist!");
         }
 

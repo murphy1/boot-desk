@@ -1,9 +1,14 @@
 package com.murphy1.serviced.serviced.services;
 
+import com.murphy1.serviced.serviced.model.Admin;
+import com.murphy1.serviced.serviced.model.Agent;
+import com.murphy1.serviced.serviced.model.EndUser;
 import com.murphy1.serviced.serviced.model.User;
 
-import java.util.List;
-
 public interface UserService {
-    List<User> getAllUsers();
+
+    Agent convertUserToAgent(User user);
+    EndUser convertUserToEndUser(User user);
+    Admin convertUserToAdmin(User user);
+
 }

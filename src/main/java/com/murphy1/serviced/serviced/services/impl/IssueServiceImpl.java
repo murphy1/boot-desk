@@ -45,7 +45,7 @@ public class IssueServiceImpl implements IssueService {
 
         Optional<Issue> issueOptional = issueRepository.findById(id);
 
-        if (!issueOptional.isPresent()){
+        if (issueOptional.isEmpty()){
             throw new RuntimeException("Issue does not exist!");
         }
 
