@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import com.murphy1.serviced.serviced.repositories.ServiceRequestRepository;
 import com.murphy1.serviced.serviced.services.ServiceRequestService;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -47,13 +49,16 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
     @Override
     public ServiceRequest save(ServiceRequest serviceRequest) {
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = authentication.getPrincipal();
+
+        String username = ((UserDetails) principal).getUsername();
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+
         if (serviceRequest.getId() == null){
             serviceRequest.setStatus(Status.NEW);
-
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            Object principal = authentication.getPrincipal();
-
-            String username = ((UserDetails) principal).getUsername();
 
             String role = userService.getRole(username);
 
@@ -73,6 +78,18 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
                 Optional<EndUser> endUserOptional = endUserRepository.findByUsername(username);
                 serviceRequests = endUserOptional.get().getServiceRequest();
                 serviceRequests.add(serviceRequest);
+            }
+        }
+
+        if (!serviceRequest.getNewMessages().isEmpty()){
+            String oldMessages = serviceRequest.getMessages();
+            if (oldMessages == null){
+                serviceRequest.setMessages(serviceRequest.getNewMessages());
+            }
+            else{
+                String newMessage = oldMessages + "\n"+"----------"+"\n"+username+", "+dtf.format(now)+"\n"+"----------"+"\n"+ serviceRequest.getNewMessages();
+                serviceRequest.setMessages(newMessage);
+                oldMessages = "";
             }
         }
 

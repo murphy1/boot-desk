@@ -16,6 +16,8 @@
     <th>Description:</th>
     <th>Priority:</th>
     <th>Status:</th>
+    <th>Due Date:</th>
+    <th>Chat:</th>
     </tr>
     </thead>
     <tbody>
@@ -26,6 +28,12 @@
         <td th:text="${request.description}">Broken Link</td>
         <td th:text="${request.priority}">Broken Link</td>
         <td th:text="${request.status}">Broken Link</td>
+        <td th:text="${request.dueDate}">Broken Link</td>
+        <td>
+            <label>
+                <textarea rows="5" cols="50" th:text="${request.messages}" readonly></textarea>
+            </label>
+        </td>
     </tr>
     </tbody>
 </table>

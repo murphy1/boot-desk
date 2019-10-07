@@ -20,6 +20,12 @@ public class ServiceRequest extends BaseEntity{
     private LocalDate dueDate;
     private String label;
 
+    @Lob
+    private String messages;
+
+    @Lob
+    private String newMessages;
+
     public String getName() {
         return name;
     }
@@ -66,5 +72,21 @@ public class ServiceRequest extends BaseEntity{
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public String getMessages() {
+        return messages;
+    }
+
+    public void setMessages(String messages) {
+        this.messages = messages;
+    }
+
+    public String getNewMessages() {
+        return newMessages;
+    }
+
+    public void setNewMessages(String newMessages) {
+        this.newMessages = newMessages;
     }
 }
