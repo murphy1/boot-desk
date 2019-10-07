@@ -21,6 +21,9 @@ public class User {
     @OneToMany
     private List<ServiceRequest> serviceRequest;
 
+    private boolean active;
+    private String roles;
+
     public Long getId() {
         return id;
     }
@@ -75,5 +78,21 @@ public class User {
 
     public void setServiceRequest(List<ServiceRequest> serviceRequest) {
         this.serviceRequest = serviceRequest;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 }
