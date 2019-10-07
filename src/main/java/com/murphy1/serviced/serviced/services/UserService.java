@@ -10,5 +10,6 @@ public interface UserService {
     Agent convertUserToAgent(User user);
     EndUser convertUserToEndUser(User user);
     Admin convertUserToAdmin(User user);
+    String getRole(String username);
 
 }

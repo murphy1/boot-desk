@@ -16,9 +16,6 @@ public class User {
     private String password;
 
     @OneToMany
-    private List<Issue> issue;
-
-    @OneToMany
     private List<ServiceRequest> serviceRequest;
 
     private boolean active;
@@ -62,14 +59,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public List<Issue> getIssue() {
-        return issue;
-    }
-
-    public void setIssue(List<Issue> issue) {
-        this.issue = issue;
     }
 
     public List<ServiceRequest> getServiceRequest() {

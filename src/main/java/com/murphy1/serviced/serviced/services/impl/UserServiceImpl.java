@@ -5,7 +5,12 @@ import com.murphy1.serviced.serviced.model.Agent;
 import com.murphy1.serviced.serviced.model.EndUser;
 import com.murphy1.serviced.serviced.model.User;
 import com.murphy1.serviced.serviced.services.UserService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -47,5 +52,15 @@ public class UserServiceImpl implements UserService {
         admin.setPassword(user.getPassword());
 
         return admin;
+    }
+
+    public String getRole(String username){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        Optional<String> role = authentication.getAuthorities().stream()
+                .map(roles -> ((GrantedAuthority) roles).getAuthority())
+                .findFirst();
+
+        return role.get();
     }
 }
