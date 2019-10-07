@@ -64,6 +64,13 @@
         <input type="text" th:field="*{label}">
     </div>
 
+    <input type="hidden" th:field="*{messages}">
+
+    <div>
+        <label>Chat:</label>
+        <textarea rows="4" cols="50" th:field="*{newMessages}"></textarea>
+    </div>
+
     <div>
         <input type="submit" value="Submit">
     </div>

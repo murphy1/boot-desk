@@ -2,6 +2,7 @@ package com.murphy1.serviced.serviced.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Issue extends BaseEntity{
@@ -19,6 +20,12 @@ public class Issue extends BaseEntity{
 
     private LocalDate dueDate;
     private String label;
+
+    @Lob
+    private String messages;
+
+    @Lob
+    private String newMessages;
 
     public String getName() {
         return name;
@@ -66,5 +73,21 @@ public class Issue extends BaseEntity{
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public String getMessages() {
+        return messages;
+    }
+
+    public void setMessages(String messages) {
+        this.messages = messages;
+    }
+
+    public String getNewMessages() {
+        return newMessages;
+    }
+
+    public void setNewMessages(String newMessages) {
+        this.newMessages = newMessages;
     }
 }

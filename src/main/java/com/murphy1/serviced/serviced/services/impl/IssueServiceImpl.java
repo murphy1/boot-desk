@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import com.murphy1.serviced.serviced.repositories.IssueRepository;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -46,15 +48,18 @@ public class IssueServiceImpl implements IssueService {
     @Override
     public Issue save(Issue issue) {
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = authentication.getPrincipal();
+
+        String username = ((UserDetails)principal).getUsername();
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+
         // new issues will always be set to Status = NEW
         // Add the issue to the current users list of issues
         if (issue.getId() == null){
             issue.setStatus(Status.NEW);
-
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            Object principal = authentication.getPrincipal();
-
-            String username = ((UserDetails)principal).getUsername();
 
             String role = userService.getRole(username);
 
@@ -74,6 +79,18 @@ public class IssueServiceImpl implements IssueService {
                 Optional<EndUser> endUserOptional = endUserRepository.findByUsername(username);
                 usersIssues = endUserOptional.get().getIssue();
                 usersIssues.add(issue);
+            }
+        }
+
+        if (!issue.getNewMessages().isEmpty()){
+            String oldMessages = issue.getMessages();
+            if (oldMessages == null){
+                issue.setMessages(issue.getNewMessages());
+            }
+            else{
+                String newMessage = oldMessages + "\n"+"----------"+"\n"+username+", "+dtf.format(now)+"\n"+"----------"+"\n"+ issue.getNewMessages();
+                issue.setMessages(newMessage);
+                oldMessages = "";
             }
         }
 
