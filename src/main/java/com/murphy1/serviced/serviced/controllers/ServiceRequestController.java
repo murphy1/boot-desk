@@ -61,7 +61,7 @@ public class ServiceRequestController {
     public String saveServiceRequest(@ModelAttribute ServiceRequest serviceRequest){
         serviceRequestService.save(serviceRequest);
 
-        return "redirect:/service_requests";
+        return "redirect:/service_requests/view/"+serviceRequest.getId();
     }
 
     @GetMapping("/service_requests/assign/self/{requestId}")

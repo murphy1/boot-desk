@@ -113,4 +113,37 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
     public void deleteServiceRequest(Long id) {
         serviceRequestRepository.deleteById(id);
     }
+
+    @Override
+    public List<ServiceRequest> findRequestByUser(String username) {
+        List<ServiceRequest> requests = new ArrayList<>();
+
+        Iterable<ServiceRequest> iterable = serviceRequestRepository.findAll();
+        for (ServiceRequest request : iterable){
+            if (request.getCreator() == null){
+                continue;
+            }
+            else if (request.getCreator().equalsIgnoreCase(username)){
+                requests.add(request);
+            }
+        }
+
+        return requests;
+    }
+
+    @Override
+    public List<ServiceRequest> findRequestByAssignedUser(String username) {
+        List<ServiceRequest> requests = new ArrayList<>();
+
+        Iterable<ServiceRequest> iterable = serviceRequestRepository.findAll();
+        for (ServiceRequest request : iterable){
+            if (request.getAssignedTo() == null){
+                continue;
+            }
+            else if (request.getAssignedTo().equalsIgnoreCase(username)){
+                requests.add(request);
+            }
+        }
+        return requests;
+    }
 }

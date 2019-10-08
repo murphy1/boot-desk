@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Profile</title>
+</head>
+<body>
+
+<h1>Your Created Tickets</h1>
+
+<h3>Issues</h3>
+<!--/*@thymesVar id="issue" type="com.murphy1.serviced.serviced.model.Issue"*/-->
+<table>
+    <thead>
+    <tr>
+        <th>ID:</th>
+        <th>Name:</th>
+        <th>Creator:</th>
+        <th>Assigned To:</th>
+        <th>Description:</th>
+        <th></th>
+        <th>Priority:</th>
+        <th>Status:</th>
+        <th>Due Date:</th>
+        <th>Chat:</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="issue : ${issues}">
+        <td th:text="${issue.id}">1</td>
+        <td th:text="${issue.name}">Issue</td>
+        <td th:text="${issue.creator}">Issue</td>
+        <td th:text="${issue.assignedTo}"></td>
+        <td th:if="${issue.assignedTo == null || issue.assignedTo.isEmpty()}"><a href="#" th:href="@{'/issues/assign/self/'+ ${issue.id}}">Assign me!</a></td>
+        <td th:text="${issue.description}">Broken Link</td>
+        <td th:text="${issue.priority}">Broken Link</td>
+        <td th:text="${issue.status}">Broken Link</td>
+        <td th:text="${issue.dueDate}">Broken Link</td>
+        <td>
+            <label>
+                <textarea rows="5" cols="50" th:text="${issue.messages}" readonly></textarea>
+            </label>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<h3>Service Requests</h3>
+<!--/*@thymesVar id="issue" type="com.murphy1.serviced.serviced.model.ServiceRequest"*/-->
+<table>
+    <thead>
+    <tr>
+        <th>ID:</th>
+        <th>Name:</th>
+        <th>Creator:</th>
+        <th>Assigned To:</th>
+        <th></th>
+        <th>Description:</th>
+        <th>Priority:</th>
+        <th>Status:</th>
+        <th>Due Date:</th>
+        <th>Chat:</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="request : ${service_requests}">
+        <td th:text="${request.id}">1</td>
+        <td th:text="${request.name}">Issue</td>
+        <td th:text="${request.creator}">Issue</td>
+        <td th:text="${request.assignedTo}"></td>
+        <td th:if="${request.assignedTo == null || request.assignedTo.isEmpty()}"><a href="#" th:href="@{'/service_requests/assign/self/'+ ${request.id}}">Assign me!</a></td>
+        <td th:text="${request.description}">Broken Link</td>
+        <td th:text="${request.priority}">Broken Link</td>
+        <td th:text="${request.status}">Broken Link</td>
+        <td th:text="${request.dueDate}">Broken Link</td>
+        <td>
+            <label>
+                <textarea rows="5" cols="50" th:text="${request.messages}" readonly></textarea>
+            </label>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+<h1>Your Assigned Tickets</h1>
+
+<h3>Issues</h3>
+<table>
+    <thead>
+    <tr>
+        <th>ID:</th>
+        <th>Name:</th>
+        <th>Creator:</th>
+        <th>Assigned To:</th>
+        <th>Description:</th>
+        <th></th>
+        <th>Priority:</th>
+        <th>Status:</th>
+        <th>Due Date:</th>
+        <th>Chat:</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="issue : ${assigned_issues}">
+        <td th:text="${issue.id}">1</td>
+        <td th:text="${issue.name}">Issue</td>
+        <td th:text="${issue.creator}">Issue</td>
+        <td th:text="${issue.assignedTo}"></td>
+        <td th:if="${issue.assignedTo == null || issue.assignedTo.isEmpty()}"><a href="#" th:href="@{'/issues/assign/self/'+ ${issue.id}}">Assign me!</a></td>
+        <td th:text="${issue.description}">Broken Link</td>
+        <td th:text="${issue.priority}">Broken Link</td>
+        <td th:text="${issue.status}">Broken Link</td>
+        <td th:text="${issue.dueDate}">Broken Link</td>
+        <td>
+            <label>
+                <textarea rows="5" cols="50" th:text="${issue.messages}" readonly></textarea>
+            </label>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<h3>Service Requests</h3>
+<!--/*@thymesVar id="issue" type="com.murphy1.serviced.serviced.model.ServiceRequest"*/-->
+<table>
+    <thead>
+    <tr>
+        <th>ID:</th>
+        <th>Name:</th>
+        <th>Creator:</th>
+        <th>Assigned To:</th>
+        <th></th>
+        <th>Description:</th>
+        <th>Priority:</th>
+        <th>Status:</th>
+        <th>Due Date:</th>
+        <th>Chat:</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="request : ${assigned_service_requests}">
+        <td th:text="${request.id}">1</td>
+        <td th:text="${request.name}">Issue</td>
+        <td th:text="${request.creator}">Issue</td>
+        <td th:text="${request.assignedTo}"></td>
+        <td th:if="${request.assignedTo == null || request.assignedTo.isEmpty()}"><a href="#" th:href="@{'/service_requests/assign/self/'+ ${request.id}}">Assign me!</a></td>
+        <td th:text="${request.description}">Broken Link</td>
+        <td th:text="${request.priority}">Broken Link</td>
+        <td th:text="${request.status}">Broken Link</td>
+        <td th:text="${request.dueDate}">Broken Link</td>
+        <td>
+            <label>
+                <textarea rows="5" cols="50" th:text="${request.messages}" readonly></textarea>
+            </label>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+</body>
+</html>

@@ -9,4 +9,6 @@ public interface ServiceRequestService {
     ServiceRequest save(ServiceRequest serviceRequest);
     ServiceRequest findById(Long id);
     void deleteServiceRequest(Long id);
+    List<ServiceRequest> findRequestByUser(String username);
+    List<ServiceRequest> findRequestByAssignedUser(String username);
 }

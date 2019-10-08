@@ -14,6 +14,7 @@ import com.murphy1.serviced.serviced.repositories.IssueRepository;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,7 +51,6 @@ public class IssueServiceImpl implements IssueService {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();
-
         String username = ((UserDetails)principal).getUsername();
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
@@ -113,5 +113,38 @@ public class IssueServiceImpl implements IssueService {
     @Override
     public void deleteIssue(long id) {
         issueRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Issue> findIssueByUser(String username) {
+        List<Issue> issues = new ArrayList<>();
+
+        Iterable<Issue> issueIterator = issueRepository.findAll();
+        for (Issue issue : issueIterator){
+            if (issue.getCreator() == null){
+                continue;
+            }
+            else if (issue.getCreator().equalsIgnoreCase(username)){
+                issues.add(issue);
+            }
+        }
+
+        return issues;
+    }
+
+    public List<Issue> findAssignedIssuesByUser(String username){
+        List<Issue> issues = new ArrayList<>();
+
+        Iterable<Issue> issueIterator = issueRepository.findAll();
+        for (Issue issue : issueIterator){
+            if (issue.getAssignedTo() == null){
+                continue;
+            }
+            else if (issue.getAssignedTo().equalsIgnoreCase(username)){
+                issues.add(issue);
+            }
+        }
+
+        return issues;
     }
 }
