@@ -71,6 +71,13 @@
         <textarea rows="4" cols="50" th:field="*{newMessages}"></textarea>
     </div>
 
+    <input type="hidden" th:field="*{creator}">
+
+    <div>
+        <label>Assigned To:</label>
+        <input type="text" th:field="*{assignedTo}">
+    </div>
+
     <div>
         <input type="submit" value="Submit">
     </div>

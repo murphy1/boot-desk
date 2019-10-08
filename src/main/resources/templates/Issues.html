@@ -14,7 +14,10 @@
     <tr>
     <th>ID:</th>
     <th>Name:</th>
+    <th>Creator:</th>
+    <th>Assigned To:</th>
     <th>Description:</th>
+    <th></th>
     <th>Priority:</th>
     <th>Status:</th>
     <th>Due Date:</th>
@@ -25,6 +28,9 @@
         <tr th:each="issue : ${issues}">
             <td th:text="${issue.id}">1</td>
             <td th:text="${issue.name}">Issue</td>
+            <td th:text="${issue.creator}">Issue</td>
+            <td th:text="${issue.assignedTo}"></td>
+            <td th:if="${issue.assignedTo == null || issue.assignedTo.isEmpty()}"><a href="#" th:href="@{'/issues/assign/self/'+ ${issue.id}}">Assign me!</a></td>
             <td th:text="${issue.description}">Broken Link</td>
             <td th:text="${issue.priority}">Broken Link</td>
             <td th:text="${issue.status}">Broken Link</td>

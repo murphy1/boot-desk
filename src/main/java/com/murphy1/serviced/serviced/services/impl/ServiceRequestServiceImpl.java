@@ -59,6 +59,7 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
 
         if (serviceRequest.getId() == null){
             serviceRequest.setStatus(Status.NEW);
+            serviceRequest.setCreator(userService.getCurrentUserName());
 
             String role = userService.getRole(username);
 
@@ -81,7 +82,7 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
             }
         }
 
-        if (!serviceRequest.getNewMessages().isEmpty()){
+        if (serviceRequest.getNewMessages() != null){
             String oldMessages = serviceRequest.getMessages();
             if (oldMessages == null){
                 serviceRequest.setMessages(serviceRequest.getNewMessages());

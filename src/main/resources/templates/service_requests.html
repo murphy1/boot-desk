@@ -13,6 +13,9 @@
     <tr>
     <th>ID:</th>
     <th>Name:</th>
+    <th>Creator:</th>
+    <th>Assigned To:</th>
+    <th></th>
     <th>Description:</th>
     <th>Priority:</th>
     <th>Status:</th>
@@ -25,6 +28,9 @@
     <tr th:each="request : ${serviceRequests}">
         <td th:text="${request.id}">1</td>
         <td th:text="${request.name}">Issue</td>
+        <td th:text="${request.creator}">Issue</td>
+        <td th:text="${request.assignedTo}"></td>
+        <td th:if="${request.assignedTo == null || request.assignedTo.isEmpty()}"><a href="#" th:href="@{'/service_requests/assign/self/'+ ${request.id}}">Assign me!</a></td>
         <td th:text="${request.description}">Broken Link</td>
         <td th:text="${request.priority}">Broken Link</td>
         <td th:text="${request.status}">Broken Link</td>

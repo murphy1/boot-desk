@@ -60,6 +60,7 @@ public class IssueServiceImpl implements IssueService {
         // Add the issue to the current users list of issues
         if (issue.getId() == null){
             issue.setStatus(Status.NEW);
+            issue.setCreator(username);
 
             String role = userService.getRole(username);
 
@@ -82,7 +83,7 @@ public class IssueServiceImpl implements IssueService {
             }
         }
 
-        if (!issue.getNewMessages().isEmpty()){
+        if (issue.getNewMessages() != null){
             String oldMessages = issue.getMessages();
             if (oldMessages == null){
                 issue.setMessages(issue.getNewMessages());

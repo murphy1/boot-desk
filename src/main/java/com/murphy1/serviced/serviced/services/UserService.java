@@ -11,5 +11,5 @@ public interface UserService {
     EndUser convertUserToEndUser(User user);
     Admin convertUserToAdmin(User user);
     String getRole(String username);
-
+    String getCurrentUserName();
 }

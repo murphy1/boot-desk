@@ -24,8 +24,11 @@ public class Issue extends BaseEntity{
     @Lob
     private String messages;
 
-    @Lob
+    @Transient
     private String newMessages;
+
+    private String creator;
+    private String assignedTo;
 
     public String getName() {
         return name;
@@ -89,5 +92,21 @@ public class Issue extends BaseEntity{
 
     public void setNewMessages(String newMessages) {
         this.newMessages = newMessages;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
+    public String getAssignedTo() {
+        return assignedTo;
+    }
+
+    public void setAssignedTo(String assignedTo) {
+        this.assignedTo = assignedTo;
     }
 }
