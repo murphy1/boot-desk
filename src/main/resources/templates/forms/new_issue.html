@@ -22,6 +22,25 @@
     </div>
 
     <div>
+        <label>Label:</label>
+        <select class="form-control" th:field="*{label}">
+            <option th:each="labelValue : ${T(com.murphy1.serviced.serviced.model.Label).values()}"
+                    th:value="${labelValue.name()}"
+                    th:text="${labelValue.name()}"
+            >val</option>
+        </select>
+        <select class="form-control" th:remove="all">
+            <option>Hardware</option>
+            <option>Software</option>
+            <option>Network</option>
+            <option>Access</option>
+            <option>Account</option>
+            <option>SQL</option>
+            <option>Java</option>
+        </select>
+    </div>
+
+    <div>
         <label>Priority:</label>
         <select class="form-control" th:field="*{priority}">
             <option th:each="priorityValue : ${T(com.murphy1.serviced.serviced.model.Priority).values()}"
@@ -57,11 +76,6 @@
     <div>
         <label>Due Date:</label>
         <input type="text" th:field="*{dueDate}">
-    </div>
-
-    <div>
-        <label>Label:</label>
-        <input type="text" th:field="*{label}">
     </div>
 
     <input type="hidden" th:field="*{messages}">

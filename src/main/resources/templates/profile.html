@@ -18,6 +18,7 @@
         <th>Creator:</th>
         <th>Assigned To:</th>
         <th>Description:</th>
+        <th>Label:</th>
         <th></th>
         <th>Priority:</th>
         <th>Status:</th>
@@ -33,6 +34,7 @@
         <td th:text="${issue.assignedTo}"></td>
         <td th:if="${issue.assignedTo == null || issue.assignedTo.isEmpty()}"><a href="#" th:href="@{'/issues/assign/self/'+ ${issue.id}}">Assign me!</a></td>
         <td th:text="${issue.description}">Broken Link</td>
+        <td th:text="${issue.label}">Broken Link</td>
         <td th:text="${issue.priority}">Broken Link</td>
         <td th:text="${issue.status}">Broken Link</td>
         <td th:text="${issue.dueDate}">Broken Link</td>
@@ -56,6 +58,7 @@
         <th>Assigned To:</th>
         <th></th>
         <th>Description:</th>
+        <th>Label:</th>
         <th>Priority:</th>
         <th>Status:</th>
         <th>Due Date:</th>
@@ -70,6 +73,7 @@
         <td th:text="${request.assignedTo}"></td>
         <td th:if="${request.assignedTo == null || request.assignedTo.isEmpty()}"><a href="#" th:href="@{'/service_requests/assign/self/'+ ${request.id}}">Assign me!</a></td>
         <td th:text="${request.description}">Broken Link</td>
+        <td th:text="${request.label}">Broken Link</td>
         <td th:text="${request.priority}">Broken Link</td>
         <td th:text="${request.status}">Broken Link</td>
         <td th:text="${request.dueDate}">Broken Link</td>
@@ -94,6 +98,7 @@
         <th>Creator:</th>
         <th>Assigned To:</th>
         <th>Description:</th>
+        <th>Label:</th>
         <th></th>
         <th>Priority:</th>
         <th>Status:</th>
@@ -109,6 +114,7 @@
         <td th:text="${issue.assignedTo}"></td>
         <td th:if="${issue.assignedTo == null || issue.assignedTo.isEmpty()}"><a href="#" th:href="@{'/issues/assign/self/'+ ${issue.id}}">Assign me!</a></td>
         <td th:text="${issue.description}">Broken Link</td>
+        <td th:text="${issue.label}">Broken Link</td>
         <td th:text="${issue.priority}">Broken Link</td>
         <td th:text="${issue.status}">Broken Link</td>
         <td th:text="${issue.dueDate}">Broken Link</td>
@@ -132,6 +138,7 @@
         <th>Assigned To:</th>
         <th></th>
         <th>Description:</th>
+        <th>Label:</th>
         <th>Priority:</th>
         <th>Status:</th>
         <th>Due Date:</th>
@@ -146,6 +153,7 @@
         <td th:text="${request.assignedTo}"></td>
         <td th:if="${request.assignedTo == null || request.assignedTo.isEmpty()}"><a href="#" th:href="@{'/service_requests/assign/self/'+ ${request.id}}">Assign me!</a></td>
         <td th:text="${request.description}">Broken Link</td>
+        <td th:text="${request.label}">Broken Link</td>
         <td th:text="${request.priority}">Broken Link</td>
         <td th:text="${request.status}">Broken Link</td>
         <td th:text="${request.dueDate}">Broken Link</td>

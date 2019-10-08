@@ -18,7 +18,9 @@ public class ServiceRequest extends BaseEntity{
     private Status status;
 
     private LocalDate dueDate;
-    private String label;
+
+    @Enumerated(EnumType.ORDINAL)
+    private Label label;
 
     @Lob
     private String messages;
@@ -69,11 +71,11 @@ public class ServiceRequest extends BaseEntity{
         this.dueDate = dueDate;
     }
 
-    public String getLabel() {
+    public Label getLabel() {
         return label;
     }
 
-    public void setLabel(String label) {
+    public void setLabel(Label label) {
         this.label = label;
     }
 
