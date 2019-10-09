@@ -25,6 +25,7 @@ public class UserServiceImpl implements UserService {
         agent.setLastName(user.getLastName());
         agent.setUsername(user.getUsername());
         agent.setPassword(user.getPassword());
+        agent.setPasswordCheck(user.getPasswordCheck());
 
         return agent;
     }
@@ -38,6 +39,7 @@ public class UserServiceImpl implements UserService {
         endUser.setLastName(user.getLastName());
         endUser.setUsername(user.getUsername());
         endUser.setPassword(user.getPassword());
+        endUser.setPasswordCheck(user.getPasswordCheck());
 
         return endUser;
     }
@@ -51,6 +53,7 @@ public class UserServiceImpl implements UserService {
         admin.setLastName(user.getLastName());
         admin.setUsername(user.getUsername());
         admin.setPassword(user.getPassword());
+        admin.setPasswordCheck(user.getPasswordCheck());
 
         return admin;
     }

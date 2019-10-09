@@ -30,6 +30,18 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Admin saveAdmin(Admin admin) {
+
+        if (!admin.getPassword().equals(admin.getPasswordCheck())){
+            throw new RuntimeException("Passwords must match!");
+        }
+
+        List<Admin> admins = getAllAdmins();
+        for (Admin admin1 : admins){
+            if (admin.getUsername().equals(admin1.getUsername())){
+                throw new RuntimeException("Username already exists!");
+            }
+        }
+
         return adminRepository.save(admin);
     }
 

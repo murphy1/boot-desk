@@ -1,6 +1,7 @@
 package com.murphy1.serviced.serviced.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @MappedSuperclass
@@ -13,7 +14,11 @@ public class User {
     private String firstName;
     private String lastName;
     private String username;
+
     private String password;
+
+    @Transient
+    private String passwordCheck;
 
     @OneToMany
     private List<ServiceRequest> serviceRequest;
@@ -59,6 +64,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPasswordCheck() {
+        return passwordCheck;
+    }
+
+    public void setPasswordCheck(String passwordCheck) {
+        this.passwordCheck = passwordCheck;
     }
 
     public List<ServiceRequest> getServiceRequest() {

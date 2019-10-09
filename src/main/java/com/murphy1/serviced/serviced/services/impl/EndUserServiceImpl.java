@@ -30,6 +30,18 @@ public class EndUserServiceImpl implements EndUserService {
 
     @Override
     public EndUser saveEndUser(EndUser endUser) {
+
+        if (!endUser.getPassword().equals(endUser.getPasswordCheck())){
+            throw new RuntimeException("Passwords must match!");
+        }
+
+        List<EndUser> endUsers = getAllEndUsers();
+        for (EndUser endUser1 : endUsers){
+            if (endUser.getUsername().equals(endUser1.getUsername())){
+                throw new RuntimeException("Username already exists!");
+            }
+        }
+
         return endUserRepository.save(endUser);
     }
 

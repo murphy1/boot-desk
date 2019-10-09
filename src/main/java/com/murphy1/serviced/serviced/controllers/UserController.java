@@ -8,12 +8,20 @@ import com.murphy1.serviced.serviced.services.AdminService;
 import com.murphy1.serviced.serviced.services.AgentService;
 import com.murphy1.serviced.serviced.services.EndUserService;
 import com.murphy1.serviced.serviced.services.UserService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -85,19 +93,34 @@ public class UserController {
     @GetMapping("/users/update/{userType}/{userId}")
     public String updateUser(Model model, @PathVariable String userType, @PathVariable String userId){
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = authentication.getPrincipal();
+        Optional<Boolean> roles = authentication.getAuthorities().stream()
+                .map(role -> ((GrantedAuthority) role).getAuthority().equals("ADMIN"))
+                .findFirst();
+
         if (userType.equals("agent")){
             model.addAttribute("users", agentService.findAgentById(Long.valueOf(userId)));
             globalUserType = "agent";
+            if (roles.get()){
+                return "forms/user_admin.html";
+            }
             return "forms/new_user.html";
         }
         else if (userType.equals("admin")){
             model.addAttribute("users", adminService.findAdminById(Long.valueOf(userId)));
             globalUserType = "admin";
+            if (roles.get()){
+                return "forms/user_admin.html";
+            }
             return "forms/new_user.html";
         }
         else if (userType.equals("enduser")){
             model.addAttribute("users", endUserService.findEndUserById(Long.valueOf(userId)));
             globalUserType = "enduser";
+            if (roles.get()){
+                return "forms/user_admin.html";
+            }
             return "forms/new_user.html";
         }
         else{

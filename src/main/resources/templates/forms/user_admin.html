@@ -26,20 +26,19 @@
         <input type="text" th:field="*{username}">
     </div>
 
-    <div class="col-md-3 form-group" th:class="${#fields.hasErrors('password')} ?
-                                    'col-md-3 form-group has-error' : 'col-md-3 form-group'">
+    <div>
         <label>Password:</label>
-        <input type="password" class="form-control" th:field="*{password}" th:errorclass="has-error"/>
-        <span class="help-block" th:if="${#fields.hasErrors('password')}">
-            <ul>
-                <li th:each="err : ${#fields.errors('password')}" th:text="${err}"></li>
-            </ul>
-        </span>
+        <input type="password" th:field="*{password}">
     </div>
 
     <div>
-        <label>Enter Password Again:</label>
-        <input type="password" th:field="*{passwordCheck}">
+        <label>Active:</label>
+        <input type="text" th:field="*{active}">
+    </div>
+
+    <div>
+        <label>Roles:</label>
+        <input type="text" th:field="*{roles}">
     </div>
 
     <div>

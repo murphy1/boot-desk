@@ -30,6 +30,18 @@ public class AgentServiceImpl implements AgentService {
 
     @Override
     public Agent saveAgent(Agent agent) {
+
+        if (!agent.getPassword().equals(agent.getPasswordCheck())){
+            throw new RuntimeException("Passwords must match!");
+        }
+
+        List<Agent> agents = getAllAgents();
+        for (Agent agent1 : agents){
+            if (agent.getUsername().equals(agent1.getUsername())){
+                throw new RuntimeException("Username already exists!");
+            }
+        }
+
         return agentRepository.save(agent);
     }
 
