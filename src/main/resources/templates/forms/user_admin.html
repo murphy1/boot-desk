@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>User Form</title>
+
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 
@@ -11,34 +19,34 @@
 
     <input type="hidden" th:field="*{id}">
 
-    <div>
+    <div class="col-md-3 form-group">
         <label>First Name:</label>
-        <input type="text" th:field="*{firstName}">
+        <input type="text" class="form-control" th:field="*{firstName}">
     </div>
 
-    <div>
+    <div class="col-md-3 form-group">
         <label>Last Name:</label>
-        <input type="text" th:field="*{lastName}">
+        <input type="text" class="form-control" th:field="*{lastName}">
     </div>
 
-    <div>
+    <div class="col-md-3 form-group">
         <label>Username:</label>
-        <input type="text" th:field="*{username}">
+        <input type="text" class="form-control" th:field="*{username}">
     </div>
 
-    <div>
+    <div class="col-md-3 form-group">
         <label>Password:</label>
-        <input type="password" th:field="*{password}">
+        <input type="password" class="form-control" th:field="*{password}">
     </div>
 
-    <div>
+    <div class="col-md-3 form-group">
         <label>Active:</label>
-        <input type="text" th:field="*{active}">
+        <input type="text" class="form-control" th:field="*{active}">
     </div>
 
-    <div>
+    <div class="col-md-3 form-group">
         <label>Roles:</label>
-        <input type="text" th:field="*{roles}">
+        <input type="text" class="form-control" th:field="*{roles}">
     </div>
 
     <div>

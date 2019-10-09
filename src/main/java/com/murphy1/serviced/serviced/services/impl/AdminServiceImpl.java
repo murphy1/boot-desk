@@ -1,8 +1,10 @@
 package com.murphy1.serviced.serviced.services.impl;
 
 import com.murphy1.serviced.serviced.model.Admin;
+import com.murphy1.serviced.serviced.model.User;
 import com.murphy1.serviced.serviced.repositories.AdminRepository;
 import com.murphy1.serviced.serviced.services.AdminService;
+import com.murphy1.serviced.serviced.services.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,9 +15,11 @@ import java.util.Optional;
 public class AdminServiceImpl implements AdminService {
 
     private AdminRepository adminRepository;
+    private UserService userService;
 
-    public AdminServiceImpl(AdminRepository adminRepository) {
+    public AdminServiceImpl(AdminRepository adminRepository, UserService userService) {
         this.adminRepository = adminRepository;
+        this.userService = userService;
     }
 
     @Override
@@ -35,10 +39,10 @@ public class AdminServiceImpl implements AdminService {
             throw new RuntimeException("Passwords must match!");
         }
 
-        List<Admin> admins = getAllAdmins();
-        for (Admin admin1 : admins){
-            if (admin.getUsername().equals(admin1.getUsername())){
-                throw new RuntimeException("Username already exists!");
+        List<User> users = userService.getAllUsers();
+        for (User user : users){
+            if (user.getUsername().equalsIgnoreCase(admin.getUsername())){
+                throw new RuntimeException("Username is already taken!");
             }
         }
 

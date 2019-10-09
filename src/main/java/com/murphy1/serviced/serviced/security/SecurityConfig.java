@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -26,15 +27,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         httpSecurity.authorizeRequests()
                 .antMatchers("/users/delete").hasAuthority("ADMIN")
+                .antMatchers("/issues/delete/*").hasAuthority("ADMIN")
+                .antMatchers("/service_requests/delete/*").hasAuthority("ADMIN")
                 .antMatchers("/issues").hasAnyAuthority("ADMIN", "AGENT", "END_USER")
+                .antMatchers("/issues/new").hasAnyAuthority("ADMIN", "AGENT", "END_USER")
+                .antMatchers("/issues/update/*").hasAnyAuthority("ADMIN", "AGENT", "END_USER")
                 .antMatchers("/service_requests").hasAnyAuthority("ADMIN", "AGENT", "END_USER")
+                .antMatchers("/service_requests/new").hasAnyAuthority("ADMIN", "AGENT", "END_USER")
+                .antMatchers("/service_requests/update/*").hasAnyAuthority("ADMIN", "AGENT", "END_USER")
                 .antMatchers("/profile").hasAnyAuthority("ADMIN", "AGENT", "END_USER")
                 .antMatchers("/console/**").hasAuthority("ADMIN")
                 .antMatchers("/").permitAll()
-                .and().formLogin();
+                .and().formLogin().loginPage("/login");
 
         httpSecurity.csrf().disable();
         httpSecurity.headers().frameOptions().disable();
+        httpSecurity.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
     }
 
     @Bean

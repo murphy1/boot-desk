@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+
+<div class="container-fluid padding">
+    <div class="row padding">
+        <div class="col-12">
+            <div class="card" title="table-card">
+                <div class="card-body">
+                    <form name="f" th:action="@{/login}" method="post">
+                        <fieldset>
+                            <div class="panel-group">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <h1 class="col-md-9 panel-title">Login</h1>
+                                    </div>
+                                    <div th:if="${param.error}" class="alert alert-error">
+                                        Invalid username and password.
+                                    </div>
+                                    <div th:if="${param.logout}" class="alert alert-success">
+                                        You have been logged out.
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="searchformrow">
+                                            <div class="col-md-10 form-group">
+                                                <label class="form-label">Username:</label>
+                                                <input type="text" class="form-control" id="username" name="username"/>
+                                            </div>
+                                        </div>
+                                        <div class="searchformrow">
+                                            <div class="col-md-10 form-group">
+                                                <label class="form-label">Password:</label>
+                                                <input type="password" class="form-control" id="password" name="password"/>
+                                            </div>
+                                        </div>
+                                        <div class="searhformrow">
+                                            <button type="submit" class="btn btn-info">Log in</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                    <a href="/users/new/enduser" class="btn btn-info" role="button">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

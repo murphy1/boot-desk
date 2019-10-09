@@ -3,21 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Users</title>
+
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 
 <h1>List of Users</h1>
 
 <!--/*@thymesVar id="issue" type="com.murphy1.serviced.serviced.model.Agent"*/-->
-<table>
+<table class="table table-striped">
     <thead>
     <tr>
         <th>ID:</th>
         <th>First Name:</th>
         <th>Last Name:</th>
         <th>Username:</th>
-        <th>Issues:</th>
-        <th>Service Requests:</th>
     </tr>
     </thead>
     <tbody>
@@ -26,8 +32,6 @@
         <td th:text="${user.firstName}">Issue</td>
         <td th:text="${user.lastName}">Broken Link</td>
         <td th:text="${user.username}">Broken Link</td>
-        <td th:text="${user.issue}">Broken Link</td>
-        <td th:text="${user.serviceRequest}">Broken Link</td>
     </tr>
     </tbody>
 </table>

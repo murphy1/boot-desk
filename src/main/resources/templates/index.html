@@ -1,12 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Welcome</title>
+
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 
 <h1>Welcome to the homepage</h1>
+
+<a href="#" th:href="@{'/issues/new'}" class="btn btn-primary btn-lg btn-bloc" role="button">Create new Issue</a>
+<a href="#" th:href="@{'/service_requests/new'}" class="btn btn-primary btn-lg btn-bloc" role="button">Create new Service Request</a>
+<a href="#" th:href="@{'/profile'}" class="btn btn-primary btn-lg btn-bloc" role="button">View Profile</a>
+<a href="#" th:href="@{'/logout'}" class="btn btn-primary btn-lg btn-bloc" role="button">Logout</a>
 
 </body>
 </html>

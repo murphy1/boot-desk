@@ -3,13 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Issues</title>
+
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 
 <h1>List of Issues</h1>
 
 <!--/*@thymesVar id="issue" type="com.murphy1.serviced.serviced.model.Issue"*/-->
-<table>
+<table class="table table-striped">
     <thead>
     <tr>
     <th>ID:</th>
@@ -18,7 +26,6 @@
     <th>Assigned To:</th>
     <th>Description:</th>
     <th>Label:</th>
-    <th></th>
     <th>Priority:</th>
     <th>Status:</th>
     <th>Due Date:</th>
@@ -31,7 +38,6 @@
             <td th:text="${issue.name}">Issue</td>
             <td th:text="${issue.creator}">Issue</td>
             <td th:text="${issue.assignedTo}"></td>
-            <td th:if="${issue.assignedTo == null || issue.assignedTo.isEmpty()}"><a href="#" th:href="@{'/issues/assign/self/'+ ${issue.id}}">Assign me!</a></td>
             <td th:text="${issue.description}">Broken Link</td>
             <td th:text="${issue.label}">Broken Link</td>
             <td th:text="${issue.priority}">Broken Link</td>
@@ -42,6 +48,7 @@
                     <textarea rows="5" cols="50" th:text="${issue.messages}" readonly></textarea>
                 </label>
             </td>
+            <td><a href="#" th:href="@{'/issues/update/'+ ${issue.id}}" class="btn btn-info" role="button">Update</a></td>
         </tr>
     </tbody>
 </table>

@@ -40,6 +40,11 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping("/login")
+    public String login(){
+        return "login.html";
+    }
+
     @GetMapping("/users/{user}")
     public String getAllAgents(Model model, @PathVariable String user){
 

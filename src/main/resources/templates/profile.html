@@ -3,14 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Your Profile</title>
+
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 
 <h1>Your Created Tickets</h1>
 
+<br>
+<br>
+
 <h3>Issues</h3>
 <!--/*@thymesVar id="issue" type="com.murphy1.serviced.serviced.model.Issue"*/-->
-<table>
+<table class="table table-striped">
     <thead>
     <tr>
         <th>ID:</th>
@@ -19,7 +30,6 @@
         <th>Assigned To:</th>
         <th>Description:</th>
         <th>Label:</th>
-        <th></th>
         <th>Priority:</th>
         <th>Status:</th>
         <th>Due Date:</th>
@@ -32,7 +42,6 @@
         <td th:text="${issue.name}">Issue</td>
         <td th:text="${issue.creator}">Issue</td>
         <td th:text="${issue.assignedTo}"></td>
-        <td th:if="${issue.assignedTo == null || issue.assignedTo.isEmpty()}"><a href="#" th:href="@{'/issues/assign/self/'+ ${issue.id}}">Assign me!</a></td>
         <td th:text="${issue.description}">Broken Link</td>
         <td th:text="${issue.label}">Broken Link</td>
         <td th:text="${issue.priority}">Broken Link</td>
@@ -43,20 +52,22 @@
                 <textarea rows="5" cols="50" th:text="${issue.messages}" readonly></textarea>
             </label>
         </td>
+        <td><a href="#" th:href="@{'/issues/update/'+ ${issue.id}}" class="btn btn-info" role="button">Update</a></td>
     </tr>
     </tbody>
 </table>
 
+<br>
+
 <h3>Service Requests</h3>
 <!--/*@thymesVar id="issue" type="com.murphy1.serviced.serviced.model.ServiceRequest"*/-->
-<table>
+<table class="table table-striped">
     <thead>
     <tr>
         <th>ID:</th>
         <th>Name:</th>
         <th>Creator:</th>
         <th>Assigned To:</th>
-        <th></th>
         <th>Description:</th>
         <th>Label:</th>
         <th>Priority:</th>
@@ -71,7 +82,6 @@
         <td th:text="${request.name}">Issue</td>
         <td th:text="${request.creator}">Issue</td>
         <td th:text="${request.assignedTo}"></td>
-        <td th:if="${request.assignedTo == null || request.assignedTo.isEmpty()}"><a href="#" th:href="@{'/service_requests/assign/self/'+ ${request.id}}">Assign me!</a></td>
         <td th:text="${request.description}">Broken Link</td>
         <td th:text="${request.label}">Broken Link</td>
         <td th:text="${request.priority}">Broken Link</td>
@@ -82,15 +92,21 @@
                 <textarea rows="5" cols="50" th:text="${request.messages}" readonly></textarea>
             </label>
         </td>
+        <td><a href="#" th:href="@{'/service_requests/update/'+ ${request.id}}" class="btn btn-info" role="button">Update</a></td>
     </tr>
     </tbody>
 </table>
 
+<br>
+<br>
 
 <h1>Your Assigned Tickets</h1>
 
+<br>
+<br>
+
 <h3>Issues</h3>
-<table>
+<table class="table table-striped">
     <thead>
     <tr>
         <th>ID:</th>
@@ -99,7 +115,6 @@
         <th>Assigned To:</th>
         <th>Description:</th>
         <th>Label:</th>
-        <th></th>
         <th>Priority:</th>
         <th>Status:</th>
         <th>Due Date:</th>
@@ -112,7 +127,6 @@
         <td th:text="${issue.name}">Issue</td>
         <td th:text="${issue.creator}">Issue</td>
         <td th:text="${issue.assignedTo}"></td>
-        <td th:if="${issue.assignedTo == null || issue.assignedTo.isEmpty()}"><a href="#" th:href="@{'/issues/assign/self/'+ ${issue.id}}">Assign me!</a></td>
         <td th:text="${issue.description}">Broken Link</td>
         <td th:text="${issue.label}">Broken Link</td>
         <td th:text="${issue.priority}">Broken Link</td>
@@ -123,20 +137,22 @@
                 <textarea rows="5" cols="50" th:text="${issue.messages}" readonly></textarea>
             </label>
         </td>
+        <td><a href="#" th:href="@{'/issues/update/'+ ${issue.id}}" class="btn btn-info" role="button">Update</a></td>
     </tr>
     </tbody>
 </table>
 
+<br>
+
 <h3>Service Requests</h3>
 <!--/*@thymesVar id="issue" type="com.murphy1.serviced.serviced.model.ServiceRequest"*/-->
-<table>
+<table class="table table-striped">
     <thead>
     <tr>
         <th>ID:</th>
         <th>Name:</th>
         <th>Creator:</th>
         <th>Assigned To:</th>
-        <th></th>
         <th>Description:</th>
         <th>Label:</th>
         <th>Priority:</th>
@@ -151,7 +167,6 @@
         <td th:text="${request.name}">Issue</td>
         <td th:text="${request.creator}">Issue</td>
         <td th:text="${request.assignedTo}"></td>
-        <td th:if="${request.assignedTo == null || request.assignedTo.isEmpty()}"><a href="#" th:href="@{'/service_requests/assign/self/'+ ${request.id}}">Assign me!</a></td>
         <td th:text="${request.description}">Broken Link</td>
         <td th:text="${request.label}">Broken Link</td>
         <td th:text="${request.priority}">Broken Link</td>
@@ -162,6 +177,7 @@
                 <textarea rows="5" cols="50" th:text="${request.messages}" readonly></textarea>
             </label>
         </td>
+        <td><a href="#" th:href="@{'/service_requests/update/'+ ${request.id}}" class="btn btn-info" role="button">Update</a></td>
     </tr>
     </tbody>
 </table>

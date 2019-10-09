@@ -1,8 +1,10 @@
 package com.murphy1.serviced.serviced.services.impl;
 
 import com.murphy1.serviced.serviced.model.EndUser;
+import com.murphy1.serviced.serviced.model.User;
 import com.murphy1.serviced.serviced.repositories.EndUserRepository;
 import com.murphy1.serviced.serviced.services.EndUserService;
+import com.murphy1.serviced.serviced.services.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,9 +15,11 @@ import java.util.Optional;
 public class EndUserServiceImpl implements EndUserService {
 
     private EndUserRepository endUserRepository;
+    private UserService userService;
 
-    public EndUserServiceImpl(EndUserRepository endUserRepository) {
+    public EndUserServiceImpl(EndUserRepository endUserRepository, UserService userService) {
         this.endUserRepository = endUserRepository;
+        this.userService = userService;
     }
 
     @Override
@@ -35,10 +39,10 @@ public class EndUserServiceImpl implements EndUserService {
             throw new RuntimeException("Passwords must match!");
         }
 
-        List<EndUser> endUsers = getAllEndUsers();
-        for (EndUser endUser1 : endUsers){
-            if (endUser.getUsername().equals(endUser1.getUsername())){
-                throw new RuntimeException("Username already exists!");
+        List<User> users = userService.getAllUsers();
+        for (User user : users){
+            if (user.getUsername().equalsIgnoreCase(endUser.getUsername())){
+                throw new RuntimeException("Username is already taken!");
             }
         }
 

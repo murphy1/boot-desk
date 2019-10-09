@@ -1,8 +1,10 @@
 package com.murphy1.serviced.serviced.services.impl;
 
 import com.murphy1.serviced.serviced.model.Agent;
+import com.murphy1.serviced.serviced.model.User;
 import com.murphy1.serviced.serviced.repositories.AgentRepository;
 import com.murphy1.serviced.serviced.services.AgentService;
+import com.murphy1.serviced.serviced.services.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,9 +15,11 @@ import java.util.Optional;
 public class AgentServiceImpl implements AgentService {
 
     private AgentRepository agentRepository;
+    private UserService userService;
 
-    public AgentServiceImpl(AgentRepository agentRepository) {
+    public AgentServiceImpl(AgentRepository agentRepository, UserService userService) {
         this.agentRepository = agentRepository;
+        this.userService = userService;
     }
 
     @Override
@@ -35,10 +39,10 @@ public class AgentServiceImpl implements AgentService {
             throw new RuntimeException("Passwords must match!");
         }
 
-        List<Agent> agents = getAllAgents();
-        for (Agent agent1 : agents){
-            if (agent.getUsername().equals(agent1.getUsername())){
-                throw new RuntimeException("Username already exists!");
+        List<User> users = userService.getAllUsers();
+        for (User user : users){
+            if (user.getUsername().equalsIgnoreCase(agent.getUsername())){
+                throw new RuntimeException("Username is already taken!");
             }
         }
 

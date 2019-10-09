@@ -3,19 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Service Requests</title>
+
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 
 <h1>List of Service Requests</h1>
 
-<table>
+<table class="table table-striped">
     <thead>
     <tr>
     <th>ID:</th>
     <th>Name:</th>
     <th>Creator:</th>
     <th>Assigned To:</th>
-    <th></th>
     <th>Description:</th>
     <th>Label:</th>
     <th>Priority:</th>
@@ -31,7 +38,6 @@
         <td th:text="${request.name}">Issue</td>
         <td th:text="${request.creator}">Issue</td>
         <td th:text="${request.assignedTo}"></td>
-        <td th:if="${request.assignedTo == null || request.assignedTo.isEmpty()}"><a href="#" th:href="@{'/service_requests/assign/self/'+ ${request.id}}">Assign me!</a></td>
         <td th:text="${request.description}">Broken Link</td>
         <td th:text="${request.label}">Broken Link</td>
         <td th:text="${request.priority}">Broken Link</td>
@@ -42,6 +48,7 @@
                 <textarea rows="5" cols="50" th:text="${request.messages}" readonly></textarea>
             </label>
         </td>
+        <td><a href="#" th:href="@{'/service_requests/update/'+ ${request.id}}" class="btn btn-info" role="button">Update</a></td>
     </tr>
     </tbody>
 </table>
