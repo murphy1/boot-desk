@@ -11,12 +11,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import com.murphy1.serviced.serviced.repositories.IssueRepository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class IssueServiceImpl implements IssueService {
@@ -63,6 +61,24 @@ public class IssueServiceImpl implements IssueService {
             issue.setCreator(username);
 
             String role = userService.getRole(username);
+
+            LocalDate date = LocalDate.now();
+            String priority = issue.getPriority().toString();
+
+            switch (priority) {
+                case "VERY_HIGH":
+                    issue.setDueDate(date.plusDays(1));
+                    break;
+                case "HIGH":
+                    issue.setDueDate(date.plusDays(2));
+                    break;
+                case "MEDIUM":
+                    issue.setDueDate(date.plusDays(5));
+                    break;
+                case "LOW":
+                    issue.setDueDate(date.plusDays(7));
+                    break;
+            }
 
             List<Issue> usersIssues;
 

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.murphy1.serviced.serviced.repositories.ServiceRequestRepository;
 import com.murphy1.serviced.serviced.services.ServiceRequestService;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -62,6 +63,24 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
             serviceRequest.setCreator(userService.getCurrentUserName());
 
             String role = userService.getRole(username);
+
+            LocalDate date = LocalDate.now();
+            String priority = serviceRequest.getPriority().toString();
+
+            switch (priority) {
+                case "VERY_HIGH":
+                    serviceRequest.setDueDate(date.plusDays(1));
+                    break;
+                case "HIGH":
+                    serviceRequest.setDueDate(date.plusDays(2));
+                    break;
+                case "MEDIUM":
+                    serviceRequest.setDueDate(date.plusDays(5));
+                    break;
+                case "LOW":
+                    serviceRequest.setDueDate(date.plusDays(7));
+                    break;
+            }
 
             List<ServiceRequest> serviceRequests;
 
