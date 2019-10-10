@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<!--/*@thymesVar id="issue" type="com.murphy1.serviced.serviced.searching.Search"*/-->
+<form th:object="${searchObject}" th:action="@{/search/submit_search}" method="post">
+
+
+    <div class="form-group">
+        <div class="col-3">
+            <label>Issue or Service Request:</label>
+            <select class="form-control" th:field="*{searchType}">
+                <option th:each="searchTypeValue : ${T(com.murphy1.serviced.serviced.searching.SearchType).values()}"
+                        th:value="${searchTypeValue.name()}"
+                        th:text="${searchTypeValue.name()}"
+                >val</option>
+            </select>
+            <select class="form-control" th:remove="all">
+                <option>Issue</option>
+                <option>Service Request</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-3">
+            <label>What would you like to search by:</label>
+            <select class="form-control" th:field="*{searchObject}">
+                <option th:each="searchObjectValue : ${T(com.murphy1.serviced.serviced.searching.SearchObject).values()}"
+                        th:value="${searchObjectValue.name()}"
+                        th:text="${searchObjectValue.name()}"
+                >val</option>
+            </select>
+            <select class="form-control" th:remove="all">
+                <option>ID</option>
+                <option>Name</option>
+                <option>Description</option>
+                <option>Priority</option>
+                <option>Due Date</option>
+                <option>Status</option>
+                <option>Label</option>
+                <option>Creator</option>
+                <option>Assigned To</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="col-md-3 form-group">
+        <label>Query:</label>
+        <input type="text" class="form-control" th:field="*{searchQuery}">
+    </div>
+
+    <div>
+        <input type="submit" value="Submit">
+    </div>
+
+</form>
+
+</body>
+</html>

@@ -36,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/service_requests/new").hasAnyAuthority("ADMIN", "AGENT", "END_USER")
                 .antMatchers("/service_requests/update/*").hasAnyAuthority("ADMIN", "AGENT", "END_USER")
                 .antMatchers("/profile").hasAnyAuthority("ADMIN", "AGENT", "END_USER")
+                .antMatchers("/search").hasAnyAuthority("ADMIN", "AGENT", "END_USER")
                 .antMatchers("/console/**").hasAuthority("ADMIN")
                 .antMatchers("/").permitAll()
                 .and().formLogin().loginPage("/login");
