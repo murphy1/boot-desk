@@ -240,7 +240,7 @@ public class IssueServiceImpl implements IssueService {
             if (issue.getCreator() == null){
                 continue;
             }
-            else if (issue.getCreator().equalsIgnoreCase(username)){
+            else if (issue.getCreator().equalsIgnoreCase(username) && !issue.getStatus().toString().equals("SOLVED")){
                 issues.add(issue);
             }
         }
@@ -256,7 +256,7 @@ public class IssueServiceImpl implements IssueService {
             if (issue.getAssignedTo() == null){
                 continue;
             }
-            else if (issue.getAssignedTo().equalsIgnoreCase(username)){
+            else if (issue.getAssignedTo().equalsIgnoreCase(username) && !issue.getStatus().toString().equals("SOLVED")){
                 issues.add(issue);
             }
         }

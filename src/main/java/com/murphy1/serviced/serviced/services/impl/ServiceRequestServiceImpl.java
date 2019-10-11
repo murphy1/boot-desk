@@ -241,7 +241,7 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
             if (request.getCreator() == null){
                 continue;
             }
-            else if (request.getCreator().equalsIgnoreCase(username)){
+            else if (request.getCreator().equalsIgnoreCase(username) && !request.getStatus().toString().equals("SOLVED")){
                 requests.add(request);
             }
         }
@@ -258,7 +258,7 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
             if (request.getAssignedTo() == null){
                 continue;
             }
-            else if (request.getAssignedTo().equalsIgnoreCase(username)){
+            else if (request.getAssignedTo().equalsIgnoreCase(username) && !request.getStatus().toString().equals("SOLVED")){
                 requests.add(request);
             }
         }
