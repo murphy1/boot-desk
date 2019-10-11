@@ -39,10 +39,17 @@ public class AdminServiceImpl implements AdminService {
             throw new RuntimeException("Passwords must match!");
         }
 
+        if (!admin.getEmail().equals(admin.getEmailCheck())){
+            throw new RuntimeException("Emails must match!");
+        }
+
         List<User> users = userService.getAllUsers();
         for (User user : users){
             if (user.getUsername().equalsIgnoreCase(admin.getUsername())){
                 throw new RuntimeException("Username is already taken!");
+            }
+            else if (user.getEmail().equalsIgnoreCase(admin.getEmail())){
+                throw new RuntimeException("An account already exists with this email!");
             }
         }
 

@@ -93,6 +93,9 @@ public class SearchServiceImpl implements SearchService {
                 break;
             case "ASSIGNED_TO":
                 for (Issue issue : issues) {
+                    if (issue.getAssignedTo() == null){
+                        continue;
+                    }
                     if (issue.getAssignedTo().equalsIgnoreCase(query)) {
                         results.add(issue);
                     }
@@ -175,6 +178,9 @@ public class SearchServiceImpl implements SearchService {
                 break;
             case "ASSIGNED_TO":
                 for (ServiceRequest serviceRequest : serviceRequests) {
+                    if (serviceRequest.getAssignedTo() == null){
+                        continue;
+                    }
                     if (serviceRequest.getAssignedTo().equalsIgnoreCase(query)) {
                         results.add(serviceRequest);
                     }

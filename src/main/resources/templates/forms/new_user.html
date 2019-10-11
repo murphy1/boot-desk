@@ -34,6 +34,22 @@
         <input type="text" class="form-control" th:field="*{username}">
     </div>
 
+    <div class="col-md-3 form-group" th:class="${#fields.hasErrors('email')} ?
+                                    'col-md-3 form-group has-error' : 'col-md-3 form-group'">
+        <label>Email:</label>
+        <input type="email" class="form-control" th:field="*{email}" th:errorclass="has-error"/>
+        <span class="help-block" th:if="${#fields.hasErrors('email')}">
+            <ul>
+                <li th:each="err : ${#fields.errors('email')}" th:text="${err}"></li>
+            </ul>
+        </span>
+    </div>
+
+    <div class="col-md-3 form-group">
+        <label>Enter Email Again:</label>
+        <input type="email" class="form-control" th:field="*{emailCheck}">
+    </div>
+
     <div class="col-md-3 form-group" th:class="${#fields.hasErrors('password')} ?
                                     'col-md-3 form-group has-error' : 'col-md-3 form-group'">
         <label>Password:</label>

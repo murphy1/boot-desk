@@ -12,10 +12,11 @@ public interface UserService {
     Agent convertUserToAgent(User user);
     User convertAgentToUser(Agent agent);
     EndUser convertUserToEndUser(User user);
-    User convertEndUserToAgent(EndUser endUser);
+    User convertEndUserToUser(EndUser endUser);
     Admin convertUserToAdmin(User user);
     User convertAdminToUser(Admin admin);
     String getRole(String username);
     String getCurrentUserName();
     List<User> getAllUsers();
+    User findUserByUsername(String username);
 }

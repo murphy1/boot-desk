@@ -8,6 +8,7 @@ import com.murphy1.serviced.serviced.repositories.AdminRepository;
 import com.murphy1.serviced.serviced.repositories.AgentRepository;
 import com.murphy1.serviced.serviced.repositories.EndUserRepository;
 import com.murphy1.serviced.serviced.services.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     private AdminRepository adminRepository;
@@ -41,6 +43,8 @@ public class UserServiceImpl implements UserService {
         agent.setUsername(user.getUsername());
         agent.setPassword(user.getPassword());
         agent.setPasswordCheck(user.getPasswordCheck());
+        agent.setEmail(user.getEmail());
+        agent.setEmailCheck(user.getEmailCheck());
 
         return agent;
     }
@@ -53,6 +57,7 @@ public class UserServiceImpl implements UserService {
         user.setFirstName(agent.getFirstName());
         user.setLastName(agent.getLastName());
         user.setPassword(agent.getPassword());
+        user.setEmail(agent.getEmail());
 
         return user;
     }
@@ -67,18 +72,21 @@ public class UserServiceImpl implements UserService {
         endUser.setUsername(user.getUsername());
         endUser.setPassword(user.getPassword());
         endUser.setPasswordCheck(user.getPasswordCheck());
+        endUser.setEmail(user.getEmail());
+        endUser.setEmailCheck(user.getEmailCheck());
 
         return endUser;
     }
 
     @Override
-    public User convertEndUserToAgent(EndUser endUser) {
+    public User convertEndUserToUser(EndUser endUser) {
         User user = new User();
 
         user.setId(endUser.getId());
         user.setFirstName(endUser.getFirstName());
         user.setLastName(endUser.getLastName());
         user.setPassword(endUser.getPassword());
+        user.setEmail(endUser.getEmail());
 
         return user;
     }
@@ -93,6 +101,8 @@ public class UserServiceImpl implements UserService {
         admin.setUsername(user.getUsername());
         admin.setPassword(user.getPassword());
         admin.setPasswordCheck(user.getPasswordCheck());
+        admin.setEmail(user.getEmail());
+        admin.setEmailCheck(user.getEmailCheck());
 
         return admin;
     }
@@ -105,6 +115,7 @@ public class UserServiceImpl implements UserService {
         user.setFirstName(admin.getFirstName());
         user.setLastName(admin.getLastName());
         user.setPassword(admin.getPassword());
+        user.setEmail(admin.getEmail());
 
         return admin;
     }
@@ -135,5 +146,18 @@ public class UserServiceImpl implements UserService {
         endUserRepository.findAll().iterator().forEachRemaining(users::add);
 
         return users;
+    }
+
+    @Override
+    public User findUserByUsername(String username) {
+        List<User> users = getAllUsers();
+
+        for (User user : users){
+            if (user.getUsername().equals(username)){
+                return user;
+            }
+        }
+        log.error("Username does not exist.  UserServiceImpl");
+        throw new RuntimeException("Username does not exist! LOGGED");
     }
 }

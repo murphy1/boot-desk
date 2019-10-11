@@ -39,10 +39,17 @@ public class AgentServiceImpl implements AgentService {
             throw new RuntimeException("Passwords must match!");
         }
 
+        if (!agent.getEmail().equals(agent.getEmailCheck())){
+            throw new RuntimeException("Emails must match!");
+        }
+
         List<User> users = userService.getAllUsers();
         for (User user : users){
             if (user.getUsername().equalsIgnoreCase(agent.getUsername())){
                 throw new RuntimeException("Username is already taken!");
+            }
+            else if (user.getEmail().equalsIgnoreCase(agent.getEmail())){
+                throw new RuntimeException("An account already exists with this email!");
             }
         }
 

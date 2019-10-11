@@ -5,11 +5,13 @@ import com.murphy1.serviced.serviced.model.User;
 import com.murphy1.serviced.serviced.repositories.EndUserRepository;
 import com.murphy1.serviced.serviced.services.EndUserService;
 import com.murphy1.serviced.serviced.services.UserService;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.mail.SimpleMailMessage;
 
 @Service
 public class EndUserServiceImpl implements EndUserService {
@@ -17,9 +19,12 @@ public class EndUserServiceImpl implements EndUserService {
     private EndUserRepository endUserRepository;
     private UserService userService;
 
-    public EndUserServiceImpl(EndUserRepository endUserRepository, UserService userService) {
+    private JavaMailSender javaMailSender;
+
+    public EndUserServiceImpl(EndUserRepository endUserRepository, UserService userService, JavaMailSender javaMailSender) {
         this.endUserRepository = endUserRepository;
         this.userService = userService;
+        this.javaMailSender = javaMailSender;
     }
 
     @Override
@@ -39,11 +44,37 @@ public class EndUserServiceImpl implements EndUserService {
             throw new RuntimeException("Passwords must match!");
         }
 
+        if (!endUser.getEmail().equals(endUser.getEmailCheck())){
+            throw new RuntimeException("Emails must match!");
+        }
+
         List<User> users = userService.getAllUsers();
         for (User user : users){
             if (user.getUsername().equalsIgnoreCase(endUser.getUsername())){
                 throw new RuntimeException("Username is already taken!");
             }
+            else if (user.getEmail().equalsIgnoreCase(endUser.getEmail())){
+                throw new RuntimeException("An account already exists with this email!");
+            }
+        }
+
+        if (endUser.getId() == null){
+
+            endUser.setActive(true);
+            endUser.setRoles("END_USER");
+
+            var mailMessage = new SimpleMailMessage();
+
+            mailMessage.setTo(endUser.getEmail());
+            mailMessage.setSubject("Thank you for registering!");
+            mailMessage.setText("Hello "+endUser.getFirstName()+
+                    " and welcome to Boot Desk!\n\n" +
+                            "You can now open Tickets.\n\n"+
+                            "Please contact your admin if you require anything other than End User access."
+                    );
+
+            //javaMailSender.send(mailMessage);
+
         }
 
         return endUserRepository.save(endUser);
