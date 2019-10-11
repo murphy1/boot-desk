@@ -45,7 +45,11 @@ public class ServiceRequestController {
 
     @GetMapping("/service_requests/update/{requestId}")
     public String updateServiceRequest(@PathVariable String requestId, Model model){
-        model.addAttribute("serviceRequest", serviceRequestService.findById(Long.valueOf(requestId)));
+        ServiceRequest serviceRequest = serviceRequestService.findById(Long.valueOf(requestId));
+        if (serviceRequest.getStatus().toString().equals("SOLVED")){
+            throw new RuntimeException("Tickets in status Solved cannot be updated");
+        }
+        model.addAttribute("serviceRequest", serviceRequest);
 
         return "/forms/new_servicerequest.html";
     }

@@ -125,7 +125,7 @@ public class IssueServiceImpl implements IssueService {
             //javaMailSender.send(mailMessage);
 
             // if the creator enters a username
-            if (issue.getAssignedTo() != null){
+            if (!issue.getAssignedTo().equals("")){
 
                 User assignedTo = userService.findUserByUsername(issue.getAssignedTo());
 
@@ -160,7 +160,7 @@ public class IssueServiceImpl implements IssueService {
             //javaMailSender.send(mailMessage);
         }
         // send email to assigned to, if someone other than the assigned to assigns them
-        else if (issue.getId() != null && issue.getAssignedTo() != null && issue.getStatus().toString().equals("ASSIGNED")){
+        else if (issue.getId() != null && !issue.getAssignedTo().equals("") && issue.getStatus().toString().equals("ASSIGNED")){
 
             User assignedTo = userService.findUserByUsername(issue.getAssignedTo());
 
@@ -177,7 +177,7 @@ public class IssueServiceImpl implements IssueService {
 
         }
         // send email if the creator answers the assign to
-        else if (issue.getId() != null && issue.getAssignedTo() != null && username.equals(issue.getCreator())){
+        else if (issue.getId() != null && !issue.getAssignedTo().equals("") && username.equals(issue.getCreator())){
 
             User assignedTo = userService.findUserByUsername(issue.getAssignedTo());
 
@@ -192,6 +192,12 @@ public class IssueServiceImpl implements IssueService {
 
             //javaMailSender.send(mailMessage);
         }
+        // creator updates ticket with no Assigned To
+        else{
+
+        }
+
+        // Set Messages
 
         if (issue.getNewMessages() != null){
             String oldMessages = issue.getMessages();

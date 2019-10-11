@@ -42,7 +42,11 @@ public class IssuesController {
 
     @GetMapping("/issues/update/{issueId}")
     public String updateIssue(@PathVariable String issueId, Model model){
-        model.addAttribute("issue", issueService.findIssueById(Long.valueOf(issueId)));
+        Issue issue = issueService.findIssueById(Long.valueOf(issueId));
+        if (issue.getStatus().toString().equals("SOLVED")){
+            throw new RuntimeException("Tickets in status Solved cannot be updated");
+        }
+        model.addAttribute("issue", issue);
 
         return "forms/new_issue.html";
     }

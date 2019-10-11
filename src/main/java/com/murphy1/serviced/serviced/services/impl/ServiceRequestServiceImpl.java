@@ -163,7 +163,7 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
             //javaMailSender.send(mailMessage);
         }
         // send email to assigned to, if someone other than the assigned to assigns them
-        else if (serviceRequest.getId() != null && serviceRequest.getAssignedTo() != null && serviceRequest.getStatus().toString().equals("ASSIGNED")){
+        else if (serviceRequest.getId() != null && !serviceRequest.getAssignedTo().equals("") && serviceRequest.getStatus().toString().equals("ASSIGNED")){
 
             User assignedTo = userService.findUserByUsername(serviceRequest.getAssignedTo());
 
@@ -180,7 +180,7 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
 
         }
         // send email if the creator answers the assign to
-        else if (serviceRequest.getId() != null && serviceRequest.getAssignedTo() != null && username.equals(serviceRequest.getCreator())){
+        else if (serviceRequest.getId() != null && !serviceRequest.getAssignedTo().equals("") && username.equals(serviceRequest.getCreator())){
 
             User assignedTo = userService.findUserByUsername(serviceRequest.getAssignedTo());
 
@@ -194,6 +194,10 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
             );
 
             //javaMailSender.send(mailMessage);
+        }
+        // creator updates ticket with no Assigned To
+        else{
+
         }
 
         if (serviceRequest.getNewMessages() != null){
