@@ -1,15 +1,20 @@
 package com.murphy1.serviced.serviced.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 public class Issue extends BaseEntity{
 
+    @NotNull
+    @Size(min = 3, max = 50)
     private String name;
 
     @Lob
+    @NotNull
+    @Size(min = 3, max = 50)
     private String description;
 
     @Enumerated(EnumType.ORDINAL)
@@ -18,6 +23,7 @@ public class Issue extends BaseEntity{
     @Enumerated(EnumType.ORDINAL)
     private Status status;
 
+    @NotNull
     private LocalDate dueDate;
 
     @Enumerated(EnumType.ORDINAL)
@@ -29,7 +35,9 @@ public class Issue extends BaseEntity{
     @Transient
     private String newMessages;
 
+    @NotNull
     private String creator;
+
     private String assignedTo;
 
     public String getName() {

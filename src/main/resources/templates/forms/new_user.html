@@ -19,19 +19,37 @@
 
     <input type="hidden" th:field="*{id}">
 
-    <div class="col-md-3 form-group">
+    <div class="col-md-3 form-group" th:class="${#fields.hasErrors('firstName')}
+                                    ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
         <label>First Name:</label>
-        <input type="text" class="form-control" th:field="*{firstName}">
+        <input type="text" class="form-control" th:field="*{firstName}" th:errorclass="has-error"/>
+        <span class="help-block" th:if="${#fields.hasErrors('firstName')}">
+            <ul>
+                <li th:each="err : ${#fields.errors('firstName')}" th:text="${err}"></li>
+            </ul>
+        </span>
     </div>
 
-    <div class="col-md-3 form-group">
+    <div class="col-md-3 form-group" th:class="${#fields.hasErrors('lastName')}
+                                    ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
         <label>Last Name:</label>
-        <input type="text" class="form-control" th:field="*{lastName}">
+        <input type="text" class="form-control" th:field="*{lastName}" th:errorclass="has-error"/>
+        <span class="help-block" th:if="${#fields.hasErrors('lastName')}">
+            <ul>
+                <li th:each="err : ${#fields.errors('lastName')}" th:text="${err}"></li>
+            </ul>
+        </span>
     </div>
 
-    <div class="col-md-3 form-group">
+    <div class="col-md-3 form-group" th:class="${#fields.hasErrors('username')}
+                                    ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
         <label>Username:</label>
-        <input type="text" class="form-control" th:field="*{username}">
+        <input type="text" class="form-control" th:field="*{username}" th:errorclass="has-error"/>
+        <span class="help-block" th:if="${#fields.hasErrors('username')}">
+            <ul>
+                <li th:each="err : ${#fields.errors('username')}" th:text="${err}"></li>
+            </ul>
+        </span>
     </div>
 
     <div class="col-md-3 form-group" th:class="${#fields.hasErrors('email')} ?
