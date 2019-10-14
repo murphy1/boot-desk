@@ -29,7 +29,7 @@ public class MailServiceImpl implements MailService {
                 "Please contact your admin if you require anything other than End User access."
         );
         log.debug("Sending message to the new end user!");
-        javaMailSender.send(mailMessage);
+        //javaMailSender.send(mailMessage);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class MailServiceImpl implements MailService {
                 "Please contact us again if you need further assistance."
         );
         log.debug("Sending message to creator!");
-        javaMailSender.send(mailMessage);
+        //javaMailSender.send(mailMessage);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class MailServiceImpl implements MailService {
                 "Please log in to view updates."
         );
         log.debug("Creator assigned a user during ticket creation. Sending a message to the assigned to!");
-        javaMailSender.send(mailMessage);
+        //javaMailSender.send(mailMessage);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class MailServiceImpl implements MailService {
                 "Please log in to view updates."
         );
         log.debug("Sending message to creator!");
-        javaMailSender.send(mailMessage);
+        //javaMailSender.send(mailMessage);
     }
 
     @Override
@@ -87,7 +87,7 @@ public class MailServiceImpl implements MailService {
                 "Please log in to view updates."
         );
         log.debug("Sending message to the assigned to!");
-        javaMailSender.send(mailMessage);
+        //javaMailSender.send(mailMessage);
     }
 
     @Override
@@ -101,6 +101,6 @@ public class MailServiceImpl implements MailService {
                 "Please log in to view updates from the creator."
         );
         log.debug("Sending message from the creator to the assigned to!");
-        javaMailSender.send(mailMessage);
+        //javaMailSender.send(mailMessage);
     }
 }

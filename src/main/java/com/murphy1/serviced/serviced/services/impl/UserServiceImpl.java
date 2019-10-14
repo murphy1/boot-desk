@@ -1,5 +1,7 @@
 package com.murphy1.serviced.serviced.services.impl;
 
+import com.murphy1.serviced.serviced.exceptions.BadRequestException;
+import com.murphy1.serviced.serviced.exceptions.NotFoundException;
 import com.murphy1.serviced.serviced.model.Admin;
 import com.murphy1.serviced.serviced.model.Agent;
 import com.murphy1.serviced.serviced.model.EndUser;
@@ -158,6 +160,6 @@ public class UserServiceImpl implements UserService {
             }
         }
         log.error("Username does not exist.  UserServiceImpl");
-        throw new RuntimeException("Username does not exist! LOGGED");
+        throw new NotFoundException("Username does not exist! LOGGED");
     }
 }

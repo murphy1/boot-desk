@@ -1,5 +1,7 @@
 package com.murphy1.serviced.serviced.services.impl;
 
+import com.murphy1.serviced.serviced.exceptions.BadRequestException;
+import com.murphy1.serviced.serviced.exceptions.NotFoundException;
 import com.murphy1.serviced.serviced.model.Agent;
 import com.murphy1.serviced.serviced.model.User;
 import com.murphy1.serviced.serviced.repositories.AgentRepository;
@@ -36,20 +38,20 @@ public class AgentServiceImpl implements AgentService {
     public Agent saveAgent(Agent agent) {
 
         if (!agent.getPassword().equals(agent.getPasswordCheck())){
-            throw new RuntimeException("Passwords must match!");
+            throw new BadRequestException("Passwords must match!");
         }
 
         if (!agent.getEmail().equals(agent.getEmailCheck())){
-            throw new RuntimeException("Emails must match!");
+            throw new BadRequestException("Emails must match!");
         }
 
         List<User> users = userService.getAllUsers();
         for (User user : users){
             if (user.getUsername().equalsIgnoreCase(agent.getUsername())){
-                throw new RuntimeException("Username is already taken!");
+                throw new BadRequestException("Username is already taken!");
             }
             else if (user.getEmail().equalsIgnoreCase(agent.getEmail())){
-                throw new RuntimeException("An account already exists with this email!");
+                throw new BadRequestException("An account already exists with this email!");
             }
         }
 
@@ -67,7 +69,7 @@ public class AgentServiceImpl implements AgentService {
         Optional<Agent> optionalAgent = agentRepository.findById(id);
 
         if (optionalAgent.isEmpty()){
-            throw new RuntimeException("Agent id does not exist");
+            throw new NotFoundException("Agent id does not exist");
         }
 
         return optionalAgent.get();

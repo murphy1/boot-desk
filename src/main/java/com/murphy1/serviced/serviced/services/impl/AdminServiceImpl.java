@@ -1,5 +1,7 @@
 package com.murphy1.serviced.serviced.services.impl;
 
+import com.murphy1.serviced.serviced.exceptions.BadRequestException;
+import com.murphy1.serviced.serviced.exceptions.NotFoundException;
 import com.murphy1.serviced.serviced.model.Admin;
 import com.murphy1.serviced.serviced.model.User;
 import com.murphy1.serviced.serviced.repositories.AdminRepository;
@@ -36,20 +38,20 @@ public class AdminServiceImpl implements AdminService {
     public Admin saveAdmin(Admin admin) {
 
         if (!admin.getPassword().equals(admin.getPasswordCheck())){
-            throw new RuntimeException("Passwords must match!");
+            throw new BadRequestException("Passwords must match!");
         }
 
         if (!admin.getEmail().equals(admin.getEmailCheck())){
-            throw new RuntimeException("Emails must match!");
+            throw new BadRequestException("Emails must match!");
         }
 
         List<User> users = userService.getAllUsers();
         for (User user : users){
             if (user.getUsername().equalsIgnoreCase(admin.getUsername())){
-                throw new RuntimeException("Username is already taken!");
+                throw new BadRequestException("Username is already taken!");
             }
             else if (user.getEmail().equalsIgnoreCase(admin.getEmail())){
-                throw new RuntimeException("An account already exists with this email!");
+                throw new BadRequestException("An account already exists with this email!");
             }
         }
 
@@ -67,7 +69,7 @@ public class AdminServiceImpl implements AdminService {
         Optional<Admin> optionalAdmin = adminRepository.findById(id);
 
         if (optionalAdmin.isEmpty()){
-            throw new RuntimeException("Admin id does not exist!");
+            throw new NotFoundException("Admin id does not exist!");
         }
 
         return optionalAdmin.get();

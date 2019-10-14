@@ -1,5 +1,6 @@
 package com.murphy1.serviced.serviced.services.impl;
 
+import com.murphy1.serviced.serviced.exceptions.NotFoundException;
 import com.murphy1.serviced.serviced.model.*;
 import com.murphy1.serviced.serviced.repositories.AdminRepository;
 import com.murphy1.serviced.serviced.repositories.AgentRepository;
@@ -169,7 +170,7 @@ public class IssueServiceImpl implements IssueService {
         Optional<Issue> issueOptional = issueRepository.findById(id);
 
         if (issueOptional.isEmpty()){
-            throw new RuntimeException("Issue does not exist!");
+            throw new NotFoundException("Issue does not exist!");
         }
 
         return issueOptional.get();

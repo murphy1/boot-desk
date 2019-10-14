@@ -1,5 +1,6 @@
 package com.murphy1.serviced.serviced.security;
 
+import com.murphy1.serviced.serviced.exceptions.NotFoundException;
 import com.murphy1.serviced.serviced.model.Admin;
 import com.murphy1.serviced.serviced.model.Agent;
 import com.murphy1.serviced.serviced.model.EndUser;
@@ -35,7 +36,7 @@ public class MyUserDetailsService implements UserDetailsService {
             if (!agentOptional.isPresent()){
                 Optional<EndUser> endUserOptional = endUserRepository.findByUsername(username);
                 if (!endUserOptional.isPresent()){
-                    throw new RuntimeException("No users exist with that username!");
+                    throw new NotFoundException("No users exist with that username!");
                 }
                 return endUserOptional.map(MyUserDetails::new).get();
             }

@@ -1,5 +1,7 @@
 package com.murphy1.serviced.serviced.services.impl;
 
+import com.murphy1.serviced.serviced.exceptions.BadRequestException;
+import com.murphy1.serviced.serviced.exceptions.NotFoundException;
 import com.murphy1.serviced.serviced.model.EndUser;
 import com.murphy1.serviced.serviced.model.User;
 import com.murphy1.serviced.serviced.repositories.EndUserRepository;
@@ -40,20 +42,20 @@ public class EndUserServiceImpl implements EndUserService {
     public EndUser saveEndUser(EndUser endUser) {
 
         if (!endUser.getPassword().equals(endUser.getPasswordCheck())){
-            throw new RuntimeException("Passwords must match!");
+            throw new BadRequestException("Passwords must match!");
         }
 
         if (!endUser.getEmail().equals(endUser.getEmailCheck())){
-            throw new RuntimeException("Emails must match!");
+            throw new BadRequestException("Emails must match!");
         }
 
         List<User> users = userService.getAllUsers();
         for (User user : users){
             if (user.getUsername().equalsIgnoreCase(endUser.getUsername())){
-                throw new RuntimeException("Username is already taken!");
+                throw new BadRequestException("Username is already taken!");
             }
             else if (user.getEmail().equalsIgnoreCase(endUser.getEmail())){
-                throw new RuntimeException("An account already exists with this email!");
+                throw new BadRequestException("An account already exists with this email!");
             }
         }
 
@@ -81,7 +83,7 @@ public class EndUserServiceImpl implements EndUserService {
         Optional<EndUser> optionalEndUser = endUserRepository.findById(id);
 
         if (optionalEndUser.isEmpty()){
-            throw new RuntimeException("End user id does not exist");
+            throw new NotFoundException("End user id does not exist");
         }
 
         return optionalEndUser.get();

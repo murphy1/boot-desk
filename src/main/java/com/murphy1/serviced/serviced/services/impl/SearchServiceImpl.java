@@ -1,5 +1,6 @@
 package com.murphy1.serviced.serviced.services.impl;
 
+import com.murphy1.serviced.serviced.exceptions.BadRequestException;
 import com.murphy1.serviced.serviced.model.Issue;
 import com.murphy1.serviced.serviced.model.ServiceRequest;
 import com.murphy1.serviced.serviced.services.IssueService;
@@ -37,7 +38,7 @@ public class SearchServiceImpl implements SearchService {
                         }
                     }
                 } catch (NumberFormatException e) {
-                    throw new RuntimeException("When searching for an ID please enter a number!");
+                    throw new BadRequestException("When searching for an ID please enter a number!");
                 }
                 break;
             case "NAME":
@@ -122,7 +123,7 @@ public class SearchServiceImpl implements SearchService {
                         }
                     }
                 } catch (NumberFormatException e) {
-                    throw new RuntimeException("When searching for an ID please enter a number!");
+                    throw new BadRequestException("When searching for an ID please enter a number!");
                 }
                 break;
             case "NAME":

@@ -1,5 +1,6 @@
 package com.murphy1.serviced.serviced.services.impl;
 
+import com.murphy1.serviced.serviced.exceptions.NotFoundException;
 import com.murphy1.serviced.serviced.model.*;
 import com.murphy1.serviced.serviced.repositories.AdminRepository;
 import com.murphy1.serviced.serviced.repositories.AgentRepository;
@@ -175,7 +176,7 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
         Optional<ServiceRequest> serviceRequest = serviceRequestRepository.findById(id);
 
         if (serviceRequest.isEmpty()){
-            throw new RuntimeException("Service Request does not exist!");
+            throw new NotFoundException("Service Request does not exist!");
         }
 
         return serviceRequest.get();

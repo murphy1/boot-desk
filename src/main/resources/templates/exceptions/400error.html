@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>400 Error</title>
+</head>
+<body>
+
+<div class="container-fluid padding">
+    <div class="row padding">
+        <div class="col-12">
+            <div class="card" title="table-card">
+                <div class="card-body">
+                    <h4 class="card-title">Something went wrong</h4>
+                    <!--/*@thymesVar id="exception" type="com.murphy1.serviced.serviced.exceptions.BadRequestException"*/-->
+                    <p th:text="${exception}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
