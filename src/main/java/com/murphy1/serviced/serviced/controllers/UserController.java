@@ -8,22 +8,26 @@ import com.murphy1.serviced.serviced.services.AdminService;
 import com.murphy1.serviced.serviced.services.AgentService;
 import com.murphy1.serviced.serviced.services.EndUserService;
 import com.murphy1.serviced.serviced.services.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.mail.MessagingException;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Controller
 public class UserController {
 
@@ -157,7 +161,14 @@ public class UserController {
     }
 
     @PostMapping("/user/save")
-    public String saveUser(@ModelAttribute User user) throws MessagingException {
+    public String saveUser(@Valid @ModelAttribute("users") User user, BindingResult bindingResult) throws MessagingException {
+
+        if (bindingResult.hasErrors()){
+            bindingResult.getAllErrors().forEach(objectError ->
+                    log.debug(objectError.toString())
+                    );
+            return "forms/new_user.html";
+        }
 
         if (globalUserType.equals("agent")){
             agentService.saveAgent(userService.convertUserToAgent(user));

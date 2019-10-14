@@ -2,11 +2,16 @@ package com.murphy1.serviced.serviced.controllers;
 
 import com.murphy1.serviced.serviced.model.Issue;
 import com.murphy1.serviced.serviced.services.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.murphy1.serviced.serviced.services.IssueService;
 
+import javax.validation.Valid;
+
+@Slf4j
 @Controller
 public class IssuesController {
 
@@ -59,7 +64,14 @@ public class IssuesController {
     }
 
     @PostMapping("/issue/save")
-    public String saveIssue(@ModelAttribute Issue issue){
+    public String saveIssue(@Valid @ModelAttribute("issue") Issue issue, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            bindingResult.getAllErrors().forEach(objectError ->
+                    log.debug(objectError.toString())
+                    );
+            return "forms/new_issue.html";
+        }
+
         issueService.save(issue);
 
         return "redirect:/issues";

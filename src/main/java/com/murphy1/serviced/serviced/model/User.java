@@ -1,7 +1,9 @@
 package com.murphy1.serviced.serviced.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @MappedSuperclass
@@ -11,15 +13,29 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
+    @Size(min = 1, max = 50)
     private String firstName;
+
+    @NotNull
+    @Size(min = 1, max = 50)
     private String lastName;
+
+    @NotNull
+    @Size(min = 3, max = 50)
     private String username;
 
+    @NotNull
+    @Email
     private String email;
 
     @Transient
+    @NotNull
+    @Email
     private String emailCheck;
 
+    @NotNull
+    @Size(min = 5, max = 50)
     private String password;
 
     @Transient

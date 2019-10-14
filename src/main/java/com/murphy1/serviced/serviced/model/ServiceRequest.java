@@ -1,14 +1,20 @@
 package com.murphy1.serviced.serviced.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Entity
 public class ServiceRequest extends BaseEntity{
 
+    @NotNull
+    @Size(min = 3, max = 50)
     private String name;
 
     @Lob
+    @NotNull
+    @Size(min = 3, max = 50)
     private String description;
 
     @Enumerated(EnumType.ORDINAL)
@@ -28,7 +34,9 @@ public class ServiceRequest extends BaseEntity{
     @Transient
     private String newMessages;
 
+    @NotNull
     private String creator;
+
     private String assignedTo;
 
     public String getName() {
