@@ -23,7 +23,6 @@ public class Issue extends BaseEntity{
     @Enumerated(EnumType.ORDINAL)
     private Status status;
 
-    @NotNull
     private LocalDate dueDate;
 
     @Enumerated(EnumType.ORDINAL)
