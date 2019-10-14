@@ -4,8 +4,8 @@ import com.murphy1.serviced.serviced.model.*;
 import com.murphy1.serviced.serviced.repositories.AdminRepository;
 import com.murphy1.serviced.serviced.repositories.AgentRepository;
 import com.murphy1.serviced.serviced.repositories.EndUserRepository;
+import com.murphy1.serviced.serviced.services.MailService;
 import com.murphy1.serviced.serviced.services.UserService;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,15 +30,17 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
     private EndUserRepository endUserRepository;
 
     private UserService userService;
+    private MailService mailService;
 
     private JavaMailSender javaMailSender;
 
-    public ServiceRequestServiceImpl(ServiceRequestRepository serviceRequestRepository, AdminRepository adminRepository, AgentRepository agentRepository, EndUserRepository endUserRepository, UserService userService, JavaMailSender javaMailSender) {
+    public ServiceRequestServiceImpl(ServiceRequestRepository serviceRequestRepository, AdminRepository adminRepository, AgentRepository agentRepository, EndUserRepository endUserRepository, UserService userService, MailService mailService, JavaMailSender javaMailSender) {
         this.serviceRequestRepository = serviceRequestRepository;
         this.adminRepository = adminRepository;
         this.agentRepository = agentRepository;
         this.endUserRepository = endUserRepository;
         this.userService = userService;
+        this.mailService = mailService;
         this.javaMailSender = javaMailSender;
     }
 
@@ -115,33 +117,14 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
                 currentUser = userService.convertEndUserToUser(endUserOptional.get());
             }
 
-            var mailMessage = new SimpleMailMessage();
-
-            mailMessage.setTo(currentUser.getEmail());
-            mailMessage.setSubject("Service Request created");
-            mailMessage.setText("Hello "+currentUser.getFirstName()+
-                    "\n\nYou have created a Service Request: "+serviceRequest.getName()+"\n\n"+
-                    "An agent will reply soon to provide assistance.\n\n"+
-                    "Please contact us again if you need further assistance."
-            );
-
-            //javaMailSender.send(mailMessage);
+            mailService.newTicket(currentUser, serviceRequest.getName());
 
             // if the creator enters a username
             if (!serviceRequest.getAssignedTo().equals("")){
 
                 User assignedTo = userService.findUserByUsername(serviceRequest.getAssignedTo());
+                mailService.newTicketWithUsername(assignedTo, serviceRequest.getName());
 
-                var mailMessage1 = new SimpleMailMessage();
-
-                mailMessage.setTo(assignedTo.getEmail());
-                mailMessage.setSubject("You have been assigned to a new service request");
-                mailMessage.setText("Hello "+assignedTo.getFirstName()+
-                        "\n\nYou have been assigned to service request: "+serviceRequest.getName()+"\n\n"+
-                        "Please log in to view updates."
-                );
-
-                //javaMailSender.send(mailMessage);
             }
 
         }
@@ -149,51 +132,22 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
         else if (serviceRequest.getId() != null && !creatorString.equals(username)){
 
             User creator = userService.findUserByUsername(creatorString);
+            mailService.messageToCreator(creator, serviceRequest.getName(), serviceRequest.getId());
 
-            var mailMessage = new SimpleMailMessage();
-
-            mailMessage.setTo(creator.getEmail());
-            mailMessage.setSubject("Your Service Request "+serviceRequest.getId()+" was updated");
-            mailMessage.setText("Hello "+creator.getFirstName()+
-                    "\n\nYour service request: "+serviceRequest.getName()+"\n\n"+
-                    "Has been updated in the system.\n\n"+
-                    "Please log in to view updates."
-            );
-
-            //javaMailSender.send(mailMessage);
         }
         // send email to assigned to, if someone other than the assigned to assigns them
         else if (serviceRequest.getId() != null && !serviceRequest.getAssignedTo().equals("") && serviceRequest.getStatus().toString().equals("ASSIGNED")){
 
             User assignedTo = userService.findUserByUsername(serviceRequest.getAssignedTo());
-
-            var mailMessage = new SimpleMailMessage();
-
-            mailMessage.setTo(assignedTo.getEmail());
-            mailMessage.setSubject("You have been assigned to "+serviceRequest.getId());
-            mailMessage.setText("Hello "+assignedTo.getFirstName()+
-                    "\n\nYou have been assigned to service request: "+serviceRequest.getName()+"\n\n"+
-                    "Please log in to view updates."
-            );
-
-            //javaMailSender.send(mailMessage);
+            mailService.messageToAssignedTo(assignedTo, serviceRequest.getName(), serviceRequest.getId());
 
         }
         // send email if the creator answers the assign to
         else if (serviceRequest.getId() != null && !serviceRequest.getAssignedTo().equals("") && username.equals(serviceRequest.getCreator())){
 
             User assignedTo = userService.findUserByUsername(serviceRequest.getAssignedTo());
+            mailService.messageFromCreatorToAssignedTo(assignedTo, serviceRequest.getName(), serviceRequest.getId());
 
-            var mailMessage = new SimpleMailMessage();
-
-            mailMessage.setTo(assignedTo.getEmail());
-            mailMessage.setSubject("The Creator has replied to service request "+serviceRequest.getId());
-            mailMessage.setText("Hello "+assignedTo.getFirstName()+
-                    "\n\nAs you are assigned to: "+serviceRequest.getName()+"\n\n"+
-                    "Please log in to view updates from the creator."
-            );
-
-            //javaMailSender.send(mailMessage);
         }
         // creator updates ticket with no Assigned To
         else{

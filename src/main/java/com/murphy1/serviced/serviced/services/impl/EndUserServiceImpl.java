@@ -4,14 +4,13 @@ import com.murphy1.serviced.serviced.model.EndUser;
 import com.murphy1.serviced.serviced.model.User;
 import com.murphy1.serviced.serviced.repositories.EndUserRepository;
 import com.murphy1.serviced.serviced.services.EndUserService;
+import com.murphy1.serviced.serviced.services.MailService;
 import com.murphy1.serviced.serviced.services.UserService;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.mail.SimpleMailMessage;
 
 @Service
 public class EndUserServiceImpl implements EndUserService {
@@ -19,12 +18,12 @@ public class EndUserServiceImpl implements EndUserService {
     private EndUserRepository endUserRepository;
     private UserService userService;
 
-    private JavaMailSender javaMailSender;
+    private MailService mailService;
 
-    public EndUserServiceImpl(EndUserRepository endUserRepository, UserService userService, JavaMailSender javaMailSender) {
+    public EndUserServiceImpl(EndUserRepository endUserRepository, UserService userService, MailService mailService) {
         this.endUserRepository = endUserRepository;
         this.userService = userService;
-        this.javaMailSender = javaMailSender;
+        this.mailService = mailService;
     }
 
     @Override
@@ -63,17 +62,8 @@ public class EndUserServiceImpl implements EndUserService {
             endUser.setActive(true);
             endUser.setRoles("END_USER");
 
-            var mailMessage = new SimpleMailMessage();
-
-            mailMessage.setTo(endUser.getEmail());
-            mailMessage.setSubject("Thank you for registering!");
-            mailMessage.setText("Hello "+endUser.getFirstName()+
-                    " and welcome to Boot Desk!\n\n" +
-                            "You can now open Tickets.\n\n"+
-                            "Please contact your admin if you require anything other than End User access."
-                    );
-
-            //javaMailSender.send(mailMessage);
+            // Send welcome message to the new user
+            mailService.newUser(endUser);
 
         }
 
