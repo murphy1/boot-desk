@@ -39,22 +39,31 @@
         <input type="text" class="form-control" th:field="*{email}">
     </div>
 
+    <input type="hidden" th:value="*{email}" id="emailCheck" name="emailCheck">
+
     <div class="col-md-3 form-group">
         <label>Password:</label>
-        <input type="password" class="form-control" th:field="*{password}">
+        <input type="text" class="form-control" th:field="*{password}">
     </div>
+
+    <input type="hidden" th:value="*{password}" id="passwordCheck" name="passwordCheck">
 
     <div class="col-md-3 form-group">
         <label>Active:</label>
         <input type="text" class="form-control" th:field="*{active}">
     </div>
 
-    <div class="col-md-3 form-group">
-        <label>Roles:</label>
-        <input type="text" class="form-control" th:field="*{roles}">
-    </div>
+    <input type="hidden" th:field="*{roles}">
 
-    <div>
+    <h3>Update roles</h3>
+
+    <a href="#" th:href="@{'/users/change/end_user/'+${users.username}}" class="btn btn-info" role="button">Change to End User</a>
+    <a href="#" th:href="@{'/users/change/agent/'+${users.username}}" class="btn btn-info" role="button">Change to Agent</a>
+    <a href="#" th:href="@{'/users/change/admin/'+${users.username}}" class="btn btn-info" role="button">Change to Admin</a>
+    <br>
+    <br>
+
+    <div class="col-md-3 form-group">
         <input type="submit" value="Submit">
     </div>
 

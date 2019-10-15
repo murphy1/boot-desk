@@ -30,7 +30,6 @@ public class User {
     private String email;
 
     @Transient
-    @NotNull
     @Email
     private String emailCheck;
 

@@ -8,7 +8,6 @@ import com.murphy1.serviced.serviced.model.User;
 import java.util.List;
 
 public interface UserService {
-
     Agent convertUserToAgent(User user);
     User convertAgentToUser(Agent agent);
     EndUser convertUserToEndUser(User user);
@@ -19,4 +18,7 @@ public interface UserService {
     String getCurrentUserName();
     List<User> getAllUsers();
     User findUserByUsername(String username);
+    void changeToEndUser(User user);
+    void changeToAgent(User user);
+    void changeToAdmin(User user);
 }

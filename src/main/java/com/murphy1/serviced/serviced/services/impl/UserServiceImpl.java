@@ -47,6 +47,9 @@ public class UserServiceImpl implements UserService {
         agent.setPasswordCheck(user.getPasswordCheck());
         agent.setEmail(user.getEmail());
         agent.setEmailCheck(user.getEmailCheck());
+        if (user.isActive()){
+            agent.setActive(true);
+        }
 
         return agent;
     }
@@ -60,6 +63,7 @@ public class UserServiceImpl implements UserService {
         user.setLastName(agent.getLastName());
         user.setPassword(agent.getPassword());
         user.setEmail(agent.getEmail());
+        user.setRoles(agent.getRoles());
 
         return user;
     }
@@ -76,6 +80,9 @@ public class UserServiceImpl implements UserService {
         endUser.setPasswordCheck(user.getPasswordCheck());
         endUser.setEmail(user.getEmail());
         endUser.setEmailCheck(user.getEmailCheck());
+        if (user.isActive()){
+            endUser.setActive(true);
+        }
 
         return endUser;
     }
@@ -89,6 +96,7 @@ public class UserServiceImpl implements UserService {
         user.setLastName(endUser.getLastName());
         user.setPassword(endUser.getPassword());
         user.setEmail(endUser.getEmail());
+        user.setRoles(endUser.getRoles());
 
         return user;
     }
@@ -105,6 +113,9 @@ public class UserServiceImpl implements UserService {
         admin.setPasswordCheck(user.getPasswordCheck());
         admin.setEmail(user.getEmail());
         admin.setEmailCheck(user.getEmailCheck());
+        if (user.isActive()){
+            admin.setActive(true);
+        }
 
         return admin;
     }
@@ -118,6 +129,7 @@ public class UserServiceImpl implements UserService {
         user.setLastName(admin.getLastName());
         user.setPassword(admin.getPassword());
         user.setEmail(admin.getEmail());
+        user.setRoles(admin.getRoles());
 
         return admin;
     }
@@ -161,5 +173,83 @@ public class UserServiceImpl implements UserService {
         }
         log.error("Username does not exist.  UserServiceImpl");
         throw new NotFoundException("Username does not exist! LOGGED");
+    }
+
+    @Override
+    public void changeToEndUser(User user) {
+        if (user.getRoles().equals("END_USER")){
+            throw new BadRequestException("User is already an End User!");
+        }
+
+        EndUser endUser = new EndUser();
+        endUser.setFirstName(user.getFirstName());
+        endUser.setLastName(user.getLastName());
+        endUser.setUsername(user.getUsername());
+        endUser.setEmail(user.getEmail());
+        endUser.setEmailCheck(user.getEmail());
+        endUser.setPassword(user.getPassword());
+        endUser.setRoles("END_USER");
+        endUser.setActive(true);
+
+        if (user.getRoles().equals("ADMIN")){
+            adminRepository.delete(convertUserToAdmin(user));
+        }
+        else if (user.getRoles().equals("AGENT")){
+            agentRepository.delete(convertUserToAgent(user));
+        }
+
+        endUserRepository.save(endUser);
+    }
+
+    @Override
+    public void changeToAgent(User user) {
+        if (user.getRoles().equals("AGENT")){
+            throw new BadRequestException("User is already an Agent!");
+        }
+
+        Agent agent = new Agent();
+        agent.setFirstName(user.getFirstName());
+        agent.setLastName(user.getLastName());
+        agent.setUsername(user.getUsername());
+        agent.setEmail(user.getEmail());
+        agent.setEmailCheck(user.getEmail());
+        agent.setPassword(user.getPassword());
+        agent.setRoles("AGENT");
+        agent.setActive(true);
+
+        if (user.getRoles().equals("END_USER")){
+            endUserRepository.delete(convertUserToEndUser(user));
+        }
+        else if (user.getRoles().equals("ADMIN")){
+            adminRepository.delete(convertUserToAdmin(user));
+        }
+
+        agentRepository.save(agent);
+    }
+
+    @Override
+    public void changeToAdmin(User user) {
+        if (user.getRoles().equals("ADMIN")){
+            throw new BadRequestException("User is already an Admin!");
+        }
+
+        Admin admin = new Admin();
+        admin.setFirstName(user.getFirstName());
+        admin.setLastName(user.getLastName());
+        admin.setUsername(user.getUsername());
+        admin.setEmail(user.getEmail());
+        admin.setEmailCheck(user.getEmail());
+        admin.setPassword(user.getPassword());
+        admin.setRoles("ADMIN");
+        admin.setActive(true);
+
+        if (user.getRoles().equals("END_USER")){
+            endUserRepository.delete(convertUserToEndUser(user));
+        }
+        else if (user.getRoles().equals("AGENT")){
+            agentRepository.delete(convertUserToAgent(user));
+        }
+
+        adminRepository.save(admin);
     }
 }

@@ -45,15 +45,23 @@ public class AdminServiceImpl implements AdminService {
             throw new BadRequestException("Emails must match!");
         }
 
-        List<User> users = userService.getAllUsers();
-        for (User user : users){
-            if (user.getUsername().equalsIgnoreCase(admin.getUsername())){
-                throw new BadRequestException("Username is already taken!");
+        if (admin.getId() == null){
+
+            List<User> users = userService.getAllUsers();
+            for (User user : users){
+                if (user.getUsername().equalsIgnoreCase(admin.getUsername())){
+                    throw new BadRequestException("Username is already taken!");
+                }
+                else if (user.getEmail().equalsIgnoreCase(admin.getEmail())){
+                    throw new BadRequestException("An account already exists with this email!");
+                }
             }
-            else if (user.getEmail().equalsIgnoreCase(admin.getEmail())){
-                throw new BadRequestException("An account already exists with this email!");
-            }
+
+            admin.setActive(true);
+
         }
+
+        admin.setRoles("ADMIN");
 
         return adminRepository.save(admin);
     }

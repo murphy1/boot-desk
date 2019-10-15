@@ -27,6 +27,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         httpSecurity.authorizeRequests()
                 .antMatchers("/users/delete").hasAuthority("ADMIN")
+                .antMatchers("/users/update/enduser/*").hasAuthority("ADMIN")
+                .antMatchers("/users/update/agent/*").hasAuthority("ADMIN")
+                .antMatchers("/users/update/admin/*").hasAuthority("ADMIN")
                 .antMatchers("/issues/delete/*").hasAuthority("ADMIN")
                 .antMatchers("/service_requests/delete/*").hasAuthority("ADMIN")
                 .antMatchers("/issues").hasAnyAuthority("ADMIN", "AGENT", "END_USER")

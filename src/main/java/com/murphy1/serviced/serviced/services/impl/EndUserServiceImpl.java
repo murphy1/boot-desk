@@ -49,25 +49,25 @@ public class EndUserServiceImpl implements EndUserService {
             throw new BadRequestException("Emails must match!");
         }
 
-        List<User> users = userService.getAllUsers();
-        for (User user : users){
-            if (user.getUsername().equalsIgnoreCase(endUser.getUsername())){
-                throw new BadRequestException("Username is already taken!");
-            }
-            else if (user.getEmail().equalsIgnoreCase(endUser.getEmail())){
-                throw new BadRequestException("An account already exists with this email!");
-            }
-        }
-
         if (endUser.getId() == null){
 
+            List<User> users = userService.getAllUsers();
+            for (User user : users){
+                if (user.getUsername().equalsIgnoreCase(endUser.getUsername())){
+                    throw new BadRequestException("Username is already taken!");
+                }
+                else if (user.getEmail().equalsIgnoreCase(endUser.getEmail())){
+                    throw new BadRequestException("An account already exists with this email!");
+                }
+            }
             endUser.setActive(true);
-            endUser.setRoles("END_USER");
 
             // Send welcome message to the new user
             mailService.newUser(endUser);
-
         }
+
+
+        endUser.setRoles("END_USER");
 
         return endUserRepository.save(endUser);
     }

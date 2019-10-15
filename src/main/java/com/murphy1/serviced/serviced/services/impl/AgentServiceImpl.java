@@ -45,15 +45,23 @@ public class AgentServiceImpl implements AgentService {
             throw new BadRequestException("Emails must match!");
         }
 
-        List<User> users = userService.getAllUsers();
-        for (User user : users){
-            if (user.getUsername().equalsIgnoreCase(agent.getUsername())){
-                throw new BadRequestException("Username is already taken!");
+        if (agent.getId() == null){
+
+            List<User> users = userService.getAllUsers();
+            for (User user : users){
+                if (user.getUsername().equalsIgnoreCase(agent.getUsername())){
+                    throw new BadRequestException("Username is already taken!");
+                }
+                else if (user.getEmail().equalsIgnoreCase(agent.getEmail())){
+                    throw new BadRequestException("An account already exists with this email!");
+                }
             }
-            else if (user.getEmail().equalsIgnoreCase(agent.getEmail())){
-                throw new BadRequestException("An account already exists with this email!");
-            }
+
+            agent.setActive(true);
+
         }
+
+        agent.setRoles("AGENT");
 
         return agentRepository.save(agent);
     }
