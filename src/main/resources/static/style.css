@@ -1,0 +1,10 @@
+
+.navbar {
+    color: blue;
+}
+
+.center_div{
+    position: absolute;
+    top: 10%;
+    left: 20%;
+}
