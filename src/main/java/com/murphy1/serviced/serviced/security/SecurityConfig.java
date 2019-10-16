@@ -26,6 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity.authorizeRequests()
+                .antMatchers("/users").hasAuthority("ADMIN")
                 .antMatchers("/users/delete").hasAuthority("ADMIN")
                 .antMatchers("/users/update/enduser/*").hasAuthority("ADMIN")
                 .antMatchers("/users/update/agent/*").hasAuthority("ADMIN")

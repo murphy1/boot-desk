@@ -34,6 +34,9 @@
                 <a class="nav-link" href="/search">Search for ticket</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="/users">User Administration</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="/logout">Logout</a>
             </li>
         </ul>
@@ -51,6 +54,8 @@
         <th>Last Name:</th>
         <th>Username:</th>
         <th>Email:</th>
+        <th>Role:</th>
+        <th>Make Changes:</th>
     </tr>
     </thead>
     <tbody>
@@ -60,6 +65,8 @@
         <td th:text="${user.lastName}">Broken Link</td>
         <td th:text="${user.username}">Broken Link</td>
         <td th:text="${user.email}">Broken Link</td>
+        <td th:text="${user.roles}">Broken Link</td>
+        <td><a href="#" th:href="@{'/users/update/'+${user.roles}+'/'+${user.id}}" class="btn btn-info" role="button">Update</a></td>
     </tr>
     </tbody>
 </table>

@@ -47,26 +47,10 @@ public class UserController {
         return "login.html";
     }
 
-    @GetMapping("/users/{user}")
-    public String getAllAgents(Model model, @PathVariable String user){
+    @GetMapping("/users")
+    public String getAllUsers(Model model){
+        model.addAttribute("users", userService.getAllUsers());
 
-        switch (user)
-        {
-            case "agents":
-                model.addAttribute("users", agentService.getAllAgents());
-                break;
-
-            case "admins":
-                model.addAttribute("users", adminService.getAllAdmins());
-                break;
-
-            case "endusers":
-                model.addAttribute("users", endUserService.getAllEndUsers());
-                break;
-
-            default:
-                throw new RuntimeException("That page does not exist!");
-        }
         return "users.html";
     }
 
@@ -106,7 +90,7 @@ public class UserController {
                 .map(role -> ((GrantedAuthority) role).getAuthority().equals("ADMIN"))
                 .findFirst();
 
-        if (userType.equals("agent")){
+        if (userType.equals("AGENT")){
             model.addAttribute("users", agentService.findAgentById(Long.valueOf(userId)));
             globalUserType = "agent";
             if (roles.get()){
@@ -114,7 +98,7 @@ public class UserController {
             }
             return "forms/new_user.html";
         }
-        else if (userType.equals("admin")){
+        else if (userType.equals("ADMIN")){
             model.addAttribute("users", adminService.findAdminById(Long.valueOf(userId)));
             globalUserType = "admin";
             if (roles.get()){
@@ -122,7 +106,7 @@ public class UserController {
             }
             return "forms/new_user.html";
         }
-        else if (userType.equals("enduser")){
+        else if (userType.equals("END_USER")){
             model.addAttribute("users", endUserService.findEndUserById(Long.valueOf(userId)));
             globalUserType = "enduser";
             if (roles.get()){
@@ -169,15 +153,15 @@ public class UserController {
 
         if (globalUserType.equals("agent")){
             agentService.saveAgent(userService.convertUserToAgent(user));
-            return "redirect:/users/agents";
+            return "redirect:/users";
         }
         else if (globalUserType.equals("admin")){
             adminService.saveAdmin(userService.convertUserToAdmin(user));
-            return "redirect:/users/admins";
+            return "redirect:/users";
         }
         else if (globalUserType.equals("enduser")){
             endUserService.saveEndUser(userService.convertUserToEndUser(user));
-            return "redirect:/users/endusers";
+            return "redirect:/users";
         }
         else{
             throw new RuntimeException("user type does not exist!");
