@@ -11,10 +11,13 @@
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../../static/style.css" th:href="@{/style.css}"/>
+
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: coral;">
+<nav class="navbar navbar-expand-lg navbar-light">
     <a class="navbar-brand" href="/">Home</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -46,78 +49,112 @@
 <!--/*@thymesVar id="issue" type="com.murphy1.serviced.serviced.model.User"*/-->
 <form th:object="${users}" th:action="@{/user/save}" method="post">
 
-    <input type="hidden" th:field="*{id}">
+    <div class="container center_div">
 
-    <div class="col-md-3 form-group" th:class="${#fields.hasErrors('firstName')}
-                                    ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
-        <label>First Name:</label>
-        <input type="text" class="form-control" th:field="*{firstName}" th:errorclass="has-error"/>
-        <span class="help-block" th:if="${#fields.hasErrors('firstName')}">
-            <ul>
-                <li th:each="err : ${#fields.errors('firstName')}" th:text="${err}"></li>
-            </ul>
-        </span>
-    </div>
+        <input type="hidden" th:field="*{id}">
 
-    <div class="col-md-3 form-group" th:class="${#fields.hasErrors('lastName')}
-                                    ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
-        <label>Last Name:</label>
-        <input type="text" class="form-control" th:field="*{lastName}" th:errorclass="has-error"/>
-        <span class="help-block" th:if="${#fields.hasErrors('lastName')}">
-            <ul>
-                <li th:each="err : ${#fields.errors('lastName')}" th:text="${err}"></li>
-            </ul>
-        </span>
-    </div>
+        <div class="col-md-6 form-group" th:class="${#fields.hasErrors('firstName')}
+                                        ? 'col-md-6 form-group has-error' : 'col-md-6 form-group'">
+            <label>First Name:</label>
+            <input type="text" class="form-control" th:field="*{firstName}" th:errorclass="has-error"/>
+            <span class="help-block" th:if="${#fields.hasErrors('firstName')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('firstName')}" th:text="${err}"></li>
+                </ul>
+            </span>
+        </div>
 
-    <div class="col-md-3 form-group" th:class="${#fields.hasErrors('username')}
-                                    ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
-        <label>Username:</label>
-        <input type="text" class="form-control" th:field="*{username}" th:errorclass="has-error"/>
-        <span class="help-block" th:if="${#fields.hasErrors('username')}">
-            <ul>
-                <li th:each="err : ${#fields.errors('username')}" th:text="${err}"></li>
-            </ul>
-        </span>
-    </div>
+        <div class="col-md-6 form-group" th:class="${#fields.hasErrors('lastName')}
+                                        ? 'col-md-6 form-group has-error' : 'col-md-6 form-group'">
+            <label>Last Name:</label>
+            <input type="text" class="form-control" th:field="*{lastName}" th:errorclass="has-error"/>
+            <span class="help-block" th:if="${#fields.hasErrors('lastName')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('lastName')}" th:text="${err}"></li>
+                </ul>
+            </span>
+        </div>
 
-    <div class="col-md-3 form-group" th:class="${#fields.hasErrors('email')} ?
-                                    'col-md-3 form-group has-error' : 'col-md-3 form-group'">
-        <label>Email:</label>
-        <input type="email" class="form-control" th:field="*{email}" th:errorclass="has-error"/>
-        <span class="help-block" th:if="${#fields.hasErrors('email')}">
-            <ul>
-                <li th:each="err : ${#fields.errors('email')}" th:text="${err}"></li>
-            </ul>
-        </span>
-    </div>
+        <div class="col-md-6 form-group" th:class="${#fields.hasErrors('username')}
+                                        ? 'col-md-6 form-group has-error' : 'col-md-6 form-group'">
+            <label>Username:</label>
+            <input type="text" class="form-control" th:field="*{username}" th:errorclass="has-error"/>
+            <span class="help-block" th:if="${#fields.hasErrors('username')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('username')}" th:text="${err}"></li>
+                </ul>
+            </span>
+        </div>
 
-    <div class="col-md-3 form-group">
-        <label>Enter Email Again:</label>
-        <input type="email" class="form-control" th:field="*{emailCheck}">
-    </div>
+        <div class="col-md-6 form-group" th:class="${#fields.hasErrors('email')} ?
+                                        'col-md-6 form-group has-error' : 'col-md-6 form-group'">
+            <label>Email:</label>
+            <input type="email" class="form-control" th:field="*{email}" th:errorclass="has-error"/>
+            <span class="help-block" th:if="${#fields.hasErrors('email')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('email')}" th:text="${err}"></li>
+                </ul>
+            </span>
+        </div>
 
-    <div class="col-md-3 form-group" th:class="${#fields.hasErrors('password')} ?
-                                    'col-md-3 form-group has-error' : 'col-md-3 form-group'">
-        <label>Password:</label>
-        <input type="password" class="form-control" th:field="*{password}" th:errorclass="has-error"/>
-        <span class="help-block" th:if="${#fields.hasErrors('password')}">
-            <ul>
-                <li th:each="err : ${#fields.errors('password')}" th:text="${err}"></li>
-            </ul>
-        </span>
-    </div>
+        <div class="col-md-6 form-group">
+            <label>Enter Email Again:</label>
+            <input type="email" class="form-control" th:field="*{emailCheck}">
+        </div>
 
-    <div class="col-md-3 form-group">
-        <label>Enter Password Again:</label>
-        <input type="password" class="form-control" th:field="*{passwordCheck}">
-    </div>
+        <div class="col-md-6 form-group" th:class="${#fields.hasErrors('password')} ?
+                                        'col-md-6 form-group has-error' : 'col-md-6 form-group'">
+            <label>Password:</label>
+            <input type="password" class="form-control" th:field="*{password}" th:errorclass="has-error"/>
+            <span class="help-block" th:if="${#fields.hasErrors('password')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('password')}" th:text="${err}"></li>
+                </ul>
+            </span>
+        </div>
 
-    <div>
-        <input type="submit" value="Submit">
+        <div class="col-md-6 form-group">
+            <label>Enter Password Again:</label>
+            <input type="password" class="form-control" th:field="*{passwordCheck}">
+        </div>
+
+        <div>
+            <input type="submit" value="Submit">
+        </div>
+
     </div>
 
 </form>
+
+<footer>
+    <div class="container-fluid padding">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <hr class="light">
+                <h5>Contact Us:</h5>
+                <hr class="light">
+                <p>Email: yourname@mail.com</p>
+                <p>Contact Number: 614-000-0000</p>
+            </div>
+            <div class="col-md-4">
+                <hr class="light">
+                <h5>Your profile:</h5>
+                <hr class="light">
+                <a href="/profile">Check the status of your tickets</a><br><br>
+            </div>
+            <div class="col-md-4">
+                <hr class="light">
+                <h5>Administration</h5>
+                <hr class="light">
+                <a href="/users">Check Users</a><br><br>
+            </div>
+            <div class="col-12">
+                <hr class="light">
+                <h5>github.com/murphy1</h5>
+            </div>
+        </div>
+    </div>
+</footer>
 
 </body>
 </html>

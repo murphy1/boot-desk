@@ -3,6 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../static/style.css" th:href="@{/style.css}"/>
+
 </head>
 <body>
 
@@ -37,7 +48,7 @@
                                                 <input type="password" class="form-control" id="password" name="password"/>
                                             </div>
                                         </div>
-                                        <div class="searhformrow">
+                                        <div class="col-md-3 searchformrow">
                                             <button type="submit" class="btn btn-info">Log in</button>
                                         </div>
                                     </div>
@@ -45,9 +56,9 @@
                             </div>
                         </fieldset>
                     </form>
-                    <a href="/users/new/enduser" class="btn btn-info" role="button">Sign Up</a>
                 </div>
             </div>
+            <a href="/users/new/enduser" class="btn btn-info" role="button">Sign Up</a>
         </div>
     </div>
 </div>

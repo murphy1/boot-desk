@@ -11,10 +11,13 @@
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../../static/style.css" th:href="@{/style.css}"/>
+
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: coral;">
+<nav class="navbar navbar-expand-lg navbar-light">
     <a class="navbar-brand" href="/">Home</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -46,115 +49,150 @@
 <!--/*@thymesVar id="issue" type="com.murphy1.serviced.serviced.model.ServiceRequest"*/-->
 <form th:object="${serviceRequest}" th:action="@{/serviceRequest/save}" method="post">
 
-    <input type="hidden" th:field="*{id}">
+    <div class="container center_div">
 
-    <div class="col-md-3 form-group" th:class="${#fields.hasErrors('name')}
-                                    ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
-        <label>Name:</label>
-        <input type="text" class="form-control" th:field="*{name}" th:errorclass="has-error"/>
-        <span class="help-block" th:if="${#fields.hasErrors('name')}">
-            <ul>
-                <li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
-            </ul>
-        </span>
-    </div>
+        <h2>Service Request</h2>
 
-    <div class="col-md-3 form-group" th:class="${#fields.hasErrors('description')}
-                                    ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
-        <label>Description:</label>
-        <input type="text" class="form-control" th:field="*{description}" th:errorclass="has-error"/>
-        <span class="help-block" th:if="${#fields.hasErrors('description')}">
-            <ul>
-                <li th:each="err : ${#fields.errors('description')}" th:text="${err}"></li>
-            </ul>
-        </span>
-    </div>
+        <input type="hidden" th:field="*{id}">
 
-    <div class="form-group">
-        <div class="col-3">
-            <label>Label:</label>
-            <select class="form-control" th:field="*{label}">
-                <option th:each="labelValue : ${T(com.murphy1.serviced.serviced.model.Label).values()}"
-                        th:value="${labelValue.name()}"
-                        th:text="${labelValue.name()}"
-                >val</option>
-            </select>
-            <select class="form-control" th:remove="all">
-                <option>Hardware</option>
-                <option>Software</option>
-                <option>Network</option>
-                <option>Access</option>
-                <option>Account</option>
-                <option>SQL</option>
-                <option>Java</option>
-            </select>
+        <div class="col-md-6 form-group" th:class="${#fields.hasErrors('name')}
+                                        ? 'col-md-6 form-group has-error' : 'col-md-6 form-group'">
+            <label>Name:</label>
+            <input type="text" class="form-control" th:field="*{name}" th:errorclass="has-error"/>
+            <span class="help-block" th:if="${#fields.hasErrors('name')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
+                </ul>
+            </span>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-3">
-            <label>Priority:</label>
-            <select class="form-control" th:field="*{priority}">
-                <option th:each="priorityValue : ${T(com.murphy1.serviced.serviced.model.Priority).values()}"
-                        th:value="${priorityValue.name()}"
-                        th:text="${priorityValue.name()}"
-                >val</option>
-            </select>
-            <select class="form-control" th:remove="all">
-                <option>Very High</option>
-                <option>High</option>
-                <option>Medium</option>
-                <option>Low</option>
-            </select>
+        <div class="col-md-6 form-group" th:class="${#fields.hasErrors('description')}
+                                        ? 'col-md-6 form-group has-error' : 'col-md-6 form-group'">
+            <label>Description:</label>
+            <input type="text" class="form-control" th:field="*{description}" th:errorclass="has-error"/>
+            <span class="help-block" th:if="${#fields.hasErrors('description')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('description')}" th:text="${err}"></li>
+                </ul>
+            </span>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-3">
-            <label>Status:</label>
-            <select class="form-control" th:field="*{status}">
-                <option th:each="statusValue : ${T(com.murphy1.serviced.serviced.model.Status).values()}"
-                        th:value="${statusValue.name()}"
-                        th:text="${statusValue.name()}"
-                >val</option>
-            </select>
-            <select class="form-control" th:remove="all">
-                <option>In Progress</option>
-                <option>Need Info</option>
-                <option>Solved</option>
-                <option>Shelved</option>
-                <option>New</option>
-                <option>Assigned</option>
-            </select>
+        <div class="form-group">
+            <div class="col-6">
+                <label>Label:</label>
+                <select class="form-control" th:field="*{label}">
+                    <option th:each="labelValue : ${T(com.murphy1.serviced.serviced.model.Label).values()}"
+                            th:value="${labelValue.name()}"
+                            th:text="${labelValue.name()}"
+                    >val</option>
+                </select>
+                <select class="form-control" th:remove="all">
+                    <option>Hardware</option>
+                    <option>Software</option>
+                    <option>Network</option>
+                    <option>Access</option>
+                    <option>Account</option>
+                    <option>SQL</option>
+                    <option>Java</option>
+                </select>
+            </div>
         </div>
-    </div>
 
-    <input type="hidden" th:field="*{dueDate}">
-
-    <input type="hidden" th:field="*{messages}">
-
-    <div class="form-group">
-        <div class="col-3">
-            <label>Chat:</label>
-            <textarea rows="4" cols="50" class="form-control" th:field="*{newMessages}"></textarea>
+        <div class="form-group">
+            <div class="col-6">
+                <label>Priority:</label>
+                <select class="form-control" th:field="*{priority}">
+                    <option th:each="priorityValue : ${T(com.murphy1.serviced.serviced.model.Priority).values()}"
+                            th:value="${priorityValue.name()}"
+                            th:text="${priorityValue.name()}"
+                    >val</option>
+                </select>
+                <select class="form-control" th:remove="all">
+                    <option>Very High</option>
+                    <option>High</option>
+                    <option>Medium</option>
+                    <option>Low</option>
+                </select>
+            </div>
         </div>
-    </div>
 
-    <input type="hidden" th:field="*{creator}">
-
-    <div class="form-group">
-        <div class="col-3">
-            <label>Assigned To:</label>
-            <input type="text" class="form-control" th:field="*{assignedTo}">
-            <small id="assignHelp" class="form-text text-muted">Please leave this blank when creating a ticket. Our team will assign an agent.</small>
+        <div class="form-group">
+            <div class="col-6">
+                <label>Status:</label>
+                <select class="form-control" th:field="*{status}">
+                    <option th:each="statusValue : ${T(com.murphy1.serviced.serviced.model.Status).values()}"
+                            th:value="${statusValue.name()}"
+                            th:text="${statusValue.name()}"
+                    >val</option>
+                </select>
+                <select class="form-control" th:remove="all">
+                    <option>In Progress</option>
+                    <option>Need Info</option>
+                    <option>Solved</option>
+                    <option>Shelved</option>
+                    <option>New</option>
+                    <option>Assigned</option>
+                </select>
+            </div>
         </div>
-    </div>
 
-    <div>
-        <input type="submit" value="Submit">
+        <input type="hidden" th:field="*{dueDate}">
+
+        <input type="hidden" th:field="*{messages}">
+
+        <div class="form-group">
+            <div class="col-6">
+                <label>Chat:</label>
+                <textarea rows="4" cols="50" class="form-control" th:field="*{newMessages}"></textarea>
+            </div>
+        </div>
+
+        <input type="hidden" th:field="*{creator}">
+
+        <div class="form-group">
+            <div class="col-6">
+                <label>Assigned To:</label>
+                <input type="text" class="form-control" th:field="*{assignedTo}">
+                <small id="assignHelp" class="form-text text-muted">Please leave this blank when creating a ticket. Our team will assign an agent.</small>
+            </div>
+        </div>
+
+        <div>
+            <input type="submit" value="Submit">
+        </div>
     </div>
 
 </form>
+
+<footer>
+    <div class="container-fluid padding">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <hr class="light">
+                <h5>Contact Us:</h5>
+                <hr class="light">
+                <p>Email: yourname@mail.com</p>
+                <p>Contact Number: 614-000-0000</p>
+            </div>
+            <div class="col-md-4">
+                <hr class="light">
+                <h5>Your profile:</h5>
+                <hr class="light">
+                <a href="/profile">Check the status of your tickets</a><br><br>
+            </div>
+            <div class="col-md-4">
+                <hr class="light">
+                <h5>Administration</h5>
+                <hr class="light">
+                <a href="/users">Check Users</a><br><br>
+            </div>
+            <div class="col-12">
+                <hr class="light">
+                <h5>github.com/murphy1</h5>
+            </div>
+        </div>
+    </div>
+</footer>
 
 </body>
 </html>

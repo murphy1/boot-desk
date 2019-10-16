@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Users</title>
+    <title>403 Error</title>
 
     <!--Bootstrap CSS-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -46,63 +46,19 @@
     </div>
 </nav>
 
-<h1>List of Users</h1>
-
-<!--/*@thymesVar id="issue" type="com.murphy1.serviced.serviced.model.Agent"*/-->
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th>ID:</th>
-        <th>First Name:</th>
-        <th>Last Name:</th>
-        <th>Username:</th>
-        <th>Email:</th>
-        <th>Role:</th>
-        <th>Make Changes:</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user : ${users}">
-        <td th:text="${user.id}">1</td>
-        <td th:text="${user.firstName}">Issue</td>
-        <td th:text="${user.lastName}">Broken Link</td>
-        <td th:text="${user.username}">Broken Link</td>
-        <td th:text="${user.email}">Broken Link</td>
-        <td th:text="${user.roles}">Broken Link</td>
-        <td><a href="#" th:href="@{'/users/update/'+${user.roles}+'/'+${user.id}}" class="btn btn-info" role="button">Update</a></td>
-    </tr>
-    </tbody>
-</table>
-
-<footer>
-    <div class="container-fluid padding">
-        <div class="row text-center">
-            <div class="col-md-4">
-                <hr class="light">
-                <h5>Contact Us:</h5>
-                <hr class="light">
-                <p>Email: yourname@mail.com</p>
-                <p>Contact Number: 614-000-0000</p>
-            </div>
-            <div class="col-md-4">
-                <hr class="light">
-                <h5>Your profile:</h5>
-                <hr class="light">
-                <a href="/profile">Check the status of your tickets</a><br><br>
-            </div>
-            <div class="col-md-4">
-                <hr class="light">
-                <h5>Administration</h5>
-                <hr class="light">
-                <a href="/users">Check Users</a><br><br>
-            </div>
-            <div class="col-12">
-                <hr class="light">
-                <h5>github.com/murphy1</h5>
+<div class="container-fluid padding">
+    <div class="row padding">
+        <div class="col-12">
+            <div class="card" title="table-card">
+                <div class="card-body">
+                    <h4 class="card-title">Forbidden</h4>
+                    <!--/*@thymesVar id="exception" type="com.murphy1.serviced.serviced.exceptions.NotFoundException"*/-->
+                    <p th:text="${exception}"></p>
+                </div>
             </div>
         </div>
     </div>
-</footer>
+</div>
 
 </body>
 </html>

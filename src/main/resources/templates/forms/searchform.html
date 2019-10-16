@@ -11,10 +11,13 @@
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../../static/style.css" th:href="@{/style.css}"/>
+
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: coral;">
+<nav class="navbar navbar-expand-lg navbar-light">
     <a class="navbar-brand" href="/">Home</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -46,56 +49,91 @@
 <!--/*@thymesVar id="issue" type="com.murphy1.serviced.serviced.searching.Search"*/-->
 <form th:object="${searchObject}" th:action="@{/search/submit_search}" method="post">
 
+    <div class="container center_div">
 
-    <div class="form-group">
-        <div class="col-3">
-            <label>Issue or Service Request:</label>
-            <select class="form-control" th:field="*{searchType}">
-                <option th:each="searchTypeValue : ${T(com.murphy1.serviced.serviced.searching.SearchType).values()}"
-                        th:value="${searchTypeValue.name()}"
-                        th:text="${searchTypeValue.name()}"
-                >val</option>
-            </select>
-            <select class="form-control" th:remove="all">
-                <option>Issue</option>
-                <option>Service Request</option>
-            </select>
+        <h2>Search for a ticket:</h2>
+
+        <div class="form-group">
+            <div class="col-6">
+                <label>Issue or Service Request:</label>
+                <select class="form-control" th:field="*{searchType}">
+                    <option th:each="searchTypeValue : ${T(com.murphy1.serviced.serviced.searching.SearchType).values()}"
+                            th:value="${searchTypeValue.name()}"
+                            th:text="${searchTypeValue.name()}"
+                    >val</option>
+                </select>
+                <select class="form-control" th:remove="all">
+                    <option>Issue</option>
+                    <option>Service Request</option>
+                </select>
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-3">
-            <label>What would you like to search by:</label>
-            <select class="form-control" th:field="*{searchObject}">
-                <option th:each="searchObjectValue : ${T(com.murphy1.serviced.serviced.searching.SearchObject).values()}"
-                        th:value="${searchObjectValue.name()}"
-                        th:text="${searchObjectValue.name()}"
-                >val</option>
-            </select>
-            <select class="form-control" th:remove="all">
-                <option>ID</option>
-                <option>Name</option>
-                <option>Description</option>
-                <option>Priority</option>
-                <option>Due Date</option>
-                <option>Status</option>
-                <option>Label</option>
-                <option>Creator</option>
-                <option>Assigned To</option>
-            </select>
+        <div class="form-group">
+            <div class="col-6">
+                <label>What would you like to search by:</label>
+                <select class="form-control" th:field="*{searchObject}">
+                    <option th:each="searchObjectValue : ${T(com.murphy1.serviced.serviced.searching.SearchObject).values()}"
+                            th:value="${searchObjectValue.name()}"
+                            th:text="${searchObjectValue.name()}"
+                    >val</option>
+                </select>
+                <select class="form-control" th:remove="all">
+                    <option>ID</option>
+                    <option>Name</option>
+                    <option>Description</option>
+                    <option>Priority</option>
+                    <option>Due Date</option>
+                    <option>Status</option>
+                    <option>Label</option>
+                    <option>Creator</option>
+                    <option>Assigned To</option>
+                </select>
+            </div>
         </div>
-    </div>
 
-    <div class="col-md-3 form-group">
-        <label>Query:</label>
-        <input type="text" class="form-control" th:field="*{searchQuery}">
-    </div>
+        <div class="col-md-6 form-group">
+            <label>Query:</label>
+            <input type="text" class="form-control" th:field="*{searchQuery}">
+        </div>
 
-    <div>
-        <input type="submit" value="Submit">
+        <div>
+            <input type="submit" value="Submit">
+        </div>
+
     </div>
 
 </form>
+
+<footer>
+    <div class="container-fluid padding">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <hr class="light">
+                <h5>Contact Us:</h5>
+                <hr class="light">
+                <p>Email: yourname@mail.com</p>
+                <p>Contact Number: 614-000-0000</p>
+            </div>
+            <div class="col-md-4">
+                <hr class="light">
+                <h5>Your profile:</h5>
+                <hr class="light">
+                <a href="/profile">Check the status of your tickets</a><br><br>
+            </div>
+            <div class="col-md-4">
+                <hr class="light">
+                <h5>Administration</h5>
+                <hr class="light">
+                <a href="/users">Check Users</a><br><br>
+            </div>
+            <div class="col-12">
+                <hr class="light">
+                <h5>github.com/murphy1</h5>
+            </div>
+        </div>
+    </div>
+</footer>
 
 </body>
 </html>

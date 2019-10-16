@@ -1,10 +1,51 @@
 
+html {
+    font-family: 'Raleway', sans-serif;
+}
+
+body {
+    background-color: #EEE2DC;
+}
+
 .navbar {
-    color: blue;
+    background-color: #AC3B61;
 }
 
 .center_div{
-    position: absolute;
     top: 10%;
     left: 20%;
+}
+
+/* Styling for Cards (profile.html) */
+
+.card {
+    padding-bottom: 50px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 5px; /* 5px rounded corners */
+    background-color: #BAB2B5;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,1);
+}
+
+.h1_center {
+    padding-left: 20%;
+}
+
+.container {
+    padding: 2px 16px;
+}
+
+.container-fluid {
+    padding: 50px;
+}
+
+/* CSS for footer */
+
+footer {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height:100px;
 }

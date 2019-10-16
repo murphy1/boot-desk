@@ -11,10 +11,13 @@
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../static/style.css" th:href="@{/style.css}"/>
+
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: coral;">
+<nav class="navbar navbar-expand-lg navbar-light">
     <a class="navbar-brand" href="/">Home</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -43,174 +46,243 @@
     </div>
 </nav>
 
-<h1>Your Created Tickets</h1>
+<h1 class="h1_center">Your Created Tickets</h1>
 
 <br>
 <br>
 
-<h3>Issues</h3>
-<!--/*@thymesVar id="issue" type="com.murphy1.serviced.serviced.model.Issue"*/-->
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th>ID:</th>
-        <th>Name:</th>
-        <th>Creator:</th>
-        <th>Assigned To:</th>
-        <th>Description:</th>
-        <th>Label:</th>
-        <th>Priority:</th>
-        <th>Status:</th>
-        <th>Due Date:</th>
-        <th>Chat:</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="issue : ${issues}">
-        <td th:text="${issue.id}">1</td>
-        <td th:text="${issue.name}">Issue</td>
-        <td th:text="${issue.creator}">Issue</td>
-        <td th:text="${issue.assignedTo}"></td>
-        <td th:text="${issue.description}">Broken Link</td>
-        <td th:text="${issue.label}">Broken Link</td>
-        <td th:text="${issue.priority}">Broken Link</td>
-        <td th:text="${issue.status}">Broken Link</td>
-        <td th:text="${issue.dueDate}">Broken Link</td>
-        <td>
-            <label>
-                <textarea rows="5" cols="50" th:text="${issue.messages}" readonly></textarea>
-            </label>
-        </td>
-        <td><a href="#" th:href="@{'/issues/update/'+ ${issue.id}}" class="btn btn-info" role="button">Update</a></td>
-    </tr>
-    </tbody>
-</table>
+<div class="container-fluid padding">
+    <div class="row padding">
+        <div class="col-12">
+            <div class="card" title="table-card">
+                <div class="card-body">
+                    <h4 class="card-title">Issues</h4>
+            <!--/*@thymesVar id="issue" type="com.murphy1.serviced.serviced.model.Issue"*/-->
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>ID:</th>
+                            <th>Name:</th>
+                            <th>Creator:</th>
+                            <th>Assigned To:</th>
+                            <th>Description:</th>
+                            <th>Label:</th>
+                            <th>Priority:</th>
+                            <th>Status:</th>
+                            <th>Due Date:</th>
+                            <th>Chat:</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="issue : ${issues}">
+                            <td th:text="${issue.id}">1</td>
+                            <td th:text="${issue.name}">Issue</td>
+                            <td th:text="${issue.creator}">Issue</td>
+                            <td th:text="${issue.assignedTo}"></td>
+                            <td th:text="${issue.description}">Broken Link</td>
+                            <td th:text="${issue.label}">Broken Link</td>
+                            <td th:text="${issue.priority}">Broken Link</td>
+                            <td th:text="${issue.status}">Broken Link</td>
+                            <td th:text="${issue.dueDate}">Broken Link</td>
+                            <td>
+                                <label>
+                                    <textarea rows="5" cols="50" th:text="${issue.messages}" readonly></textarea>
+                                </label>
+                            </td>
+                            <td><a href="#" th:href="@{'/issues/update/'+ ${issue.id}}" class="btn btn-info" role="button">Update</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <br>
 
-<h3>Service Requests</h3>
-<!--/*@thymesVar id="issue" type="com.murphy1.serviced.serviced.model.ServiceRequest"*/-->
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th>ID:</th>
-        <th>Name:</th>
-        <th>Creator:</th>
-        <th>Assigned To:</th>
-        <th>Description:</th>
-        <th>Label:</th>
-        <th>Priority:</th>
-        <th>Status:</th>
-        <th>Due Date:</th>
-        <th>Chat:</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="request : ${service_requests}">
-        <td th:text="${request.id}">1</td>
-        <td th:text="${request.name}">Issue</td>
-        <td th:text="${request.creator}">Issue</td>
-        <td th:text="${request.assignedTo}"></td>
-        <td th:text="${request.description}">Broken Link</td>
-        <td th:text="${request.label}">Broken Link</td>
-        <td th:text="${request.priority}">Broken Link</td>
-        <td th:text="${request.status}">Broken Link</td>
-        <td th:text="${request.dueDate}">Broken Link</td>
-        <td>
-            <label>
-                <textarea rows="5" cols="50" th:text="${request.messages}" readonly></textarea>
-            </label>
-        </td>
-        <td><a href="#" th:href="@{'/service_requests/update/'+ ${request.id}}" class="btn btn-info" role="button">Update</a></td>
-    </tr>
-    </tbody>
-</table>
+<div class="container-fluid padding">
+    <div class="row padding">
+        <div class="col-12">
+            <div class="card" title="table-card">
+                <div class="card-body">
+                    <h4 class="card-title">Service Requests</h4>
+            <!--/*@thymesVar id="issue" type="com.murphy1.serviced.serviced.model.ServiceRequest"*/-->
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>ID:</th>
+                            <th>Name:</th>
+                            <th>Creator:</th>
+                            <th>Assigned To:</th>
+                            <th>Description:</th>
+                            <th>Label:</th>
+                            <th>Priority:</th>
+                            <th>Status:</th>
+                            <th>Due Date:</th>
+                            <th>Chat:</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="request : ${service_requests}">
+                            <td th:text="${request.id}">1</td>
+                            <td th:text="${request.name}">Issue</td>
+                            <td th:text="${request.creator}">Issue</td>
+                            <td th:text="${request.assignedTo}"></td>
+                            <td th:text="${request.description}">Broken Link</td>
+                            <td th:text="${request.label}">Broken Link</td>
+                            <td th:text="${request.priority}">Broken Link</td>
+                            <td th:text="${request.status}">Broken Link</td>
+                            <td th:text="${request.dueDate}">Broken Link</td>
+                            <td>
+                                <label>
+                                    <textarea rows="5" cols="50" th:text="${request.messages}" readonly></textarea>
+                                </label>
+                            </td>
+                            <td><a href="#" th:href="@{'/service_requests/update/'+ ${request.id}}" class="btn btn-info" role="button">Update</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <br>
 <br>
 
-<h1>Your Assigned Tickets</h1>
+<h1 class="h1_center">Your Assigned Tickets</h1>
 
 <br>
 <br>
 
-<h3>Issues</h3>
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th>ID:</th>
-        <th>Name:</th>
-        <th>Creator:</th>
-        <th>Assigned To:</th>
-        <th>Description:</th>
-        <th>Label:</th>
-        <th>Priority:</th>
-        <th>Status:</th>
-        <th>Due Date:</th>
-        <th>Chat:</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="issue : ${assigned_issues}">
-        <td th:text="${issue.id}">1</td>
-        <td th:text="${issue.name}">Issue</td>
-        <td th:text="${issue.creator}">Issue</td>
-        <td th:text="${issue.assignedTo}"></td>
-        <td th:text="${issue.description}">Broken Link</td>
-        <td th:text="${issue.label}">Broken Link</td>
-        <td th:text="${issue.priority}">Broken Link</td>
-        <td th:text="${issue.status}">Broken Link</td>
-        <td th:text="${issue.dueDate}">Broken Link</td>
-        <td>
-            <label>
-                <textarea rows="5" cols="50" th:text="${issue.messages}" readonly></textarea>
-            </label>
-        </td>
-        <td><a href="#" th:href="@{'/issues/update/'+ ${issue.id}}" class="btn btn-info" role="button">Update</a></td>
-    </tr>
-    </tbody>
-</table>
+<div class="container-fluid padding">
+    <div class="row padding">
+        <div class="col-12">
+            <div class="card" title="table-card">
+                <div class="card-body">
+                    <h4 class="card-title">Issues</h4>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>ID:</th>
+                            <th>Name:</th>
+                            <th>Creator:</th>
+                            <th>Assigned To:</th>
+                            <th>Description:</th>
+                            <th>Label:</th>
+                            <th>Priority:</th>
+                            <th>Status:</th>
+                            <th>Due Date:</th>
+                            <th>Chat:</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="issue : ${assigned_issues}">
+                            <td th:text="${issue.id}">1</td>
+                            <td th:text="${issue.name}">Issue</td>
+                            <td th:text="${issue.creator}">Issue</td>
+                            <td th:text="${issue.assignedTo}"></td>
+                            <td th:text="${issue.description}">Broken Link</td>
+                            <td th:text="${issue.label}">Broken Link</td>
+                            <td th:text="${issue.priority}">Broken Link</td>
+                            <td th:text="${issue.status}">Broken Link</td>
+                            <td th:text="${issue.dueDate}">Broken Link</td>
+                            <td>
+                                <label>
+                                    <textarea rows="5" cols="50" th:text="${issue.messages}" readonly></textarea>
+                                </label>
+                            </td>
+                            <td><a href="#" th:href="@{'/issues/update/'+ ${issue.id}}" class="btn btn-info" role="button">Update</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <br>
 
-<h3>Service Requests</h3>
-<!--/*@thymesVar id="issue" type="com.murphy1.serviced.serviced.model.ServiceRequest"*/-->
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th>ID:</th>
-        <th>Name:</th>
-        <th>Creator:</th>
-        <th>Assigned To:</th>
-        <th>Description:</th>
-        <th>Label:</th>
-        <th>Priority:</th>
-        <th>Status:</th>
-        <th>Due Date:</th>
-        <th>Chat:</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="request : ${assigned_service_requests}">
-        <td th:text="${request.id}">1</td>
-        <td th:text="${request.name}">Issue</td>
-        <td th:text="${request.creator}">Issue</td>
-        <td th:text="${request.assignedTo}"></td>
-        <td th:text="${request.description}">Broken Link</td>
-        <td th:text="${request.label}">Broken Link</td>
-        <td th:text="${request.priority}">Broken Link</td>
-        <td th:text="${request.status}">Broken Link</td>
-        <td th:text="${request.dueDate}">Broken Link</td>
-        <td>
-            <label>
-                <textarea rows="5" cols="50" th:text="${request.messages}" readonly></textarea>
-            </label>
-        </td>
-        <td><a href="#" th:href="@{'/service_requests/update/'+ ${request.id}}" class="btn btn-info" role="button">Update</a></td>
-    </tr>
-    </tbody>
-</table>
+<div class="container-fluid padding">
+    <div class="row padding">
+        <div class="col-12">
+            <div class="card" title="table-card">
+                <div class="card-body">
+                    <h4 class="card-title">Service Requests</h4>
+            <!--/*@thymesVar id="issue" type="com.murphy1.serviced.serviced.model.ServiceRequest"*/-->
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>ID:</th>
+                            <th>Name:</th>
+                            <th>Creator:</th>
+                            <th>Assigned To:</th>
+                            <th>Description:</th>
+                            <th>Label:</th>
+                            <th>Priority:</th>
+                            <th>Status:</th>
+                            <th>Due Date:</th>
+                            <th>Chat:</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="request : ${assigned_service_requests}">
+                            <td th:text="${request.id}">1</td>
+                            <td th:text="${request.name}">Issue</td>
+                            <td th:text="${request.creator}">Issue</td>
+                            <td th:text="${request.assignedTo}"></td>
+                            <td th:text="${request.description}">Broken Link</td>
+                            <td th:text="${request.label}">Broken Link</td>
+                            <td th:text="${request.priority}">Broken Link</td>
+                            <td th:text="${request.status}">Broken Link</td>
+                            <td th:text="${request.dueDate}">Broken Link</td>
+                            <td>
+                                <label>
+                                    <textarea rows="5" cols="50" th:text="${request.messages}" readonly></textarea>
+                                </label>
+                            </td>
+                            <td><a href="#" th:href="@{'/service_requests/update/'+ ${request.id}}" class="btn btn-info" role="button">Update</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+<footer>
+    <div class="container-fluid padding">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <hr class="light">
+                <h5>Contact Us:</h5>
+                <hr class="light">
+                <p>Email: yourname@mail.com</p>
+                <p>Contact Number: 614-000-0000</p>
+            </div>
+            <div class="col-md-4">
+                <hr class="light">
+                <h5>Your profile:</h5>
+                <hr class="light">
+                <a href="/profile">Check the status of your tickets</a><br><br>
+            </div>
+            <div class="col-md-4">
+                <hr class="light">
+                <h5>Administration</h5>
+                <hr class="light">
+                <a href="/users">Check Users</a><br><br>
+            </div>
+            <div class="col-12">
+                <hr class="light">
+                <h5>github.com/murphy1</h5>
+            </div>
+        </div>
+    </div>
+</footer>
 
 </body>
 </html>

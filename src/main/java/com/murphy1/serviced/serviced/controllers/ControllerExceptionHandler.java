@@ -1,12 +1,12 @@
 package com.murphy1.serviced.serviced.controllers;
 
 import com.murphy1.serviced.serviced.exceptions.BadRequestException;
+import com.murphy1.serviced.serviced.exceptions.ForbiddenException;
 import com.murphy1.serviced.serviced.exceptions.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -34,6 +34,18 @@ public class ControllerExceptionHandler {
         ModelAndView mav = new ModelAndView();
         mav.addObject("exception", exception.getMessage());
         mav.setViewName("exceptions/404error");
+
+        return mav;
+    }
+
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(ForbiddenException.class)
+    public ModelAndView forbidden(Exception exception){
+
+        log.error("Forbidden "+exception.getMessage());
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("exception", exception.getMessage());
+        mav.setViewName("exceptions/403error");
 
         return mav;
     }

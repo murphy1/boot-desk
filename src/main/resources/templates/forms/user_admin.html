@@ -11,10 +11,13 @@
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../../static/style.css" th:href="@{/style.css}"/>
+
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: coral;">
+<nav class="navbar navbar-expand-lg navbar-light">
     <a class="navbar-brand" href="/">Home</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -46,57 +49,91 @@
 <!--/*@thymesVar id="issue" type="com.murphy1.serviced.serviced.model.User"*/-->
 <form th:object="${users}" th:action="@{/user/save}" method="post">
 
-    <input type="hidden" th:field="*{id}">
+    <div class="container center_div">
 
-    <div class="col-md-3 form-group">
-        <label>First Name:</label>
-        <input type="text" class="form-control" th:field="*{firstName}">
-    </div>
+        <input type="hidden" th:field="*{id}">
 
-    <div class="col-md-3 form-group">
-        <label>Last Name:</label>
-        <input type="text" class="form-control" th:field="*{lastName}">
-    </div>
+        <div class="col-md-6 form-group">
+            <label>First Name:</label>
+            <input type="text" class="form-control" th:field="*{firstName}">
+        </div>
 
-    <div class="col-md-3 form-group">
-        <label>Username:</label>
-        <input type="text" class="form-control" th:field="*{username}">
-    </div>
+        <div class="col-md-6 form-group">
+            <label>Last Name:</label>
+            <input type="text" class="form-control" th:field="*{lastName}">
+        </div>
 
-    <div class="col-md-3 form-group">
-        <label>Email:</label>
-        <input type="text" class="form-control" th:field="*{email}">
-    </div>
+        <div class="col-md-6 form-group">
+            <label>Username:</label>
+            <input type="text" class="form-control" th:field="*{username}">
+        </div>
 
-    <input type="hidden" th:value="*{email}" id="emailCheck" name="emailCheck">
+        <div class="col-md-6 form-group">
+            <label>Email:</label>
+            <input type="text" class="form-control" th:field="*{email}">
+        </div>
 
-    <div class="col-md-3 form-group">
-        <label>Password:</label>
-        <input type="text" class="form-control" th:field="*{password}">
-    </div>
+        <input type="hidden" th:value="*{email}" id="emailCheck" name="emailCheck">
 
-    <input type="hidden" th:value="*{password}" id="passwordCheck" name="passwordCheck">
+        <div class="col-md-6 form-group">
+            <label>Password:</label>
+            <input type="text" class="form-control" th:field="*{password}">
+        </div>
 
-    <div class="col-md-3 form-group">
-        <label>Active:</label>
-        <input type="text" class="form-control" th:field="*{active}">
-    </div>
+        <input type="hidden" th:value="*{password}" id="passwordCheck" name="passwordCheck">
 
-    <input type="hidden" th:field="*{roles}">
+        <div class="col-md-6 form-group">
+            <label>Active:</label>
+            <input type="text" class="form-control" th:field="*{active}">
+        </div>
 
-    <h3>Update roles</h3>
+        <input type="hidden" th:field="*{roles}">
 
-    <a href="#" th:href="@{'/users/change/end_user/'+${users.username}}" class="btn btn-info" role="button">Change to End User</a>
-    <a href="#" th:href="@{'/users/change/agent/'+${users.username}}" class="btn btn-info" role="button">Change to Agent</a>
-    <a href="#" th:href="@{'/users/change/admin/'+${users.username}}" class="btn btn-info" role="button">Change to Admin</a>
-    <br>
-    <br>
+        <h3>Update roles</h3>
 
-    <div class="col-md-3 form-group">
-        <input type="submit" value="Submit">
+        <a href="#" th:href="@{'/users/change/end_user/'+${users.username}}" class="btn btn-info" role="button">Change to End User</a>
+        <a href="#" th:href="@{'/users/change/agent/'+${users.username}}" class="btn btn-info" role="button">Change to Agent</a>
+        <a href="#" th:href="@{'/users/change/admin/'+${users.username}}" class="btn btn-info" role="button">Change to Admin</a>
+        <br>
+        <br>
+
+        <div>
+            <input type="submit" value="Submit">
+        </div>
+
     </div>
 
 </form>
+
+<footer>
+    <div class="container-fluid padding">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <hr class="light">
+                <h5>Contact Us:</h5>
+                <hr class="light">
+                <p>Email: yourname@mail.com</p>
+                <p>Contact Number: 614-000-0000</p>
+            </div>
+            <div class="col-md-4">
+                <hr class="light">
+                <h5>Your profile:</h5>
+                <hr class="light">
+                <a href="/profile">Check the status of your tickets</a><br><br>
+            </div>
+            <div class="col-md-4">
+                <hr class="light">
+                <h5>Administration</h5>
+                <hr class="light">
+                <a href="/users">Check Users</a><br><br>
+            </div>
+            <div class="col-12">
+                <hr class="light">
+                <h5>github.com/murphy1</h5>
+            </div>
+        </div>
+    </div>
+</footer>
 
 </body>
 </html>

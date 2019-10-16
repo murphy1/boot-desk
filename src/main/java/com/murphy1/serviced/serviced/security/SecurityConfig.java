@@ -48,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.csrf().disable();
         httpSecurity.headers().frameOptions().disable();
         httpSecurity.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+        httpSecurity.exceptionHandling().accessDeniedPage("/exceptions/403error");
     }
 
     @Bean
