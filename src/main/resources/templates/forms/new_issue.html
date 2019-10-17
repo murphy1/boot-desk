@@ -160,6 +160,12 @@
         <div>
             <input type="submit" value="Submit">
         </div>
+
+        <br>
+
+        <div th:if="${issue.id}!=null">
+            <a href="#" th:href="@{'/issues/convert/'+ ${issue.id}}" class="btn btn-info" role="button">Convert</a>
+        </div>
     </div>
 
 </form>

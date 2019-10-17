@@ -1,7 +1,9 @@
 package com.murphy1.serviced.serviced.controllers;
 
+import com.murphy1.serviced.serviced.exceptions.BadRequestException;
+import com.murphy1.serviced.serviced.model.Issue;
 import com.murphy1.serviced.serviced.model.ServiceRequest;
-import com.murphy1.serviced.serviced.model.Status;
+import com.murphy1.serviced.serviced.services.ConversionService;
 import com.murphy1.serviced.serviced.services.ServiceRequestService;
 import com.murphy1.serviced.serviced.services.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -21,10 +23,12 @@ public class ServiceRequestController {
 
     private ServiceRequestService serviceRequestService;
     private UserService userService;
+    private ConversionService conversionService;
 
-    public ServiceRequestController(ServiceRequestService serviceRequestService, UserService userService) {
+    public ServiceRequestController(ServiceRequestService serviceRequestService, UserService userService, ConversionService conversionService) {
         this.serviceRequestService = serviceRequestService;
         this.userService = userService;
+        this.conversionService = conversionService;
     }
 
     @GetMapping("/service_requests")
@@ -52,7 +56,7 @@ public class ServiceRequestController {
     public String updateServiceRequest(@PathVariable String requestId, Model model){
         ServiceRequest serviceRequest = serviceRequestService.findById(Long.valueOf(requestId));
         if (serviceRequest.getStatus().toString().equals("SOLVED")){
-            throw new RuntimeException("Tickets in status Solved cannot be updated");
+            throw new BadRequestException("Tickets in status Solved cannot be updated");
         }
         model.addAttribute("serviceRequest", serviceRequest);
 
@@ -88,6 +92,13 @@ public class ServiceRequestController {
         serviceRequestService.save(serviceRequest);
 
         return "redirect:/service_requests/view/"+requestId;
+    }
+
+    @GetMapping("/service_requests/convert/{requestId}")
+    public String convert(@PathVariable String requestId){
+        Issue issue = conversionService.convertServiceRequestToIssue(serviceRequestService.findById(Long.valueOf(requestId)));
+
+        return "redirect:/issues/update/"+issue.getId().toString();
     }
 
 }

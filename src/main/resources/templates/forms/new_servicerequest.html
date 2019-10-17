@@ -160,6 +160,13 @@
         <div>
             <input type="submit" value="Submit">
         </div>
+
+        <br>
+
+        <div th:if="${serviceRequest.id}!=null">
+            <a href="#" th:href="@{'/service_requests/convert/'+ ${serviceRequest.id}}" class="btn btn-info" role="button">Convert</a>
+        </div>
+
     </div>
 
 </form>

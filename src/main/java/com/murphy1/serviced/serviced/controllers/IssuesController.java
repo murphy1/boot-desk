@@ -1,6 +1,9 @@
 package com.murphy1.serviced.serviced.controllers;
 
+import com.murphy1.serviced.serviced.exceptions.BadRequestException;
 import com.murphy1.serviced.serviced.model.Issue;
+import com.murphy1.serviced.serviced.model.ServiceRequest;
+import com.murphy1.serviced.serviced.services.ConversionService;
 import com.murphy1.serviced.serviced.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -17,10 +20,12 @@ public class IssuesController {
 
     private IssueService issueService;
     private UserService userService;
+    private ConversionService conversionService;
 
-    public IssuesController(IssueService issueService, UserService userService) {
+    public IssuesController(IssueService issueService, UserService userService, ConversionService conversionService) {
         this.issueService = issueService;
         this.userService = userService;
+        this.conversionService = conversionService;
     }
 
     @RequestMapping("/issues")
@@ -49,7 +54,7 @@ public class IssuesController {
     public String updateIssue(@PathVariable String issueId, Model model){
         Issue issue = issueService.findIssueById(Long.valueOf(issueId));
         if (issue.getStatus().toString().equals("SOLVED")){
-            throw new RuntimeException("Tickets in status Solved cannot be updated");
+            throw new BadRequestException("Tickets in status Solved cannot be updated");
         }
         model.addAttribute("issue", issue);
 
@@ -87,6 +92,13 @@ public class IssuesController {
         issueService.save(issue);
 
         return "redirect:/issues/view/"+issueId;
+    }
+
+    @GetMapping("/issues/convert/{issueId}")
+    public String convert(@PathVariable String issueId){
+        ServiceRequest serviceRequest = conversionService.convertIssueToServiceRequest(issueService.findIssueById(Long.valueOf(issueId)));
+
+        return "redirect:/service_requests/update/"+serviceRequest.getId();
     }
 
 }
