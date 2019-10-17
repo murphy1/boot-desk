@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -37,10 +38,26 @@ public class SearchController {
         String query = search.getSearchQuery();
 
         if (search.getSearchType().toString().equals("ISSUE")){
-            model.addAttribute("results", issues = searchService.issueResult(object, query));
+            issues = searchService.issueResult(object, query);
+            if (!issues.isEmpty()){
+                model.addAttribute("issues", issues);
+                model.addAttribute("serviceRequests", "EMPTY");
+            }
+            else {
+                model.addAttribute("issues", "EMPTY");
+                model.addAttribute("serviceRequests", "EMPTY");
+            }
         }
         else if (search.getSearchType().toString().equals("SERVICE_REQUEST")){
-            model.addAttribute("results", serviceRequests = searchService.serviceRequestResult(object, query));
+            serviceRequests = searchService.serviceRequestResult(object, query);
+            if (!serviceRequests.isEmpty()){
+                model.addAttribute("issues", "EMPTY");
+                model.addAttribute("serviceRequests", serviceRequests);
+            }
+            else {
+                model.addAttribute("issues", "EMPTY");
+                model.addAttribute("serviceRequests", "EMPTY");
+            }
         }
         else{
             throw new RuntimeException("Search object does not exist!");

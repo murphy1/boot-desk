@@ -45,7 +45,7 @@
     </div>
 </nav>
 
-<table class="table table-striped">
+<table class="table table-striped" th:if="${issues!='EMPTY'}">
     <thead>
     <tr>
         <th>ID:</th>
@@ -61,21 +61,58 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="result : ${results}">
-        <td th:text="${result.id}">1</td>
-        <td th:text="${result.name}">Issue</td>
-        <td th:text="${result.creator}">Issue</td>
-        <td th:text="${result.assignedTo}"></td>
-        <td th:text="${result.description}">Broken Link</td>
-        <td th:text="${result.label}">Broken Link</td>
-        <td th:text="${result.priority}">Broken Link</td>
-        <td th:text="${result.status}">Broken Link</td>
-        <td th:text="${result.dueDate}">Broken Link</td>
+    <tr th:each="issue : ${issues}">
+        <td th:text="${issue.id}">1</td>
+        <td th:text="${issue.name}">Issue</td>
+        <td th:text="${issue.creator}">Issue</td>
+        <td th:text="${issue.assignedTo}"></td>
+        <td th:text="${issue.description}">Broken Link</td>
+        <td th:text="${issue.label}">Broken Link</td>
+        <td th:text="${issue.priority}">Broken Link</td>
+        <td th:text="${issue.status}">Broken Link</td>
+        <td th:text="${issue.dueDate}">Broken Link</td>
         <td>
             <label>
-                <textarea rows="5" cols="50" th:text="${result.messages}" readonly></textarea>
+                <textarea rows="5" cols="50" th:text="${issue.messages}" readonly></textarea>
             </label>
         </td>
+        <td><a href="#" th:href="@{'/issues/update/'+ ${issue.id}}" class="btn btn-info" role="button">Update</a></td>
+    </tr>
+    </tbody>
+</table>
+
+<table class="table table-striped" th:if="${serviceRequests!='EMPTY'}">
+    <thead>
+    <tr>
+        <th>ID:</th>
+        <th>Name:</th>
+        <th>Creator:</th>
+        <th>Assigned To:</th>
+        <th>Description:</th>
+        <th>Label:</th>
+        <th>Priority:</th>
+        <th>Status:</th>
+        <th>Due Date:</th>
+        <th>Chat:</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="request : ${serviceRequests}">
+        <td th:text="${request.id}">1</td>
+        <td th:text="${request.name}">Issue</td>
+        <td th:text="${request.creator}">Issue</td>
+        <td th:text="${request.assignedTo}"></td>
+        <td th:text="${request.description}">Broken Link</td>
+        <td th:text="${request.label}">Broken Link</td>
+        <td th:text="${request.priority}">Broken Link</td>
+        <td th:text="${request.status}">Broken Link</td>
+        <td th:text="${request.dueDate}">Broken Link</td>
+        <td>
+            <label>
+                <textarea rows="5" cols="50" th:text="${request.messages}" readonly></textarea>
+            </label>
+        </td>
+        <td><a href="#" th:href="@{'/issues/update/'+ ${request.id}}" class="btn btn-info" role="button">Update</a></td>
     </tr>
     </tbody>
 </table>
