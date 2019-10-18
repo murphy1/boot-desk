@@ -97,6 +97,41 @@
             <input type="text" class="form-control" th:field="*{searchQuery}">
         </div>
 
+        <div class="form-group" th:if="${count}==1">
+            <div class="col-6">
+                <label>What would you like to search by:</label>
+                <select class="form-control" th:field="*{searchObject1}">
+                    <option th:each="searchObjectValue : ${T(com.murphy1.serviced.serviced.searching.SearchObject).values()}"
+                            th:value="${searchObjectValue.name()}"
+                            th:text="${searchObjectValue.name()}"
+                    >val</option>
+                </select>
+                <select class="form-control" th:remove="all">
+                    <option>ID</option>
+                    <option>Name</option>
+                    <option>Description</option>
+                    <option>Priority</option>
+                    <option>Due Date</option>
+                    <option>Status</option>
+                    <option>Label</option>
+                    <option>Creator</option>
+                    <option>Assigned To</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-6 form-group" th:if="${count}==1">
+            <label>Query:</label>
+            <input type="text" class="form-control" th:field="*{searchQuery1}">
+        </div>
+
+        <div>
+            <a href="#" th:href="@{'/search/more_criteria'}" class="btn btn-info" role="button">Add another query</a>
+        </div>
+
+        <br>
+        <br>
+
         <div>
             <input type="submit" value="Submit">
         </div>
