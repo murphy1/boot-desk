@@ -46,12 +46,12 @@
             <input type="text" class="form-control" th:field="*{email}">
         </div>
 
-        <input type="hidden" th:value="*{email}" id="emailCheck" name="emailCheck">
-
         <div class="col-md-6 form-group">
-            <label>Password:</label>
-            <input type="text" class="form-control" th:field="*{password}">
+            <label>Re-enter Email:</label>
+            <input type="text" class="form-control" th:field="*{emailCheck}">
         </div>
+
+        <input type="hidden" th:field="*{password}">
 
         <input type="hidden" th:value="*{password}" id="passwordCheck" name="passwordCheck">
 

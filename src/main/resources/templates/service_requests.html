@@ -31,7 +31,6 @@
     <th>Priority:</th>
     <th>Status:</th>
     <th>Due Date:</th>
-    <th>Chat:</th>
     <th>Make Changes:</th>
     </tr>
     </thead>
@@ -47,11 +46,6 @@
         <td th:text="${request.priority}">Broken Link</td>
         <td th:text="${request.status}">Broken Link</td>
         <td th:text="${request.dueDate}">Broken Link</td>
-        <td>
-            <label>
-                <textarea rows="5" cols="50" th:text="${request.messages}" readonly></textarea>
-            </label>
-        </td>
         <td><a href="#" th:href="@{'/service_requests/update/'+ ${request.id}}" class="btn btn-info" role="button">Update</a></td>
     </tr>
     </tbody>
