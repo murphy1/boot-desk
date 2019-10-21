@@ -24,7 +24,12 @@
 
         <h2>Issue</h2>
 
-        <input type="hidden" th:field="*{id}">
+        <div th:if="${issue.id}!=null">
+            <div class="col-6">
+                <label>ID:</label>
+                <input type="text" class="form-control" th:field="*{id}" readonly/>
+            </div>
+        </div>
 
         <div class="col-md-6 form-group" th:class="${#fields.hasErrors('name')}
                                     ? 'col-md-6 form-group has-error' : 'col-md-6 form-group'">
@@ -110,7 +115,12 @@
 
         <input type="hidden" th:field="*{dueDate}">
 
-        <input type="hidden" th:field="*{messages}">
+        <div th:if="${issue.id}!=null">
+            <div class="col-6">
+                <label>Previous Messages:</label>
+                <textarea rows="4" cols="50" class="form-control" th:field="*{messages}" readonly></textarea>
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-6">

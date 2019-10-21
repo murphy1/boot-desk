@@ -11,7 +11,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" type="text/css" media="all"
-          href="../../static/style.css" th:href="@{/style.css}"/>
+          href="../static/style.css" th:href="@{/style.css}"/>
 
 </head>
 <body>
@@ -28,7 +28,6 @@
         <th>Priority:</th>
         <th>Status:</th>
         <th>Due Date:</th>
-        <th>Chat:</th>
         <th>Make Changes:</th>
     </tr>
     </thead>
@@ -43,11 +42,6 @@
         <td th:text="${issue.priority}">Broken Link</td>
         <td th:text="${issue.status}">Broken Link</td>
         <td th:text="${issue.dueDate}">Broken Link</td>
-        <td>
-            <label>
-                <textarea rows="5" cols="50" th:text="${issue.messages}" readonly></textarea>
-            </label>
-        </td>
         <td><a href="#" th:href="@{'/issues/update/'+ ${issue.id}}" class="btn btn-secondary" role="button">Update</a></td>
     </tr>
     </tbody>
@@ -65,7 +59,6 @@
         <th>Priority:</th>
         <th>Status:</th>
         <th>Due Date:</th>
-        <th>Chat:</th>
         <th>Make Changes:</th>
     </tr>
     </thead>
@@ -80,11 +73,6 @@
         <td th:text="${request.priority}">Broken Link</td>
         <td th:text="${request.status}">Broken Link</td>
         <td th:text="${request.dueDate}">Broken Link</td>
-        <td>
-            <label>
-                <textarea rows="5" cols="50" th:text="${request.messages}" readonly></textarea>
-            </label>
-        </td>
         <td><a href="#" th:href="@{'/service_requests/update/'+ ${request.id}}" class="btn btn-secondary" role="button">Update</a></td>
     </tr>
     </tbody>
