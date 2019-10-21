@@ -30,7 +30,6 @@ public class IssuesController {
 
     @RequestMapping("/issues")
     public String issueList(Model model){
-
         model.addAttribute("issues", issueService.getAllIssues());
 
         return "issues.html";
@@ -38,6 +37,10 @@ public class IssuesController {
 
     @GetMapping("/issues/view/{issueId}")
     public String viewIssue(Model model, @PathVariable String issueId){
+        //Check role. If user is admin they will see the Analytics option in Navbar
+        String role = userService.getRole(userService.getCurrentUserName());
+        model.addAttribute("role", role);
+
         model.addAttribute("issues", issueService.findIssueById(Long.valueOf(issueId)));
 
         return "issues.html";
@@ -45,6 +48,10 @@ public class IssuesController {
 
     @GetMapping("/issues/new")
     public String newIssue(Model model){
+        //Check role. If user is admin they will see the Analytics option in Navbar
+        String role = userService.getRole(userService.getCurrentUserName());
+        model.addAttribute("role", role);
+
         model.addAttribute("issue", new Issue());
 
         return "forms/new_issue.html";
@@ -52,6 +59,10 @@ public class IssuesController {
 
     @GetMapping("/issues/update/{issueId}")
     public String updateIssue(@PathVariable String issueId, Model model){
+        //Check role. If user is admin they will see the Analytics option in Navbar
+        String role = userService.getRole(userService.getCurrentUserName());
+        model.addAttribute("role", role);
+
         Issue issue = issueService.findIssueById(Long.valueOf(issueId));
         if (issue.getStatus().toString().equals("SOLVED")){
             throw new BadRequestException("Tickets in status Solved cannot be updated");
@@ -69,11 +80,16 @@ public class IssuesController {
     }
 
     @PostMapping("/issue/save")
-    public String saveIssue(@Valid @ModelAttribute("issue") Issue issue, BindingResult bindingResult){
+    public String saveIssue(@Valid @ModelAttribute("issue") Issue issue, BindingResult bindingResult, Model model){
         if (bindingResult.hasErrors()){
             bindingResult.getAllErrors().forEach(objectError ->
                     log.debug(objectError.toString())
                     );
+
+            //Check role. If user is admin they will see the Analytics option in Navbar
+            String role = userService.getRole(userService.getCurrentUserName());
+            model.addAttribute("role", role);
+
             return "forms/new_issue.html";
         }
 

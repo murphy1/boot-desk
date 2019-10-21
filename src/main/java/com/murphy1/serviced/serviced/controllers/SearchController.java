@@ -3,6 +3,7 @@ package com.murphy1.serviced.serviced.controllers;
 import com.murphy1.serviced.serviced.model.Ticket;
 import com.murphy1.serviced.serviced.searching.Search;
 import com.murphy1.serviced.serviced.services.SearchService;
+import com.murphy1.serviced.serviced.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,17 +16,23 @@ import java.util.List;
 public class SearchController {
 
     private SearchService searchService;
+    private UserService userService;
 
     // Variable to keep an eye on adding more search criteria
     private int count;
 
-    public SearchController(SearchService searchService) {
+    public SearchController(SearchService searchService, UserService userService) {
         this.count = 0;
         this.searchService = searchService;
+        this.userService = userService;
     }
 
     @GetMapping("/search")
     public String search(Model model){
+        //Check role. If user is admin they will see the Analytics option in Navbar
+        String role = userService.getRole(userService.getCurrentUserName());
+        model.addAttribute("role", role);
+
         model.addAttribute("searchObject", new Search());
 
         return "forms/searchform.html";
@@ -33,6 +40,10 @@ public class SearchController {
 
     @PostMapping("/search/submit_search")
     public String searchResults(Model model, @ModelAttribute Search search){
+        //Check role. If user is admin they will see the Analytics option in Navbar
+        String role = userService.getRole(userService.getCurrentUserName());
+        model.addAttribute("role", role);
+
         // reset the count if a search is submitted
         count = 0;
 
@@ -95,6 +106,9 @@ public class SearchController {
 
     @GetMapping("/search/more_criteria")
     public String addMoreCriteria(Model model){
+        //Check role. If user is admin they will see the Analytics option in Navbar
+        String role = userService.getRole(userService.getCurrentUserName());
+        model.addAttribute("role", role);
 
         count++;
         model.addAttribute("searchObject", new Search());

@@ -39,6 +39,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="/users">User Administration</a>
             </li>
+            <li class="nav-item" th:if="${role}=='ADMIN'">
+                <a class="nav-link" href="/analytics">Analytics</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="/logout">Logout</a>
             </li>
@@ -50,6 +53,9 @@
 <form th:object="${serviceRequest}" th:action="@{/serviceRequest/save}" method="post">
 
     <div class="container center_div">
+
+        <br>
+        <br>
 
         <h2>Service Request</h2>
 
@@ -154,18 +160,18 @@
             <div class="col-6">
                 <label>Assigned To:</label>
                 <input type="text" class="form-control" th:field="*{assignedTo}">
-                <small id="assignHelp" class="form-text text-muted">Please leave this blank when creating a ticket. Our team will assign an agent.</small>
+                <small id="assignHelp">Please leave this blank when creating a ticket. Our team will assign an agent.</small>
             </div>
         </div>
 
         <div>
-            <input type="submit" value="Submit">
+            <button type="submit" class="btn btn-basic">Submit</button>
         </div>
 
         <br>
 
         <div th:if="${serviceRequest.id}!=null">
-            <a href="#" th:href="@{'/service_requests/convert/'+ ${serviceRequest.id}}" class="btn btn-info" role="button">Convert</a>
+            <a href="#" th:href="@{'/service_requests/convert/'+ ${serviceRequest.id}}" class="btn btn-secondary" role="button">Convert</a>
         </div>
 
     </div>
@@ -186,13 +192,13 @@
                 <hr class="light">
                 <h5>Your profile:</h5>
                 <hr class="light">
-                <a href="/profile">Check the status of your tickets</a><br><br>
+                <a href="/profile" style="color: white">Check the status of your tickets</a><br><br>
             </div>
             <div class="col-md-4">
                 <hr class="light">
                 <h5>Administration</h5>
                 <hr class="light">
-                <a href="/users">Check Users</a><br><br>
+                <a href="/users" style="color: white">Check Users</a><br><br>
             </div>
             <div class="col-12">
                 <hr class="light">

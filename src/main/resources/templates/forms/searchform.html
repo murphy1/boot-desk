@@ -39,6 +39,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="/users">User Administration</a>
             </li>
+            <li class="nav-item" th:if="${role}=='ADMIN'">
+                <a class="nav-link" href="/analytics">Analytics</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="/logout">Logout</a>
             </li>
@@ -50,6 +53,9 @@
 <form th:object="${searchObject}" th:action="@{/search/submit_search}" method="post">
 
     <div class="container center_div">
+
+        <br>
+        <br>
 
         <h2>Search for a ticket:</h2>
 
@@ -126,14 +132,14 @@
         </div>
 
         <div>
-            <a href="#" th:href="@{'/search/more_criteria'}" class="btn btn-info" role="button">Add another query</a>
+            <a href="#" th:href="@{'/search/more_criteria'}" class="btn btn-secondary" role="button">Add another query</a>
         </div>
 
         <br>
         <br>
 
         <div>
-            <input type="submit" value="Submit">
+            <button type="submit" class="btn btn-basic">Submit</button>
         </div>
 
     </div>

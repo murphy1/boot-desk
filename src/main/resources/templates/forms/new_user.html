@@ -39,6 +39,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="/users">User Administration</a>
             </li>
+            <li class="nav-item" th:if="${role}=='ADMIN'">
+                <a class="nav-link" href="/analytics">Analytics</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="/logout">Logout</a>
             </li>
@@ -119,7 +122,7 @@
         </div>
 
         <div>
-            <input type="submit" value="Submit">
+            <button type="submit" class="btn btn-basic">Submit</button>
         </div>
 
     </div>

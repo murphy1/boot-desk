@@ -49,6 +49,10 @@ public class UserController {
 
     @GetMapping("/users")
     public String getAllUsers(Model model){
+        //Check role. If user is admin they will see the Analytics option in Navbar
+        String role = userService.getRole(userService.getCurrentUserName());
+        model.addAttribute("role", role);
+
         model.addAttribute("users", userService.getAllUsers());
 
         return "users.html";
@@ -56,6 +60,9 @@ public class UserController {
 
     @GetMapping("/users/new/{user}")
     public String newUser(Model model, @PathVariable String user){
+        //Check role. If user is admin they will see the Analytics option in Navbar
+        String role = userService.getRole(userService.getCurrentUserName());
+        model.addAttribute("role", role);
 
         switch (user)
         {
@@ -83,6 +90,9 @@ public class UserController {
 
     @GetMapping("/users/update/{userType}/{userId}")
     public String updateUser(Model model, @PathVariable String userType, @PathVariable String userId){
+        //Check role. If user is admin they will see the Analytics option in Navbar
+        String analyticsCheck = userService.getRole(userService.getCurrentUserName());
+        model.addAttribute("role", analyticsCheck);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();

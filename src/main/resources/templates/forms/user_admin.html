@@ -39,6 +39,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="/users">User Administration</a>
             </li>
+            <li class="nav-item" th:if="${role}=='ADMIN'">
+                <a class="nav-link" href="/analytics">Analytics</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="/logout">Logout</a>
             </li>
@@ -50,6 +53,11 @@
 <form th:object="${users}" th:action="@{/user/save}" method="post">
 
     <div class="container center_div">
+
+        <br>
+        <br>
+
+        <h3>Update User</h3>
 
         <input type="hidden" th:field="*{id}">
 
@@ -91,14 +99,14 @@
 
         <h3>Update roles</h3>
 
-        <a href="#" th:href="@{'/users/change/end_user/'+${users.username}}" class="btn btn-info" role="button">Change to End User</a>
-        <a href="#" th:href="@{'/users/change/agent/'+${users.username}}" class="btn btn-info" role="button">Change to Agent</a>
-        <a href="#" th:href="@{'/users/change/admin/'+${users.username}}" class="btn btn-info" role="button">Change to Admin</a>
+        <a href="#" th:href="@{'/users/change/end_user/'+${users.username}}" class="btn btn-secondary" role="button">Change to End User</a>
+        <a href="#" th:href="@{'/users/change/agent/'+${users.username}}" class="btn btn-secondary" role="button">Change to Agent</a>
+        <a href="#" th:href="@{'/users/change/admin/'+${users.username}}" class="btn btn-secondary" role="button">Change to Admin</a>
         <br>
         <br>
 
         <div>
-            <input type="submit" value="Submit">
+            <button type="submit" class="btn btn-basic">Submit</button>
         </div>
 
     </div>

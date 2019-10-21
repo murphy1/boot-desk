@@ -33,6 +33,10 @@ public class ServiceRequestController {
 
     @GetMapping("/service_requests")
     public String getAllServiceRequests(Model model){
+        //Check role. If user is admin they will see the Analytics option in Navbar
+        String role = userService.getRole(userService.getCurrentUserName());
+        model.addAttribute("role", role);
+
         model.addAttribute("serviceRequests", serviceRequestService.getAllServiceRequests());
 
         return "service_requests.html";
@@ -40,6 +44,10 @@ public class ServiceRequestController {
 
     @GetMapping("/service_requests/view/{requestId}")
     public String viewServiceRequest(Model model, @PathVariable String requestId){
+        //Check role. If user is admin they will see the Analytics option in Navbar
+        String role = userService.getRole(userService.getCurrentUserName());
+        model.addAttribute("role", role);
+
         model.addAttribute("serviceRequests", serviceRequestService.findById(Long.valueOf(requestId)));
 
         return "service_requests.html";
@@ -47,6 +55,10 @@ public class ServiceRequestController {
 
     @GetMapping("/service_requests/new")
     public String newServiceRequest(Model model){
+        //Check role. If user is admin they will see the Analytics option in Navbar
+        String role = userService.getRole(userService.getCurrentUserName());
+        model.addAttribute("role", role);
+
         model.addAttribute("serviceRequest", new ServiceRequest());
 
         return "/forms/new_servicerequest.html";
@@ -54,6 +66,10 @@ public class ServiceRequestController {
 
     @GetMapping("/service_requests/update/{requestId}")
     public String updateServiceRequest(@PathVariable String requestId, Model model){
+        //Check role. If user is admin they will see the Analytics option in Navbar
+        String role = userService.getRole(userService.getCurrentUserName());
+        model.addAttribute("role", role);
+
         ServiceRequest serviceRequest = serviceRequestService.findById(Long.valueOf(requestId));
         if (serviceRequest.getStatus().toString().equals("SOLVED")){
             throw new BadRequestException("Tickets in status Solved cannot be updated");

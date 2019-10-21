@@ -4,11 +4,11 @@ html {
 }
 
 body {
-    background-color: #EEE2DC;
+    background-color: slategrey;
 }
 
 .navbar {
-    background-color: #AC3B61;
+    background-color: dimgrey;
 }
 
 .center_div{
@@ -48,4 +48,37 @@ footer {
     left: 0;
     right: 0;
     height:100px;
+    color: white;
 }
+
+/* Styling for index.html */
+
+.index-main {
+    color: white;
+    text-align: center;
+}
+
+.index-p {
+    color: white;
+    text-align: center;
+}
+
+.index-footer {
+    padding-top: 45%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height:100px;
+    color: white;
+}
+
+/* Css for pages, new_issue.html, new_servicerequest*/
+
+label {
+    color: white;
+}
+
+#assignHelp {
+    color: white;
+}
+

@@ -38,6 +38,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="/users">User Administration</a>
             </li>
+            <li class="nav-item" th:if="${role}=='ADMIN'">
+                <a class="nav-link" href="/analytics">Analytics</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="/logout">Logout</a>
             </li>
@@ -77,7 +80,7 @@
                 <textarea rows="5" cols="50" th:text="${issue.messages}" readonly></textarea>
             </label>
         </td>
-        <td><a href="#" th:href="@{'/issues/update/'+ ${issue.id}}" class="btn btn-info" role="button">Update</a></td>
+        <td><a href="#" th:href="@{'/issues/update/'+ ${issue.id}}" class="btn btn-secondary" role="button">Update</a></td>
     </tr>
     </tbody>
 </table>
@@ -114,7 +117,7 @@
                 <textarea rows="5" cols="50" th:text="${request.messages}" readonly></textarea>
             </label>
         </td>
-        <td><a href="#" th:href="@{'/service_requests/update/'+ ${request.id}}" class="btn btn-info" role="button">Update</a></td>
+        <td><a href="#" th:href="@{'/service_requests/update/'+ ${request.id}}" class="btn btn-secondary" role="button">Update</a></td>
     </tr>
     </tbody>
 </table>

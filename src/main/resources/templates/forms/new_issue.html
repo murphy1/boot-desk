@@ -39,6 +39,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="/users">User Administration</a>
             </li>
+            <li class="nav-item" th:if="${role}=='ADMIN'">
+                <a class="nav-link" href="/analytics">Analytics</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="/logout">Logout</a>
             </li>
@@ -50,6 +53,9 @@
 <form th:object="${issue}" th:action="@{/issue/save}" method="post">
 
     <div class="container center_div">
+
+        <br>
+        <br>
 
         <h2>Issue</h2>
 
@@ -154,18 +160,18 @@
             <div class="col-6">
                 <label>Assigned To:</label>
                 <input type="text" class="form-control" th:field="*{assignedTo}">
-                <small id="assignHelp" class="form-text text-muted">Please leave this blank when creating a ticket. Our team will assign an agent.</small>
+                <small id="assignHelp">Please leave this blank when creating a ticket. Our team will assign an agent.</small>
             </div>
         </div>
 
         <div>
-            <input type="submit" value="Submit">
+            <button type="submit" class="btn btn-basic">Submit</button>
         </div>
 
         <br>
 
         <div th:if="${issue.id}!=null">
-            <a href="#" th:href="@{'/issues/convert/'+ ${issue.id}}" class="btn btn-info" role="button">Convert</a>
+            <a href="#" th:href="@{'/issues/convert/'+ ${issue.id}}" class="btn btn-secondary" role="button">Convert</a>
         </div>
     </div>
 

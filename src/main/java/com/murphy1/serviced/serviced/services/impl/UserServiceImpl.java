@@ -148,6 +148,9 @@ public class UserServiceImpl implements UserService {
     public String getCurrentUserName() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();
+        if (principal.equals("anonymousUser")){
+            return "ANON";
+        }
         String username = ((UserDetails)principal).getUsername();
         return username;
     }
