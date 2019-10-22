@@ -183,7 +183,7 @@ public class UserController {
 
         userService.changeToEndUser(userService.findUserByUsername(username));
 
-        return "redirect:/users/endusers";
+        return "redirect:/users";
     }
 
     @GetMapping("/users/change/agent/{username}")
@@ -191,7 +191,7 @@ public class UserController {
 
         userService.changeToAgent(userService.findUserByUsername(username));
 
-        return "redirect:/users/agents";
+        return "redirect:/users";
     }
 
     @GetMapping("/users/change/admin/{username}")
@@ -199,7 +199,26 @@ public class UserController {
 
         userService.changeToAdmin(userService.findUserByUsername(username));
 
-        return "redirect:/users/admins";
+        return "redirect:/users";
+    }
+
+    @PostMapping("/user/save/password")
+    public String saveNewPassword(@ModelAttribute("users") User user) throws MessagingException {
+
+        switch (user.getRoles()) {
+            case "AGENT":
+                agentService.saveAgent(userService.convertUserToAgent(user));
+                return "redirect:/users";
+            case "ADMIN":
+                adminService.saveAdmin(userService.convertUserToAdmin(user));
+                return "redirect:/users";
+            case "END_USER":
+                endUserService.saveEndUser(userService.convertUserToEndUser(user));
+                return "redirect:/users";
+            default:
+                throw new RuntimeException("user type does not exist!");
+        }
+
     }
 
 }

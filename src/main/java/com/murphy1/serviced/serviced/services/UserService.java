@@ -18,6 +18,7 @@ public interface UserService {
     String getCurrentUserName();
     List<User> getAllUsers();
     User findUserByUsername(String username);
+    User findUserByEmail(String email);
     void changeToEndUser(User user);
     void changeToAgent(User user);
     void changeToAdmin(User user);

@@ -1,5 +1,6 @@
 package com.murphy1.serviced.serviced.services.impl;
 
+import com.murphy1.serviced.serviced.model.ResetToken;
 import com.murphy1.serviced.serviced.model.User;
 import com.murphy1.serviced.serviced.services.MailService;
 import lombok.extern.slf4j.Slf4j;
@@ -102,5 +103,21 @@ public class MailServiceImpl implements MailService {
         );
         log.debug("Sending message from the creator to the assigned to!");
         //javaMailSender.send(mailMessage);
+    }
+
+    @Override
+    public void forgotPassword(User user, ResetToken token) {
+        var mailMessage = new SimpleMailMessage();
+
+        mailMessage.setTo(user.getEmail());
+        mailMessage.setSubject("Reset Password for Boot Desk");
+        mailMessage.setText("Hello "+
+                "\n\nPlease go to the following link to reset your password:"+"\n\n"+
+                "http://localhost:8080/process/"+token.getToken()+
+                "\n\n"+
+                "Warning, this token will expire in 24 hours!"
+        );
+        log.debug("Sending password reset message!");
+        javaMailSender.send(mailMessage);
     }
 }

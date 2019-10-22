@@ -179,6 +179,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findUserByEmail(String email) {
+        List<User> users = getAllUsers();
+
+        for (User user : users){
+            if (user.getEmail().equals(email)){
+                return user;
+            }
+        }
+        throw new NotFoundException("No user exists with that email");
+    }
+
+    @Override
     public void changeToEndUser(User user) {
         if (user.getRoles().equals("END_USER")){
             throw new BadRequestException("User is already an End User!");
