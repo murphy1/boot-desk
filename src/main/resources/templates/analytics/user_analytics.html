@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Analytics</title>
+</head>
+<body>
+
+<h2>Analysis for</h2>
+<h2 th:text="${user}">User</h2>
+
+<div>
+    <h3>Current Assigned Tickets</h3>
+    <p th:text="${currentAssignedTickets}">0</p>
+</div>
+
+<div>
+    <h3>Tickets Closed</h3>
+    <p th:text="${ticketsClosed}">0</p>
+</div>
+
+</body>
+</html>

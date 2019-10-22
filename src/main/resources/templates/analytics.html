@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Analytics</title>
@@ -8,5 +8,85 @@
 
 <h1>Welcome to Analytics</h1>
 
+<div>
+    <h3>Open tickets</h3>
+    <p th:text="${current_open_tickets}">0</p>
+</div>
+
+<div>
+    <h3>Overdue Tickets</h3>
+    <p th:text="${overdue_tickets}">0</p>
+</div>
+
+<h2>Statistics per user</h2>
+
+<div>
+    <h3>Overall Users</h3>
+    <p th:text="${overall_users}">0</p>
+</div>
+
+<div>
+    <h3>Admins</h3>
+    <p th:text="${admins}">0</p>
+</div>
+
+<div>
+    <h3>Agents</h3>
+    <p th:text="${agents}">0</p>
+</div>
+
+<div>
+    <h3>End Users</h3>
+    <p th:text="${endusers}">0</p>
+</div>
+
+<h3>User Statistics</h3>
+<form th:object="${label}" th:action="@{/user_analytics}" method="post">
+    <div>
+        <label class="form-label">Username:</label>
+        <input type="text" class="form-control" id="username" name="username"/>
+    </div>
+    <div class="col-md-3 searchformrow">
+        <button type="submit" class="btn btn-basic">Submit</button>
+    </div>
+</form>
+
+<h3>Label Statistics</h3>
+<!--/*@thymesVar id="issue" type="com.murphy1.serviced.serviced.model.Issue"*/-->
+<form  th:object="${issue}"  th:action="@{/label_analytics}" method="post">
+
+    <div class="container center_div">
+
+        <div class="form-group">
+            <div class="col-6">
+                <label>Label:</label>
+                <select class="form-control" th:field="*{label}">
+                    <option th:each="labelValue : ${T(com.murphy1.serviced.serviced.model.Label).values()}"
+                            th:value="${labelValue.name()}"
+                            th:text="${labelValue.name()}"
+                    >val</option>
+                </select>
+                <select class="form-control" th:remove="all">
+                    <option>Hardware</option>
+                    <option>Software</option>
+                    <option>Network</option>
+                    <option>Access</option>
+                    <option>Account</option>
+                    <option>SQL</option>
+                    <option>Java</option>
+                    <option>Other</option>
+                </select>
+            </div>
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-basic">Submit</button>
+        </div>
+
+        <br>
+
+    </div>
+
+</form>
 </body>
 </html>
