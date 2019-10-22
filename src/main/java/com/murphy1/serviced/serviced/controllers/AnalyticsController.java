@@ -25,6 +25,10 @@ public class AnalyticsController {
 
     @GetMapping("/analytics")
     public String openAnalytics(Model model){
+        //Check role. If user is admin they will see the Analytics option in Navbar
+        String role = userService.getRole(userService.getCurrentUserName());
+        model.addAttribute("role", role);
+
         model.addAttribute("issue", new Issue());
 
         model.addAttribute("current_open_tickets", analyticsService.getAllOpenTickets());
@@ -45,6 +49,10 @@ public class AnalyticsController {
 
     @PostMapping("/user_analytics")
     public String getUserForAnalytics(@ModelAttribute("users") User user, Model model){
+        //Check role. If user is admin they will see the Analytics option in Navbar
+        String role = userService.getRole(userService.getCurrentUserName());
+        model.addAttribute("role", role);
+
         User user1 = userService.findUserByUsername(user.getUsername());
 
         model.addAttribute("user", user1.getUsername());
@@ -56,6 +64,10 @@ public class AnalyticsController {
 
     @PostMapping("label_analytics")
     public String getLabelAnalytics(@ModelAttribute("issue") Issue issue, Model model){
+        //Check role. If user is admin they will see the Analytics option in Navbar
+        String role = userService.getRole(userService.getCurrentUserName());
+        model.addAttribute("role", role);
+
         String lbl = issue.getLabel().toString();
 
         model.addAttribute("label", analyticsService.ticketsByLabel(lbl));
