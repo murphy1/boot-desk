@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'templates')}">
+<head>
+    <meta charset="UTF-8">
+    <title>Teams</title>
+
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../static/style.css" th:href="@{/style.css}"/>
+
+</head>
+<body>
+
+<h1>List of Active Teams</h1>
+
+<!--/*@thymesVar id="issue" type="com.murphy1.serviced.serviced.model.Team"*/-->
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>ID:</th>
+        <th>Name:</th>
+        <th>Team Leader:</th>
+        <th>Target:</th>
+        <th>Make Changes:</th>
+        <th>Delete Team:</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="team : ${teams}">
+        <td th:text="${team.id}">1</td>
+        <td th:text="${team.name}">Issue</td>
+        <td th:text="${team.teamLeader.username}">Issue</td>
+        <td th:text="${team.target}"></td>
+        <td><a href="#" th:href="@{'/teams/update/'+ ${team.id}}" class="btn btn-info" role="button">Update</a></td>
+        <td><a href="#" th:href="@{'/teams/delete/'+ ${team.id}}" class="btn btn-info" role="button">Delete</a></td>
+    </tr>
+    </tbody>
+</table>
+
+<td><a href="#" th:href="@{'/teams/new'}" class="btn btn-info" role="button">New Team</a></td>
+
+</body>
+</html>

@@ -9,4 +9,5 @@ public interface AgentService {
     Agent saveAgent(Agent agent);
     void deleteAgent(Long id);
     Agent findAgentById(Long id);
+    Agent findAgentByUsername(String username);
 }

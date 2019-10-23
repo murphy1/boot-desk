@@ -82,4 +82,15 @@ public class AgentServiceImpl implements AgentService {
 
         return optionalAgent.get();
     }
+
+    @Override
+    public Agent findAgentByUsername(String username) {
+        Optional<Agent> agentOptional = agentRepository.findByUsername(username);
+
+        if (!agentOptional.isPresent()){
+            throw new NotFoundException("An Agent does not exist with that username!");
+        }
+
+        return agentOptional.get();
+    }
 }

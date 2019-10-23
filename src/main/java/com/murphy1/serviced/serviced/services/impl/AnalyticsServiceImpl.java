@@ -2,14 +2,15 @@ package com.murphy1.serviced.serviced.services.impl;
 
 import com.murphy1.serviced.serviced.exceptions.BadRequestException;
 import com.murphy1.serviced.serviced.model.Label;
-import com.murphy1.serviced.serviced.services.AnalyticsService;
-import com.murphy1.serviced.serviced.services.IssueService;
-import com.murphy1.serviced.serviced.services.ServiceRequestService;
-import com.murphy1.serviced.serviced.services.UserService;
+import com.murphy1.serviced.serviced.model.Team;
+import com.murphy1.serviced.serviced.repositories.TeamsRepository;
+import com.murphy1.serviced.serviced.services.*;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,11 +19,13 @@ public class AnalyticsServiceImpl implements AnalyticsService {
     private IssueService issueService;
     private ServiceRequestService serviceRequestService;
     private UserService userService;
+    private TeamService teamService;
 
-    public AnalyticsServiceImpl(IssueService issueService, ServiceRequestService serviceRequestService, UserService userService) {
+    public AnalyticsServiceImpl(IssueService issueService, ServiceRequestService serviceRequestService, UserService userService, TeamService teamService) {
         this.issueService = issueService;
         this.serviceRequestService = serviceRequestService;
         this.userService = userService;
+        this.teamService = teamService;
     }
 
     // General Stats
@@ -124,5 +127,10 @@ public class AnalyticsServiceImpl implements AnalyticsService {
                 .filter(serviceRequest -> serviceRequest.getLabel().toString().equals(label))
                 .count();
         return issues + serviceRequests;
+    }
+
+    @Override
+    public List<Team> getAllTeams() {
+        return teamService.getAllTeams();
     }
 }

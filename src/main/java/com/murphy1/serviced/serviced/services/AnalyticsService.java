@@ -1,5 +1,9 @@
 package com.murphy1.serviced.serviced.services;
 
+import com.murphy1.serviced.serviced.model.Team;
+
+import java.util.List;
+
 public interface AnalyticsService {
     Long getAllOpenTickets();
     Long overDueTickets();
@@ -13,4 +17,6 @@ public interface AnalyticsService {
     Long allEndUsers();
 
     Long ticketsByLabel(String label);
+
+    List<Team> getAllTeams();
 }

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Team</title>
+</head>
+<body>
+
+<!--/*@thymesVar id="issue" type="com.murphy1.serviced.serviced.model.Team"*/-->
+<form th:object="${team}" th:action="@{/team/save}" method="post">
+
+    <div class="container center_div">
+
+        <input type="hidden" th:field="*{id}">
+
+        <div class="col-md-6 form-group" th:class="${#fields.hasErrors('name')}
+                                        ? 'col-md-6 form-group has-error': 'col-md-6 form-group'">
+            <label>Name:</label>
+            <input type="text" class="form-control" th:field="*{name}" th:errorclass="has-error"/>
+            <span class="help-block" th:if="${#fields.hasErrors('name')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
+                </ul>
+            </span>
+        </div>
+
+        <div class="col-md-6 form-group" th:class="${#fields.hasErrors('teamLeader')}
+                                        ? 'col-md-6 form-group has-error' : 'col-md-6 form-group'">
+            <label>Team Leader:</label>
+            <input type="text" class="form-control" th:field="*{teamLeader.username}" th:errorclass="has-error"/>
+            <span class="help-block" th:if="${#fields.hasErrors('teamLeader')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('teamLeader')}" th:text="${err}"></li>
+                </ul>
+            </span>
+        </div>
+
+        <div class="col-md-6 form-group" th:class="${#fields.hasErrors('target')}
+                                        ? 'col-md-6 form-group has-error' : 'col-md-6 form-group'">
+            <label>Target:</label>
+            <input type="text" class="form-control" th:field="*{target}" th:errorclass="has-error"/>
+            <span class="help-block" th:if="${#fields.hasErrors('target')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('target')}" th:text="${err}"></li>
+                </ul>
+            </span>
+        </div>
+
+        <div class="col-md-6 form-group">
+            <table>
+                <thead>
+                <tr>
+                    <th> Member </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="member : ${teamMembers}">
+                    <td><span th:text="${member.username}"> Title </span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-6 form-group" th:class="${#fields.hasErrors('addMember')}
+                                        ? 'col-md-6 form-group has-error' : 'col-md-6 form-group'">
+            <label>Add Member:</label>
+            <input type="text" class="form-control" th:field="*{addMember}" th:errorclass="has-error"/>
+            <span class="help-block" th:if="${#fields.hasErrors('addMember')}">
+                <ul>`
+                    <li th:each="err : ${#fields.errors('addMember')}" th:text="${err}"></li>
+                </ul>
+            </span>
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-basic">Submit</button>
+        </div>
+
+    </div>
+
+</form>
+
+</body>
+</html>

@@ -44,9 +44,10 @@ public class UserServiceImpl implements UserService {
         agent.setLastName(user.getLastName());
         agent.setUsername(user.getUsername());
         agent.setPassword(user.getPassword());
-        agent.setPasswordCheck(user.getPasswordCheck());
+        agent.setPasswordCheck(user.getPassword());
         agent.setEmail(user.getEmail());
-        agent.setEmailCheck(user.getEmailCheck());
+        agent.setEmailCheck(user.getEmail());
+        agent.setRoles(user.getRoles());
         if (user.isActive()){
             agent.setActive(true);
         }
@@ -110,12 +111,13 @@ public class UserServiceImpl implements UserService {
         admin.setLastName(user.getLastName());
         admin.setUsername(user.getUsername());
         admin.setPassword(user.getPassword());
-        admin.setPasswordCheck(user.getPasswordCheck());
+        admin.setPasswordCheck(user.getPassword());
         admin.setEmail(user.getEmail());
-        admin.setEmailCheck(user.getEmailCheck());
+        admin.setEmailCheck(user.getEmail());
         if (user.isActive()){
             admin.setActive(true);
         }
+        admin.setRoles(user.getRoles());
 
         return admin;
     }
