@@ -26,6 +26,8 @@ public class Team {
 
     private Long target;
 
+    private Long progressToTarget;
+
     public Long getId() {
         return id;
     }
@@ -80,5 +82,13 @@ public class Team {
 
     public void setTarget(Long target) {
         this.target = target;
+    }
+
+    public Long getProgressToTarget() {
+        return progressToTarget;
+    }
+
+    public void setProgressToTarget(Long progressToTarget) {
+        this.progressToTarget = progressToTarget;
     }
 }

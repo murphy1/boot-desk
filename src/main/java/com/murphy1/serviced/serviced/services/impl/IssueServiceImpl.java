@@ -2,15 +2,12 @@ package com.murphy1.serviced.serviced.services.impl;
 
 import com.murphy1.serviced.serviced.exceptions.NotFoundException;
 import com.murphy1.serviced.serviced.model.*;
-import com.murphy1.serviced.serviced.repositories.AdminRepository;
-import com.murphy1.serviced.serviced.repositories.AgentRepository;
-import com.murphy1.serviced.serviced.repositories.EndUserRepository;
+import com.murphy1.serviced.serviced.repositories.*;
 import com.murphy1.serviced.serviced.services.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import com.murphy1.serviced.serviced.repositories.IssueRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -24,15 +21,17 @@ public class IssueServiceImpl implements IssueService {
     private AdminRepository adminRepository;
     private AgentRepository agentRepository;
     private EndUserRepository endUserRepository;
+    private TeamsRepository teamsRepository;
 
     private UserService userService;
     private MailService mailService;
 
-    public IssueServiceImpl(IssueRepository issueRepository, AdminRepository adminRepository, AgentRepository agentRepository, EndUserRepository endUserRepository, UserService userService, MailService mailService) {
+    public IssueServiceImpl(IssueRepository issueRepository, AdminRepository adminRepository, AgentRepository agentRepository, EndUserRepository endUserRepository, TeamsRepository teamsRepository, UserService userService, MailService mailService) {
         this.issueRepository = issueRepository;
         this.adminRepository = adminRepository;
         this.agentRepository = agentRepository;
         this.endUserRepository = endUserRepository;
+        this.teamsRepository = teamsRepository;
         this.userService = userService;
         this.mailService = mailService;
     }
@@ -158,6 +157,32 @@ public class IssueServiceImpl implements IssueService {
                 String newMessage = oldMessages + "\n"+"----------"+"\n"+username+", "+dtf.format(now)+"\n"+"----------"+"\n"+ issue.getNewMessages();
                 issue.setMessages(newMessage);
                 oldMessages = "";
+            }
+        }
+
+        // If Status changes to SOLVED, Update the target in the users Team
+        if (issue.getStatus().toString().equals("SOLVED")){
+
+            String assignedToUsername = issue.getAssignedTo();
+            User user = userService.findUserByUsername(assignedToUsername);
+
+            if (user.getRoles().equals("ADMIN")){
+                Optional<Admin> adminOptional = adminRepository.findByUsername(assignedToUsername);
+                if (adminOptional.get().getTeam() != null){
+                    Team team = adminOptional.get().getTeam();
+                    Long progressToTarget = team.getProgressToTarget();
+                    team.setProgressToTarget(progressToTarget + 1);
+                    teamsRepository.save(team);
+                }
+            }
+            else if (user.getRoles().equals("AGENT")){
+                Optional<Agent> agentAssignedTo = agentRepository.findByUsername(issue.getAssignedTo());
+                if (agentAssignedTo.get().getTeam() != null){
+                    Team team = agentAssignedTo.get().getTeam();
+                    Long progressToTarget = team.getProgressToTarget();
+                    team.setProgressToTarget(progressToTarget + 1);
+                    teamsRepository.save(team);
+                }
             }
         }
 

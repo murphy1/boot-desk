@@ -46,6 +46,8 @@
             </span>
         </div>
 
+        <input type="hidden" th:field="*{progressToTarget}">
+
         <div class="col-md-6 form-group" th:class="${#fields.hasErrors('target')}
                                         ? 'col-md-6 form-group has-error' : 'col-md-6 form-group'">
             <label>Target:</label>

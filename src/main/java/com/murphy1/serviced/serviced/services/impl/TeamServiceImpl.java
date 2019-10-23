@@ -62,6 +62,7 @@ public class TeamServiceImpl implements TeamService {
                 }
             }
             teamToUpdate = team;
+            team.setProgressToTarget(0L);
         }
         else{
             Optional<Team> teamOptional = teamsRepository.findById(team.getId());

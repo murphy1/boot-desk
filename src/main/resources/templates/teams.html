@@ -27,6 +27,7 @@
         <th>Name:</th>
         <th>Team Leader:</th>
         <th>Target:</th>
+        <th>Progress to Target:</th>
         <th>Make Changes:</th>
         <th>Delete Team:</th>
     </tr>
@@ -37,6 +38,7 @@
         <td th:text="${team.name}">Issue</td>
         <td th:text="${team.teamLeader.username}">Issue</td>
         <td th:text="${team.target}"></td>
+        <td th:text="${team.progressToTarget}"></td>
         <td><a href="#" th:href="@{'/teams/update/'+ ${team.id}}" class="btn btn-info" role="button">Update</a></td>
         <td><a href="#" th:href="@{'/teams/delete/'+ ${team.id}}" class="btn btn-info" role="button">Delete</a></td>
     </tr>

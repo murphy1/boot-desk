@@ -2,9 +2,7 @@ package com.murphy1.serviced.serviced.services.impl;
 
 import com.murphy1.serviced.serviced.exceptions.NotFoundException;
 import com.murphy1.serviced.serviced.model.*;
-import com.murphy1.serviced.serviced.repositories.AdminRepository;
-import com.murphy1.serviced.serviced.repositories.AgentRepository;
-import com.murphy1.serviced.serviced.repositories.EndUserRepository;
+import com.murphy1.serviced.serviced.repositories.*;
 import com.murphy1.serviced.serviced.services.MailService;
 import com.murphy1.serviced.serviced.services.UserService;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -12,7 +10,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import com.murphy1.serviced.serviced.repositories.ServiceRequestRepository;
 import com.murphy1.serviced.serviced.services.ServiceRequestService;
 
 import java.time.LocalDate;
@@ -29,17 +26,19 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
     private AdminRepository adminRepository;
     private AgentRepository agentRepository;
     private EndUserRepository endUserRepository;
+    private TeamsRepository teamsRepository;
 
     private UserService userService;
     private MailService mailService;
 
     private JavaMailSender javaMailSender;
 
-    public ServiceRequestServiceImpl(ServiceRequestRepository serviceRequestRepository, AdminRepository adminRepository, AgentRepository agentRepository, EndUserRepository endUserRepository, UserService userService, MailService mailService, JavaMailSender javaMailSender) {
+    public ServiceRequestServiceImpl(ServiceRequestRepository serviceRequestRepository, AdminRepository adminRepository, AgentRepository agentRepository, EndUserRepository endUserRepository, TeamsRepository teamsRepository, UserService userService, MailService mailService, JavaMailSender javaMailSender) {
         this.serviceRequestRepository = serviceRequestRepository;
         this.adminRepository = adminRepository;
         this.agentRepository = agentRepository;
         this.endUserRepository = endUserRepository;
+        this.teamsRepository = teamsRepository;
         this.userService = userService;
         this.mailService = mailService;
         this.javaMailSender = javaMailSender;
@@ -164,6 +163,32 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
                 String newMessage = oldMessages + "\n"+"----------"+"\n"+username+", "+dtf.format(now)+"\n"+"----------"+"\n"+ serviceRequest.getNewMessages();
                 serviceRequest.setMessages(newMessage);
                 oldMessages = "";
+            }
+        }
+
+        // If Status changes to SOLVED, Update the target in the users Team
+        if (serviceRequest.getStatus().toString().equals("SOLVED")){
+
+            String assignedToUsername = serviceRequest.getAssignedTo();
+            User user = userService.findUserByUsername(assignedToUsername);
+
+            if (user.getRoles().equals("ADMIN")){
+                Optional<Admin> adminOptional = adminRepository.findByUsername(assignedToUsername);
+                if (adminOptional.get().getTeam() != null){
+                    Team team = adminOptional.get().getTeam();
+                    Long progressToTarget = team.getProgressToTarget();
+                    team.setProgressToTarget(progressToTarget + 1);
+                    teamsRepository.save(team);
+                }
+            }
+            else if (user.getRoles().equals("AGENT")){
+                Optional<Agent> agentAssignedTo = agentRepository.findByUsername(serviceRequest.getAssignedTo());
+                if (agentAssignedTo.get().getTeam() != null){
+                    Team team = agentAssignedTo.get().getTeam();
+                    Long progressToTarget = team.getProgressToTarget();
+                    team.setProgressToTarget(progressToTarget + 1);
+                    teamsRepository.save(team);
+                }
             }
         }
 
