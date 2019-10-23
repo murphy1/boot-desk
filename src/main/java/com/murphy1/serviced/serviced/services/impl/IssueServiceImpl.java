@@ -1,5 +1,6 @@
 package com.murphy1.serviced.serviced.services.impl;
 
+import com.murphy1.serviced.serviced.exceptions.BadRequestException;
 import com.murphy1.serviced.serviced.exceptions.NotFoundException;
 import com.murphy1.serviced.serviced.model.*;
 import com.murphy1.serviced.serviced.repositories.*;
@@ -48,6 +49,14 @@ public class IssueServiceImpl implements IssueService {
 
     @Override
     public Issue save(Issue issue) {
+
+        // If Assigned To is an End User throw an error. Only Admins and Agents can be assigned
+        if (!issue.getAssignedTo().equals("")){
+            User user = userService.findUserByUsername(issue.getAssignedTo());
+            if (user.getRoles().equals("END_USER")){
+                throw new BadRequestException("End Users cannot be assigned to Tickets!");
+            }
+        }
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();
