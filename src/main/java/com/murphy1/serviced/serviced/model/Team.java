@@ -21,6 +21,9 @@ public class Team {
     @Transient
     private String addMember;
 
+    @Transient
+    private String removeMember;
+
     private Long target;
 
     public Long getId() {
@@ -61,6 +64,14 @@ public class Team {
 
     public void setAddMember(String addMember) {
         this.addMember = addMember;
+    }
+
+    public String getRemoveMember() {
+        return removeMember;
+    }
+
+    public void setRemoveMember(String removeMember) {
+        this.removeMember = removeMember;
     }
 
     public Long getTarget() {

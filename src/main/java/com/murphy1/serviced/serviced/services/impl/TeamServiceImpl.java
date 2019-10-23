@@ -53,11 +53,19 @@ public class TeamServiceImpl implements TeamService {
     @Override
     public Team saveTeam(Team team) {
         List<Team> teams = getAllTeams();
+        Team teamToUpdate = null;
 
-        for (Team team1 : teams){
-            if (team.getName().equalsIgnoreCase(team1.getName())){
-                throw new BadRequestException("A team already exists with that name");
+        if (team.getId() == null){
+            for (Team team1 : teams){
+                if (team.getName().equalsIgnoreCase(team1.getName())){
+                    throw new BadRequestException("A team already exists with that name");
+                }
             }
+            teamToUpdate = team;
+        }
+        else{
+            Optional<Team> teamOptional = teamsRepository.findById(team.getId());
+            teamToUpdate = teamOptional.get();
         }
 
         User user = userService.findUserByUsername(team.getTeamLeader().getUsername());
@@ -65,40 +73,76 @@ public class TeamServiceImpl implements TeamService {
             throw new BadRequestException("Only Admins can be Team Leaders!");
         }
 
-        User addUser = userService.findUserByUsername(team.getAddMember());
-        if (!addUser.getRoles().equals("AGENT")){
-            throw new BadRequestException("User is not an Agent!");
-        }
-        Agent agent = userService.convertUserToAgent(addUser);
-
         Admin admin = userService.convertUserToAdmin(user);
-        team.setTeamLeader(admin);
+        teamToUpdate.setTeamLeader(admin);
 
-        if (team.getTeamMembers() == null){
-            List<Agent> agents = new ArrayList<>();
-            agents.add(agent);
-            team.setTeamMembers(agents);
-        }else{
-            team.getTeamMembers().add(agent);
+        teamToUpdate.setName(team.getName());
+        teamToUpdate.setTarget(team.getTarget());
+
+        if (!team.getAddMember().equals("")){
+            User addUser = userService.findUserByUsername(team.getAddMember());
+            if (!addUser.getRoles().equals("AGENT")){
+                throw new BadRequestException("User is not an Agent!");
+            }
+            Agent agent = userService.convertUserToAgent(addUser);
+
+            if (teamToUpdate.getTeamMembers() == null){
+                List<Agent> agents = new ArrayList<>();
+                agents.add(agent);
+                teamToUpdate.setTeamMembers(agents);
+            }else{
+                List<Agent> agents = teamToUpdate.getTeamMembers();
+                for (Agent agent1 : agents){
+                    if (agent1.getUsername().equals(team.getAddMember())){
+                        throw new BadRequestException("That Agent is already a member of the team!");
+                    }
+                }
+                teamToUpdate.getTeamMembers().add(agent);
+            }
+            teamsRepository.save(teamToUpdate);
+            admin.setTeam(teamToUpdate);
+            adminRepository.save(admin);
+            agent.setTeam(teamToUpdate);
+            agentRepository.save(agent);
+
+            return teamToUpdate;
+        }
+        if (!team.getRemoveMember().equals("")){
+            List<String> usernames = new ArrayList<>();
+            List<Agent> agents = teamToUpdate.getTeamMembers();
+            for (Agent agent : agents){
+                usernames.add(agent.getUsername());
+            }
+            if (!usernames.contains(team.getRemoveMember())){
+                throw new BadRequestException("That user is not a member of the team!");
+            }
+            Optional<Agent> agentOptional = agentRepository.findByUsername(team.getRemoveMember());
+            Agent agent = agentOptional.get();
+            agent.setTeam(null);
+            agentRepository.save(agent);
+            teamToUpdate.getTeamMembers().remove(agent);
         }
 
-        teamsRepository.save(team);
+        teamsRepository.save(teamToUpdate);
 
-        admin.setTeam(team);
+        admin.setTeam(teamToUpdate);
         adminRepository.save(admin);
-        agent.setTeam(team);
-        agentRepository.save(agent);
 
-        return team;
+        return teamToUpdate;
     }
 
     @Override
     public void deleteTeamById(Long id) {
+        // Remove the team from the team leader
         Optional<Admin> admin = adminRepository.findByUsername(userService.getCurrentUserName());
         admin.get().setTeam(null);
 
-        teamsRepository.deleteById(id);
+        //Remove the team frm any associated team member
+        List<Agent> agents = teamsRepository.findById(id).get().getTeamMembers();
+        for (Agent agent : agents){
+            agent.setTeam(null);
+        }
 
-        String i = "i";
+        teamsRepository.deleteById(id);
     }
 }

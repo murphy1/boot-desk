@@ -1,8 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'templates')}">
 <head>
     <meta charset="UTF-8">
     <title>Team</title>
+
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../../static/style.css" th:href="@{/style.css}"/>
+
 </head>
 <body>
 
@@ -50,7 +61,7 @@
             <table>
                 <thead>
                 <tr>
-                    <th> Member </th>
+                    <th> Members </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -68,6 +79,17 @@
             <span class="help-block" th:if="${#fields.hasErrors('addMember')}">
                 <ul>`
                     <li th:each="err : ${#fields.errors('addMember')}" th:text="${err}"></li>
+                </ul>
+            </span>
+        </div>
+
+        <div class="col-md-6 form-group" th:class="${#fields.hasErrors('removeMember')}
+                                        ? 'col-md-6 form-group has-error' : 'col-md-6 form-group'">
+            <label>Remove Member:</label>
+            <input type="text" class="form-control" th:field="*{removeMember}" th:errorclass="has-error"/>
+            <span class="help-block" th:if="${#fields.hasErrors('removeMember')}">
+                <ul>`
+                    <li th:each="err : ${#fields.errors('removeMember')}" th:text="${err}"></li>
                 </ul>
             </span>
         </div>
