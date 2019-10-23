@@ -67,6 +67,12 @@ public class IssuesController {
         if (issue.getStatus().toString().equals("SOLVED")){
             throw new BadRequestException("Tickets in status Solved cannot be updated");
         }
+
+        // Check to make sure End Users can only update their own Tickets
+        if (role.equals("END_USER") && !issue.getCreator().equals(userService.getCurrentUserName())){
+            throw new BadRequestException("You cannot update another users ticket!");
+        }
+
         model.addAttribute("issue", issue);
 
         return "forms/new_issue.html";

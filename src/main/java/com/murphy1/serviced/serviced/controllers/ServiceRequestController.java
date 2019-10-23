@@ -74,6 +74,12 @@ public class ServiceRequestController {
         if (serviceRequest.getStatus().toString().equals("SOLVED")){
             throw new BadRequestException("Tickets in status Solved cannot be updated");
         }
+
+        // Check to make sure End Users can only update their own Tickets
+        if (role.equals("END_USER") && !serviceRequest.getCreator().equals(userService.getCurrentUserName())){
+            throw new BadRequestException("You cannot update another users ticket!");
+        }
+
         model.addAttribute("serviceRequest", serviceRequest);
 
         return "/forms/new_servicerequest.html";
