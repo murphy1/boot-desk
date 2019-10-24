@@ -106,6 +106,11 @@ public class AnalyticsController {
         model.addAttribute("team", teamService.updateTeam(Long.valueOf(teamId)));
         model.addAttribute("teamMembers", teamService.updateTeam(Long.valueOf(teamId)).getTeamMembers());
 
+        Long target = teamService.updateTeam(Long.valueOf(teamId)).getTarget();
+        Long progressToTarget = teamService.updateTeam(Long.valueOf(teamId)).getProgressToTarget();
+        Double progressPercentage = progressToTarget / (Double.valueOf(target) / 100);
+        model.addAttribute("progressPercentage", progressPercentage);
+
         return "forms/team_form.html";
     }
 

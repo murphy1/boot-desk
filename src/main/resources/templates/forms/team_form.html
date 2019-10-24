@@ -74,6 +74,15 @@
             </table>
         </div>
 
+        <div class="col-md-6 form-group">
+            <h4 style="text-align: center">Progress to Target</h4>
+            <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" th:style="'width: '+${progressPercentage}+'%'" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+
+        <br>
+
         <div class="col-md-6 form-group" th:class="${#fields.hasErrors('addMember')}
                                         ? 'col-md-6 form-group has-error' : 'col-md-6 form-group'">
             <label>Add Member:</label>
@@ -97,7 +106,7 @@
         </div>
 
         <div>
-            <button type="submit" class="btn btn-basic">Submit</button>
+            <button type="submit" class="btn btn-basic">Make Changes</button>
         </div>
 
     </div>

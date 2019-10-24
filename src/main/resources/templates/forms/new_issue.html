@@ -22,39 +22,41 @@
 
     <div class="container center_div">
 
-        <h2>Issue</h2>
+        <h2 style="text-align: center">Issue</h2>
 
         <div th:if="${issue.id}!=null">
-            <div class="col-6">
-                <label>ID:</label>
-                <input type="text" class="form-control" th:field="*{id}" readonly/>
+            <label for="idField" class="col-sm-2 col-form-label">ID:</label>
+            <div class="col-2">
+                <input type="text" class="form-control" id="idField" th:field="*{id}" disabled>
             </div>
         </div>
 
-        <div class="col-md-6 form-group" th:class="${#fields.hasErrors('name')}
-                                    ? 'col-md-6 form-group has-error' : 'col-md-6 form-group'">
-            <label>Name:</label>
-            <input type="text" class="form-control" th:field="*{name}" th:errorclass="has-error"/>
-            <span class="help-block" th:if="${#fields.hasErrors('name')}">
-            <ul>
-                <li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
-            </ul>
-        </span>
+        <div class="row">
+            <div class="col-md-6 form-group" th:class="${#fields.hasErrors('name')}
+                                        ? 'col-md-6 form-group has-error' : 'col-md-6 form-group'">
+                <label>Name:</label>
+                <input type="text" class="form-control" th:field="*{name}" th:errorclass="has-error"/>
+                <span class="help-block" th:if="${#fields.hasErrors('name')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
+                </ul>
+            </span>
+            </div>
+
+            <div class="col-md-6 form-group" th:class="${#fields.hasErrors('description')}
+                                        ? 'col-md-6 form-group has-error' : 'col-md-6 form-group'">
+                <label>Description:</label>
+                <input type="text" class="form-control" th:field="*{description}" th:errorclass="has-error"/>
+                <span class="help-block" th:if="${#fields.hasErrors('description')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('description')}" th:text="${err}"></li>
+                </ul>
+            </span>
+            </div>
         </div>
 
-        <div class="col-md-6 form-group" th:class="${#fields.hasErrors('description')}
-                                    ? 'col-md-6 form-group has-error' : 'col-md-6 form-group'">
-            <label>Description:</label>
-            <input type="text" class="form-control" th:field="*{description}" th:errorclass="has-error"/>
-            <span class="help-block" th:if="${#fields.hasErrors('description')}">
-            <ul>
-                <li th:each="err : ${#fields.errors('description')}" th:text="${err}"></li>
-            </ul>
-        </span>
-        </div>
-
-        <div class="form-group">
-            <div class="col-6">
+        <div class="row">
+            <div class="col-md-6 form-group">
                 <label>Label:</label>
                 <select class="form-control" th:field="*{label}">
                     <option th:each="labelValue : ${T(com.murphy1.serviced.serviced.model.Label).values()}"
@@ -73,10 +75,8 @@
                     <option>Other</option>
                 </select>
             </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-6">
+            <div class="col-md-6 form-group">
                 <label>Priority:</label>
                 <select class="form-control" th:field="*{priority}">
                     <option th:each="priorityValue : ${T(com.murphy1.serviced.serviced.model.Priority).values()}"
@@ -93,8 +93,8 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-6">
+        <div class="row">
+            <div class="col-md-6 form-group">
                 <label>Status:</label>
                 <select class="form-control" th:field="*{status}">
                     <option th:each="statusValue : ${T(com.murphy1.serviced.serviced.model.Status).values()}"
@@ -111,19 +111,25 @@
                     <option>Assigned</option>
                 </select>
             </div>
+
+            <div class="col-md-6 form-group">
+                <label>Assigned To:</label>
+                <input type="text" class="form-control" th:field="*{assignedTo}">
+                <small id="assignHelp">Please leave this blank when creating a ticket. Our team will assign an agent.</small>
+            </div>
         </div>
 
         <input type="hidden" th:field="*{dueDate}">
 
         <div th:if="${issue.id}!=null">
-            <div class="col-6">
+            <div class="col-12">
                 <label>Previous Messages:</label>
                 <textarea rows="4" cols="50" class="form-control" th:field="*{messages}" readonly></textarea>
             </div>
         </div>
 
         <div class="form-group">
-            <div class="col-6">
+            <div class="col-12">
                 <label>Chat:</label>
                 <textarea rows="4" cols="50" class="form-control" th:field="*{newMessages}"></textarea>
             </div>
@@ -131,22 +137,14 @@
 
         <input type="hidden" th:field="*{creator}">
 
-        <div class="form-group">
-            <div class="col-6">
-                <label>Assigned To:</label>
-                <input type="text" class="form-control" th:field="*{assignedTo}">
-                <small id="assignHelp">Please leave this blank when creating a ticket. Our team will assign an agent.</small>
-            </div>
-        </div>
-
-        <div>
-            <button type="submit" class="btn btn-basic">Submit</button>
+        <div class="mx-auto">
+            <button type="submit" class="btn btn-basic btn-block">Submit</button>
         </div>
 
         <br>
 
-        <div th:if="${issue.id}!=null">
-            <a href="#" th:href="@{'/issues/convert/'+ ${issue.id}}" class="btn btn-secondary" role="button">Convert</a>
+        <div th:if="${issue.id}!=null" class="mx-auto">
+            <a href="#" th:href="@{'/issues/convert/'+ ${issue.id}}" class="btn btn-secondary btn-block" role="button">Convert to Service Request</a>
         </div>
     </div>
 

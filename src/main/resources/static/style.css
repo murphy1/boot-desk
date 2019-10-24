@@ -4,11 +4,11 @@ html {
 }
 
 body {
-    background-color: slategrey;
+    background-color: white;
 }
 
 .navbar {
-    background-color: dimgrey;
+    background-color: #ffcc00;
 }
 
 .center_div{
@@ -22,7 +22,6 @@ body {
     padding-bottom: 50px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     border-radius: 5px; /* 5px rounded corners */
-    background-color: #BAB2B5;
 }
 
 .card:hover {
@@ -48,7 +47,6 @@ footer {
     left: 0;
     right: 0;
     height:100px;
-    color: white;
 }
 
 /* Styling for index.html */
@@ -69,17 +67,14 @@ footer {
     left: 0;
     right: 0;
     height:100px;
-    color: white;
 }
 
 /* Css for pages, new_issue.html, new_servicerequest*/
 
 label {
-    color: white;
 }
 
 #assignHelp {
-    color: white;
 }
 
 /* CSS for Analytics */
