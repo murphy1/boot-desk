@@ -5,7 +5,6 @@ import com.murphy1.serviced.serviced.model.Status;
 import com.murphy1.serviced.serviced.services.IssueService;
 import com.murphy1.serviced.serviced.services.UserService;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -93,18 +92,6 @@ class RestIssuesControllerTest {
         mockMvc.perform(get("/api/v1/issues/1")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-    }
-
-    @Test
-    void deleteIssueByIdNotAnAdmin() throws Exception{
-        mockMvc.perform(delete("/api/v1/issues/1"))
-                .andExpect(status().isForbidden());
-    }
-
-    @Test
-    void deleteIssueById() throws Exception{
-        mockMvc.perform(delete("/api/v1/issues/1"))
-                .andExpect(status().is2xxSuccessful());
     }
 
 }

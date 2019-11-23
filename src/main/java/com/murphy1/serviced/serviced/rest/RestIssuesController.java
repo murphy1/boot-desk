@@ -1,6 +1,5 @@
 package com.murphy1.serviced.serviced.rest;
 
-import com.murphy1.serviced.serviced.exceptions.ForbiddenException;
 import com.murphy1.serviced.serviced.model.Issue;
 import com.murphy1.serviced.serviced.model.Status;
 import com.murphy1.serviced.serviced.services.IssueService;
@@ -45,18 +44,5 @@ public class RestIssuesController {
     @GetMapping("/api/v1/issues/{id}")
     public Issue getIssueById(@PathVariable String id){
         return issueService.findIssueById(Long.valueOf(id));
-    }
-
-    @DeleteMapping("/api/v1/issues/{id}")
-    public void deleteIssueById(@PathVariable String id){
-        String username = userService.getCurrentUserName();
-        String role = userService.getRole(username);
-
-        if (username == null || !role.equals("ADMIN")){
-            throw new ForbiddenException();
-        }
-        else{
-            issueService.deleteIssue(Long.valueOf(id));
-        }
     }
 }
